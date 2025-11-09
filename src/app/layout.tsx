@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "@fontsource-variable/inter"; // charge la VF localement
+
 
 export const metadata: Metadata = {
   title: "PediaGo",

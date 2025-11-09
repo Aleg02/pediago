@@ -1,7 +1,9 @@
 "use client";
 
+import type { ComponentType } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+
 import { PROTOCOLS } from "@/data/protocols";
 import { PROTOCOL_DETAILS } from "@/data/protocolDetails";
 import { DRUGS, DOSING_RULES, WEIGHT_OVERRIDES, PROTOCOL_DRUGS } from "@/data/drugs";
@@ -11,6 +13,12 @@ import { DRUG_INFOS } from "@/data/drugInfos";
 import { formatMg } from "@/lib/units";
 import { ageLabelToMonths } from "@/lib/age";
 
+// Flows (bandes + chevrons)
+import ProtocolFlowAAG from "@/components/ProtocolFlowAAG";
+import ProtocolFlowAnaphylaxie from "@/components/ProtocolFlowAnaphylaxie";
+import ProtocolFlowChoc from "@/components/ProtocolFlowChoc";
+import ProtocolFlowACR from "@/components/ProtocolFlowACR";
+import ProtocolFlowEME from "@/components/ProtocolFlowEME";
 
 export default function ProtocolPage() {
   const router = useRouter();
@@ -20,17 +28,29 @@ export default function ProtocolPage() {
   const sections = PROTOCOL_DETAILS[slug] ?? [];
   const drugIds = PROTOCOL_DRUGS[slug] ?? [];
 
-    // age
-const ageLabel = useAppStore((s) => s.ageLabel);
-const ageMonths = ageLabelToMonths(ageLabel);
+  // âge (pour salbutamol AE, 2,5 mg ≤ 6 ans ; 5 mg > 6 ans)
+  const ageLabel = useAppStore((s) => s.ageLabel);
+  const ageMonths = ageLabelToMonths(ageLabel);
 
+  // onglet
   const [tab, setTab] = useState<"protocole" | "posologie">("protocole");
 
   // poids global
   const weightKg = useAppStore((s) => s.weightKg) ?? 10;
   const setWeightKg = useAppStore((s) => s.setWeightKg);
 
+  // liste des médicaments du protocole
   const drugs = useMemo(() => DRUGS.filter((d) => drugIds.includes(d.id)), [drugIds]);
+
+  // mapping slug -> composant flow
+  const FlowBySlug: Record<string, ComponentType | undefined> = {
+    aag: ProtocolFlowAAG,
+    anaphylaxie: ProtocolFlowAnaphylaxie,
+    "choc-hemorragique": ProtocolFlowChoc,
+    "acr-enfant": ProtocolFlowACR,
+    eme: ProtocolFlowEME,
+  };
+  const Flow = FlowBySlug[slug];
 
   if (!protocol) {
     return (
@@ -59,33 +79,49 @@ const ageMonths = ageLabelToMonths(ageLabel);
         <div className="flex justify-center gap-4 mb-6">
           <button
             onClick={() => setTab("protocole")}
-            className={`px-4 py-2 rounded-full ${tab === "protocole" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"}`}
+            className={`px-4 py-2 rounded-full ${
+              tab === "protocole" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"
+            }`}
           >
             Protocole
           </button>
           <button
             onClick={() => setTab("posologie")}
-            className={`px-4 py-2 rounded-full ${tab === "posologie" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"}`}
+            className={`px-4 py-2 rounded-full ${
+              tab === "posologie" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"
+            }`}
           >
             Posologie
           </button>
         </div>
 
         {tab === "protocole" ? (
-          <div className="space-y-4">
-            {sections.map((sec, idx) => (
-              <div key={idx} className="rounded-xl bg-white border border-black/10 shadow-sm px-4 py-3">
-                <p className="font-medium mb-2">{sec.title}</p>
-                <ul className="list-disc pl-5 space-y-1 text-slate-700">
-                  {sec.bullets.map((b, i) => (
-                    <li key={i}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            {sections.length === 0 && <p className="text-sm text-slate-500">Contenu détaillé à venir.</p>}
-          </div>
+          Flow ? (
+            // 🔸 Rendu spécifique “carte bandes + chevrons”
+            <Flow />
+          ) : (
+            // Rendu générique (fallback)
+            <div className="space-y-4">
+              {sections.map((sec, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-xl bg-white border border-black/10 shadow-sm px-4 py-3"
+                >
+                  <p className="font-medium mb-2">{sec.title}</p>
+                  <ul className="list-disc pl-5 space-y-1 text-slate-700">
+                    {sec.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {sections.length === 0 && (
+                <p className="text-sm text-slate-500">Contenu détaillé à venir.</p>
+              )}
+            </div>
+          )
         ) : (
+          // 🔸 Onglet POSOLOGIE — V2 UI (dose + prépa + durée + précautions)
           <div className="space-y-4">
             {/* Poids global */}
             <div>
@@ -93,7 +129,7 @@ const ageMonths = ageLabelToMonths(ageLabel);
               <input
                 type="number"
                 min="1"
-                value={weightKg ?? 10}
+                value={weightKg}
                 onChange={(e) => setWeightKg(Number(e.target.value))}
                 className="mt-1 w-full rounded-full border border-black/10 shadow-sm px-4 py-2"
               />
@@ -103,11 +139,27 @@ const ageMonths = ageLabelToMonths(ageLabel);
             {drugs.map((d) => {
               const rule = DOSING_RULES[d.id];
               const overrides = WEIGHT_OVERRIDES[d.id] ?? [];
-              const result = rule ? computeDose(weightKg ?? 10, rule, overrides) : null;
+              let result = rule ? computeDose(weightKg, rule, overrides) : null;
+
+              // Cas particulier : Salbutamol AE → dose selon âge si connu
+              if (d.id === "salbutamol-ae" && ageMonths != null) {
+                const mg = ageMonths <= 72 ? 2.5 : 5; // ≤6 ans = 2,5 mg ; >6 ans = 5 mg
+                result = {
+                  ...result,
+                  doseMg: mg,
+                  source: "rule" as const,
+                  note: "Dose liée à l’âge (≤6 ans: 2,5 mg ; >6 ans: 5 mg)",
+                  route: "AE",
+                };
+              }
+
               const info = DRUG_INFOS[d.id];
 
               return (
-                <div key={d.id} className="rounded-xl bg-white border border-black/10 shadow-sm px-4 py-3">
+                <div
+                  key={d.id}
+                  className="rounded-xl bg-white border border-black/10 shadow-sm px-4 py-3"
+                >
                   <div className="flex items-start justify-between gap-2">
                     <p className="font-medium">
                       {d.name} {d.route ? <span className="text-slate-500">— {d.route}</span> : null}
@@ -118,11 +170,18 @@ const ageMonths = ageLabelToMonths(ageLabel);
                   {!result ? (
                     <p className="text-sm text-slate-600 mt-1">Règle non définie.</p>
                   ) : Number.isNaN(result.doseMg) ? (
-                    <p className="text-sm text-slate-600 mt-1">{result.note ?? "Voir protocole."}</p>
+                    <p className="text-sm text-slate-600 mt-1">
+                      {result.note ?? "Voir protocole."}
+                    </p>
                   ) : (
                     <div className="text-sm text-slate-800 mt-1">
                       Dose : <strong>{formatMg(result.doseMg)}</strong> pour {weightKg} kg
-                      {result.frequency && <> — <span className="text-slate-500">{result.frequency}</span></>}
+                      {result.frequency && (
+                        <>
+                          {" "}
+                          — <span className="text-slate-500">{result.frequency}</span>
+                        </>
+                      )}
                     </div>
                   )}
 
@@ -133,7 +192,8 @@ const ageMonths = ageLabelToMonths(ageLabel);
                     {info?.duration && <div>• Durée : {info.duration}</div>}
                     {info?.caution && <div>• ⚠️ {info.caution}</div>}
                     <div className="text-[11px] text-slate-500">
-                      source: {result ? result.source : "rule"}{result?.note ? ` — ${result.note}` : ""}
+                      source: {result ? result.source : "rule"}
+                      {result?.note ? ` — ${result.note}` : ""}
                       {result?.route ? ` — voie ${result.route}` : ""}
                       {result?.maxDailyMg ? ` — max/jour: ${Math.round(result.maxDailyMg)} mg` : ""}
                     </div>
@@ -143,7 +203,9 @@ const ageMonths = ageLabelToMonths(ageLabel);
             })}
 
             {drugs.length === 0 && (
-              <p className="text-sm text-slate-500">Aucun médicament lié à ce protocole (à compléter).</p>
+              <p className="text-sm text-slate-500">
+                Aucun médicament lié à ce protocole (à compléter).
+              </p>
             )}
           </div>
         )}

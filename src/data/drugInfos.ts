@@ -85,4 +85,31 @@ export const DRUG_INFOS: Record<string, DrugInfo> = {
     duration: "Sur 10 min",
     caution: "Bien calculer le volume à administrer.",
   },
+
+  // Nouveaux
+  "naloxone": {
+    admin: "IV/IM/IN",
+    prep: "Ampoules prêtes à l’emploi. IN via atomiseur nasal si dispo.",
+    caution: "Surveillance ventilatoire — risque de récidive si demi-vie opioïde longue.",
+  },
+  "flumazenil": {
+    admin: "IV",
+    prep: "Solution prête. Administrer lentement.",
+    caution: "⚠️ Risque de convulsions/sevrage en cas d’intoxication mixte ou épilepsie.",
+  },
+  "morphine": {
+    admin: "IV (bolus ± IVSE)",
+    prep: "Dilution selon protocole local (ex. 1 mg/mL).",
+    caution: "Surveillance respi/TA, titration antalgique.",
+  },
+  "adenosine": {
+    admin: "IV en bolus RAPIDE + rinçage immédiat",
+    prep: "Voie proximale, 3 voies en Y idéalement.",
+    caution: "Pause/brady cardie transitoire attendue ; ECG continu.",
+  },
+  "ceftriaxone": {
+    admin: "IV",
+    prep: "Reconstituer/diluer selon notice pour perfusion.",
+    caution: "Respecter les doses selon indication (sepsis/meningite).",
+  },
 };

@@ -2,22 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base */
-:root { color-scheme: light; }
-html, body {
-  height: 100%;
-  background: theme(colors.bg);
-  color: theme(colors.ink);
-  font-family: theme(fontFamily.sans);
+/* ========= Fonts & base =========
+   Option A: @fontsource-variable/inter
+   -> Dans src/app/layout.tsx, ajoute:
+      import "@fontsource-variable/inter";
+*/
+:root {
+  color-scheme: light;
+  --font-sans: "InterVariable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Utilitaires maison */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: theme(colors.bg);
+  color: theme(colors.ink);
+  font-family: var(--font-sans);
+}
+
+/* ========= Utilitaires maison ========= */
 .input-pill {
   @apply rounded-pill px-4 py-2 bg-card shadow-pill border border-transparent text-[16px] leading-6 w-full;
 }
-.label-muted { @apply text-mute text-sm mb-1; }
+.label-muted {
+  @apply text-mute text-sm mb-1;
+}
 
-/* Safe areas (iOS) */
-.safe-px { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
-.safe-pt { padding-top: calc(env(safe-area-inset-top) + 16px); }
-.safe-pb { padding-bottom: calc(env(safe-area-inset-bottom) + 16px); }
+/* ========= Safe areas (iOS) ========= */
+.safe-px {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.safe-pt {
+  padding-top: calc(env(safe-area-inset-top) + 16px);
+}
+.safe-pb {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+}
