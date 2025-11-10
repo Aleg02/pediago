@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type PrepInfo = {
   stock_conc_mg_per_ml?: number; // ex: propofol 10 mg/mL
   final_conc_mg_per_ml?: number; // ex: dilution finale 0.1 mg/mL

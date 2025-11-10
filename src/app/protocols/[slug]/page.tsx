@@ -61,29 +61,44 @@ export default function ProtocolPage() {
   }
 
   return (
-    <main className="min-h-screen w-full flex flex-col items-center">
-      <div className="w-full max-w-[420px] px-6 py-8">
-        <button onClick={() => router.push("/")} className="text-sm text-slate-500 underline mb-4">
+    <main className="min-h-screen w-full flex flex-col items-center bg-slate-50">
+      <div className="w-full max-w-[440px] px-6 py-8">
+        <button
+          onClick={() => router.push("/")}
+          className="text-sm text-slate-500 inline-flex items-center gap-2 mb-5 hover:text-slate-700 transition"
+        >
           ← Retour
         </button>
 
-        <h1 className="text-2xl font-semibold mb-2">{protocol.title}</h1>
-        {protocol.version && <p className="text-slate-500 text-sm mb-4">Version {protocol.version}</p>}
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold text-slate-900">{protocol.title}</h1>
+          {protocol.version && <p className="text-slate-500 text-sm">Version {protocol.version}</p>}
+        </div>
 
         {/* Tabs */}
-        <div className="flex justify-center gap-4 mb-6">
-          <button
-            onClick={() => setTab("protocole")}
-            className={`px-4 py-2 rounded-full ${tab === "protocole" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"}`}
-          >
-            Protocole
-          </button>
-          <button
-            onClick={() => setTab("posologie")}
-            className={`px-4 py-2 rounded-full ${tab === "posologie" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"}`}
-          >
-            Posologie
-          </button>
+        <div className="mb-8">
+          <div className="bg-white border border-slate-200 rounded-full shadow-sm p-1 flex gap-1">
+            <button
+              onClick={() => setTab("protocole")}
+              className={`flex-1 px-5 py-2.5 rounded-full text-sm font-medium transition ${
+                tab === "protocole"
+                  ? "bg-slate-900 text-white shadow"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Protocole
+            </button>
+            <button
+              onClick={() => setTab("posologie")}
+              className={`flex-1 px-5 py-2.5 rounded-full text-sm font-medium transition ${
+                tab === "posologie"
+                  ? "bg-slate-900 text-white shadow"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Posologie
+            </button>
+          </div>
         </div>
 
         {tab === "protocole" ? (
