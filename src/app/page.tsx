@@ -24,8 +24,10 @@ export default function HomePage() {
 
   // valeurs par défaut
   useEffect(() => {
-    if (ageLabel == null) setAgeLabel("10 mois");
-    if (weightKg == null) setWeightKg(10);
+    if (ageLabel == null && weightKg == null) {
+      setAgeLabel("10 mois");
+      setWeightKg(10);
+    }
   }, [ageLabel, weightKg, setAgeLabel, setWeightKg]);
 
   // index Fuse
