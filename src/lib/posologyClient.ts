@@ -5,12 +5,20 @@
  * avec cache en mémoire et helpers (closest weight + extraction section).
  */
 
-export type AnyDict = Record<string, any>;
+export type AnyDict = Record<string, unknown>;
 export type PosologyPerWeight = AnyDict; // un bloc "9kg": {...}
 export type PosologyData = Record<string, PosologyPerWeight>;
 
 let _cache: PosologyData | null = null;
 let _loading: Promise<PosologyData> | null = null;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function readSection(container: unknown, key: string): unknown {
+  return isRecord(container) ? container[key] : undefined;
+}
 
 export async function loadPosology(): Promise<PosologyData> {
   if (_cache) return _cache;
@@ -102,22 +110,22 @@ export function entriesOfSection(
   entry: PosologyPerWeight,
   sectionKey: string
 ): Array<[string, AnyDict]> {
-  const viaSections =
-    entry.sections && typeof entry.sections === "object"
-      ? (entry.sections as AnyDict)[sectionKey]
-      : undefined;
+  const viaSections = readSection(entry["sections"], sectionKey);
 
-  const direct = (entry as AnyDict)[sectionKey];
+  const direct = readSection(entry, sectionKey);
 
-  const viaData =
-    entry.data && typeof entry.data === "object"
-      ? (entry.data as AnyDict)[sectionKey]
-      : undefined;
+  const viaData = readSection(entry["data"], sectionKey);
 
   const candidate = viaSections ?? direct ?? viaData;
-  if (!candidate || typeof candidate !== "object") return [];
+  if (!isRecord(candidate)) return [];
 
-  return Object.entries(candidate).filter(
-    ([, v]) => v && typeof v === "object" && !Array.isArray(v)
-  ) as Array<[string, AnyDict]>;
+  const result: Array<[string, AnyDict]> = [];
+
+  for (const [key, value] of Object.entries(candidate)) {
+    if (isRecord(value)) {
+      result.push([key, value]);
+    }
+  }
+
+  return result;
 }
