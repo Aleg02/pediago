@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export type TheoreticalAge = { label: string; weightKg: number; };
 
@@ -36,22 +36,54 @@ type Props = {
   ageLabel: string | null;
   setAgeLabel: (v: string) => void;
   weightKg: number | null;
-  setWeightKg: (v: number) => void;
+  setWeightKg: (v: number | null) => void;
 };
+
+const formatWeight = (value: number | null) =>
+  value == null ? "" : value.toString().replace(".", ",");
 
 export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWeightKg }: Props) {
   const ageOptions = useMemo(() => THEORETICAL_WEIGHTS.map(a => a.label), []);
 
+  const [weightDraft, setWeightDraft] = useState<string | null>(null);
+
   const onAgeChange = (value: string) => {
     setAgeLabel(value);
     const w = getTheoreticalWeight(value);
-    if (w !== null) setWeightKg(w); // règle: âge → poids
+    if (w !== null) {
+      setWeightKg(w); // règle: âge → poids
+      setWeightDraft(null);
+    } else {
+      setWeightKg(null);
+      setWeightDraft(null);
+    }
   };
 
   const onWeightChange = (value: string) => {
-    const n = Number(value.replace(",", "."));
-    if (!Number.isNaN(n)) setWeightKg(n);
+    setWeightDraft(value);
+
+    const normalized = value.replace(/,/g, ".").trim();
+
+    if (normalized === "") {
+      setWeightKg(null);
+      return;
+    }
+
+    if (/[.,]$/.test(normalized)) {
+      return;
+    }
+
+    const parsed = Number(normalized);
+    if (!Number.isNaN(parsed)) {
+      setWeightKg(parsed);
+    }
   };
+
+  const onWeightBlur = () => {
+    setWeightDraft(null);
+  };
+
+  const weightInput = weightDraft ?? formatWeight(weightKg);
 
   const labelCls = "text-slate-500 text-sm mb-1";
 
@@ -78,8 +110,9 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
           <input
             inputMode="decimal"
             className={`${pillCls} pr-12`}
-            value={weightKg ?? ""}
+            value={weightInput}
             onChange={(e) => onWeightChange(e.target.value)}
+            onBlur={onWeightBlur}
             placeholder="ex : 10"
           />
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 select-none">kg</span>
