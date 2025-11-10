@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { PosologyFile, PosologyWeightEntry, DoseCommon } from "@/types/posology";
 import POSOLOGY_JSON from "./posology_normalized.json";
 
