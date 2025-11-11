@@ -102,15 +102,20 @@ export default function ProtocolFlowAnaphylaxie() {
   const adrIMmg      = Number.isFinite(adrenalineIm.doseMg) ? adrenalineIm.doseMg : NaN;
   const adrIMvol     = Number.isFinite(adrIMmg) ? adrIMmg / 1 : NaN; // 1 mg/mL
 
-  const solumedrolMin = weightKg * 1;
-  const solumedrolMax = weightKg * 2;
-  const polaramineMg  = weightKg * 0.1;
+  const solumedrolMin           = weightKg * 1;
+  const solumedrolMax           = weightKg * 2;
+  const polaramineMg            = weightKg * 0.1;
+  const remplissageVolumeMl     = weightKg * 20; // 20 mL/kg
+  const adrenalineNebuliseeDoseMg = Math.min(weightKg * 0.1, 5);
 
-  const ivseUgPerMin  = weightKg * 0.1;
-  const ivseMlPerMin  = Number.isFinite(ivseUgPerMin) ? ivseUgPerMin / 20 : NaN; // 1 mg/50 mL = 20 µg/mL
+  const ivseUgPerMin            = weightKg * 0.1;
+  const ivseMlPerMin            = Number.isFinite(ivseUgPerMin) ? ivseUgPerMin / 20 : NaN; // 1 mg/50 mL = 20 µg/mL
+  const adrenalineIvseUgPerMin  = ivseUgPerMin;
+  const adrenalineIvseMlPerMin  = ivseMlPerMin;
+  const nadIvseUgPerMin         = weightKg * 0.2;
 
-  const glucagonMg    = weightKg < 20 ? 0.5 : 1;
-  const methyleneBlue = weightKg * 1.5; // mg (1.5 mg/kg IVL)
+  const glucagonMg              = weightKg < 20 ? 0.5 : 1;
+  const methyleneBlue           = weightKg * 1.5; // mg (1.5 mg/kg IVL)
 
   // --- UI state
   const [branch, setBranch] = useState<Branch | null>(null);
@@ -247,7 +252,7 @@ export default function ProtocolFlowAnaphylaxie() {
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">▾</span>
               </div>
             </div>
-          </section>
+          </div>
 
           {/* Colonne info gauche (Solumédrol/Polaramine)  */}
           <Block tone="orange" title="Antihistaminique & Corticoïde">
