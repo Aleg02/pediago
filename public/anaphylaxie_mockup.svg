@@ -1,0 +1,77 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1150" viewBox="0 0 1400 1150">
+  <rect width="100%" height="100%" fill="#F9F9F9" />
+  <rect x="0" y="0" width="1400" height="110" fill="#C62828" />
+  <text x="700" y="60" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="700">ANAPHYLAXIE</text>
+  <text x="700" y="100" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-size="26">Protocole pédiatrique – Calculateur dynamique</text>
+
+  <!-- Left column blocks -->
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="60" y="150" width="600" height="210" rx="24" fill="#C62828" />
+    <text x="90" y="195" fill="white" font-size="32" font-weight="700">CRITÈRES CLINIQUES</text>
+    <text x="90" y="235" fill="white" font-size="22">
+      <tspan x="90" dy="0">Atteinte cardio-respiratoire</tspan>
+      <tspan x="90" dy="28">Symptômes cutanés ou digestifs sévères</tspan>
+      <tspan x="90" dy="28">Début soudain après exposition allergène</tspan>
+    </text>
+
+    <rect x="60" y="400" width="600" height="210" rx="24" fill="#6A1B9A" />
+    <text x="90" y="445" fill="white" font-size="32" font-weight="700">DÉTRESSE CARDIO-VASCULAIRE</text>
+    <text x="90" y="485" fill="white" font-size="22">
+      <tspan x="90" dy="0">Chute TA, signes de choc</tspan>
+      <tspan x="90" dy="28">Adrénaline IM immédiate</tspan>
+      <tspan x="90" dy="28">Réévaluation toutes les 5 min</tspan>
+    </text>
+
+    <rect x="60" y="650" width="600" height="210" rx="24" fill="#EF6C00" />
+    <text x="90" y="695" fill="white" font-size="32" font-weight="700">APRÈS 5–10 MIN</text>
+    <text x="90" y="735" fill="white" font-size="22">
+      <tspan x="90" dy="0">Si absence de réponse</tspan>
+      <tspan x="90" dy="28">Préparer Adrénaline IVSE</tspan>
+      <tspan x="90" dy="28">Discussion avec réanimateur</tspan>
+    </text>
+  </g>
+
+  <!-- Right column blocks -->
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="740" y="150" width="600" height="210" rx="24" fill="#FDD835" />
+    <text x="770" y="195" fill="#333" font-size="32" font-weight="700">ADRÉNALINE IM 0,01 mg/kg</text>
+    <text x="770" y="235" fill="#333" font-size="22">
+      <tspan x="770" dy="0">Dose calculée automatiquement</tspan>
+      <tspan x="770" dy="28">Max 0,5 mg</tspan>
+      <tspan x="770" dy="28">Répéter toutes les 5-10 min selon clinique</tspan>
+    </text>
+
+    <rect x="740" y="400" width="600" height="210" rx="24" fill="#ECEFF1" />
+    <text x="770" y="445" fill="#263238" font-size="32" font-weight="700">SUPPORT + SURVEILLANCE</text>
+    <text x="770" y="485" fill="#263238" font-size="22">
+      <tspan x="770" dy="0">Oxygène haut débit</tspan>
+      <tspan x="770" dy="28">Voies aériennes</tspan>
+      <tspan x="770" dy="28">Monitoring continu</tspan>
+      <tspan x="770" dy="28">Éviction allergène</tspan>
+    </text>
+
+    <rect x="740" y="650" width="600" height="210" rx="24" fill="#2E7D32" />
+    <text x="770" y="695" fill="#fff" font-size="32" font-weight="700">REMPLISSAGE / TRAITEMENTS ASSOC.</text>
+    <text x="770" y="735" fill="#fff" font-size="22">
+      <tspan x="770" dy="0">Bolus cristalloïdes 10-20 mL/kg</tspan>
+      <tspan x="770" dy="28">Solumédrol 1-2 mg/kg (calcul automatique)</tspan>
+      <tspan x="770" dy="28">Polaramine 0,1 mg/kg (calcul automatique)</tspan>
+    </text>
+  </g>
+
+  <!-- Bottom block -->
+  <rect x="60" y="900" width="1280" height="200" rx="24" fill="#B71C1C" />
+  <text x="90" y="950" fill="white" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">ADRÉNALINE IVSE &amp; GLUCAGON</text>
+  <text x="90" y="990" fill="white" font-family="Inter, Arial, sans-serif" font-size="22">
+    <tspan x="90" dy="0">Conversion automatique 0,1 µg/kg/min → µg/min selon poids</tspan>
+    <tspan x="90" dy="28">Affichage volume de dilution et alertes sécurité</tspan>
+    <tspan x="90" dy="28">Glucagon, remplissage et NAD avec calculs dynamiques dédiés</tspan>
+  </text>
+  <rect x="80" y="1040" width="1240" height="60" rx="18" fill="#FFCDD2" />
+  <text x="700" y="1076" text-anchor="middle" fill="#B71C1C" font-family="Inter, Arial, sans-serif" font-size="22">Rappel : titration progressive, monitorage continu, accès réanimateur</text>
+
+  <!-- Footer -->
+  <text x="80" y="1120" fill="#455A64" font-family="Inter, Arial, sans-serif" font-size="20">Référence SFAR 2023 – Impression / PDF</text>
+  <text x="1320" y="1120" text-anchor="end" fill="#455A64" font-family="Inter, Arial, sans-serif" font-size="20">Accueil · Données patient</text>
+</svg>
