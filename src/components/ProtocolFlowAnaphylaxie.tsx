@@ -7,6 +7,7 @@ import { ageLabelToMonths } from "@/lib/age";
 import { computeDose } from "@/lib/dosing";
 import { DOSING_RULES, WEIGHT_OVERRIDES } from "@/data/drugs";
 import { formatMg } from "@/lib/units";
+import { estimateAgeFromWeight } from "@/components/AgeWeightPicker";
 
 const ACCENT_COLORS = {
   red: {
@@ -35,6 +36,10 @@ const ACCENT_COLORS = {
     border: "border-[#455A64]",
   },
 };
+
+const MIN_WEIGHT_KG = 3;
+const MAX_WEIGHT_KG = 60;
+const DEFAULT_WEIGHT_KG = 10;
 
 function formatMl(volumeMl: number) {
   if (!Number.isFinite(volumeMl)) return "-";
@@ -108,8 +113,23 @@ function ArrowConnector() {
 }
 
 export default function ProtocolFlowAnaphylaxie() {
-  const weightKg = useAppStore((s) => s.weightKg) ?? 10;
+  const weightFromStore = useAppStore((s) => s.weightKg);
+  const setWeightKg = useAppStore((s) => s.setWeightKg);
+  const setAgeLabel = useAppStore((s) => s.setAgeLabel);
   const ageLabel = useAppStore((s) => s.ageLabel);
+
+  const weightKg =
+    weightFromStore != null && Number.isFinite(weightFromStore)
+      ? Math.min(Math.max(weightFromStore, MIN_WEIGHT_KG), MAX_WEIGHT_KG)
+      : DEFAULT_WEIGHT_KG;
+
+  const estimatedAgeLabel = estimateAgeFromWeight(weightKg);
+
+  const onWeightChange = (value: number) => {
+    const clamped = Math.min(Math.max(value, MIN_WEIGHT_KG), MAX_WEIGHT_KG);
+    setWeightKg(clamped);
+    setAgeLabel(estimateAgeFromWeight(clamped));
+  };
 
   const ageMonths = ageLabelToMonths(ageLabel);
   const ageYears = ageMonths != null ? ageMonths / 12 : null;
@@ -154,7 +174,7 @@ export default function ProtocolFlowAnaphylaxie() {
         </div>
 
         <div className="px-5 py-6 sm:px-7 sm:py-7 space-y-6">
-          <div className="rounded-3xl border border-[#C62828]/30 bg-white/90 px-5 py-4 shadow-sm">
+          <div className="rounded-3xl border border-[#C62828]/30 bg-white/90 px-5 py-5 shadow-sm space-y-5">
             <div className="flex flex-wrap items-center gap-6">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#C62828]">Poids</p>
@@ -163,141 +183,163 @@ export default function ProtocolFlowAnaphylaxie() {
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#C62828]">Âge estimé</p>
                 <p className="text-xl font-semibold text-slate-900">
-                  {ageLabel ?? "-"}
+                  {estimatedAgeLabel ?? "-"}
                   {ageYears != null && ageYears > 0
-                    ? ` (${ageYears < 1 ? `${Math.round(ageMonths ?? 0)} mois` : `${Number((ageYears).toFixed(1))} ans`})`
+                    ? ` (${ageYears < 1 ? `${Math.round(ageMonths ?? 0)} mois` : `${Number(ageYears.toFixed(1))} ans`})`
                     : ""}
                 </p>
               </div>
-              <div className="grow text-sm text-slate-600">
-                <p>
-                  Les doses ci-dessous sont ajustées automatiquement selon le poids saisi dans l’accueil.
-                </p>
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-[0.24em] text-[#C62828]" htmlFor="weight-slider">
+                Ajuster le poids
+              </label>
+              <div className="mt-2">
+                <input
+                  id="weight-slider"
+                  type="range"
+                  min={MIN_WEIGHT_KG}
+                  max={MAX_WEIGHT_KG}
+                  step={0.5}
+                  value={weightKg}
+                  onChange={(event) => onWeightChange(Number(event.target.value))}
+                  className="w-full accent-[#C62828]"
+                />
+                <div className="mt-1 flex justify-between text-[11px] text-slate-500">
+                  <span>{MIN_WEIGHT_KG} kg</span>
+                  <span>{MAX_WEIGHT_KG} kg</span>
+                </div>
               </div>
+            </div>
+            <div className="text-sm text-slate-600">
+              <p>Les doses ci-dessous se mettent à jour automatiquement selon le poids ajusté ci-dessus.</p>
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
-            <div className="space-y-4">
+          <div className="space-y-5">
+            <ColoredBlock
+              tone="red"
+              title="ATTEINTE CARDIO-VASCULAIRE OU RESPIRATOIRE"
+              subtitle="Adrénaline IM 0,01 mg/kg (max 0,5 mg)"
+              bullets={[
+                "Injection face latéro-externe cuisse",
+                "Éviction allergène immédiate",
+              ]}
+              footer={`Dose calculée : ${formatDose(adrenalineImDoseMg)}${
+                Number.isFinite(adrenalineImVolume) ? ` (${formatMl(adrenalineImVolume)} de solution 1 mg/mL)` : ""
+              }`}
+            />
+
+            <ColoredBlock
+              tone="yellow"
+              title="SYMPTÔMES GASTRO-INTESTINAUX IMPORTANTS OU PERSISTANTS ?"
+              bullets={["Adrénaline IM + surveillance rapprochée"]}
+            />
+
+            <div className="grid gap-5 lg:grid-cols-2">
               <ColoredBlock
-                tone="red"
-                title="SIGNES SÉVÈRES"
-                subtitle="Atteinte respiratoire ou cardio-vasculaire"
+                tone="grey"
+                title="DÉTRESSE CARDIO-VASCULAIRE"
                 bullets={[
-                  "Dyspnée, stridor, bronchospasme",
-                  "Hypotension, collapsus, signes cutanés majeurs",
-                  "Atteinte digestive rapide (vomissements, douleurs)",
+                  "O₂ haute concentration, scope, VVP, ECG",
+                  "Remplissage NaCl 0,9 % 20 mL/kg",
+                  "Préparer amines vasopressives / intubation",
                 ]}
-                footer="Évacuer l'allergène, O₂ haute concentration, scope, VVP."
               />
-              <ArrowConnector />
               <ColoredBlock
                 tone="violet"
-                title="DÉTRESSE CARDIO-RESPIRATOIRE"
-                subtitle="Stade critique"
+                title="DÉTRESSE RESPIRATOIRE"
                 bullets={[
-                  "Adrénaline nébulisée si atteinte VAS",
-                  "Remplissage NaCl 0,9% 20 mL/kg si hypotension",
-                  "Préparer intubation / ventilation assistée",
+                  "Adrénaline nébulisée 0,1 mg/kg (max 5 mg)",
+                  "Salbutamol aérosol répété, O₂ humidifié",
+                  "Envisager VNI / IOT si épuisement",
                 ]}
-                footer="Réévaluer toutes les 5 minutes."
               />
-              <ArrowConnector />
+            </div>
+
+            <ArrowConnector />
+
+            <ColoredBlock
+              tone="orange"
+              title="ABSENCE DE RÉPONSE APRÈS 5–10 MIN"
+              bullets={["Contacter réanimateur, préparer voie centrale", "Monitorage continu renforcé"]}
+            />
+
+            <div className="grid gap-5 lg:grid-cols-2">
               <ColoredBlock
-                tone="orange"
-                title="ABSENCE DE RÉPONSE (5–10 MIN)"
-                bullets={[
-                  `Contacter réanimateur, préparer adrénaline IVSE (${formatUg(adrenalineIvseUgPerMin)} /min)`,
-                  "Envisager amines vasopressives supplémentaires",
-                  "Glucagon si patient sous bêta-bloquant",
-                ]}
-                footer="IVSE titrée sur scope, surveillance continue."
+                tone="yellow"
+                title="ADRÉNALINE IVSE : 0,1 µG/KG/MIN (MAX 0,5 MG)"
               >
-                <div className="rounded-2xl border border-[#6A1B9A]/30 bg-white/70 px-4 py-3 text-sm text-slate-700">
-                  <p className="font-semibold text-[#6A1B9A]">Adrénaline IVSE de relais</p>
-                  <p className="mt-1 text-sm">
-                    0,1 µg/kg/min → <strong>{formatUg(adrenalineIvseUgPerMin)}</strong> par minute pour {Number(weightKg.toFixed(1))} kg.
+                <div className="space-y-2 text-sm text-slate-800">
+                  <p>
+                    Débit calculé : <strong>{formatUg(adrenalineIvseUgPerMin)}</strong> par minute pour {Number(weightKg.toFixed(1))} kg.
                   </p>
                   {Number.isFinite(adrenalineIvseMlPerMin) && (
-                    <p className="mt-1 text-xs text-slate-600">
-                      Utiliser la seringue 1 mg/50 mL = 20 µg/mL (soit {adrenalineIvseMlPerMin.toFixed(2)} mL/min).
+                    <p className="text-xs text-slate-600">
+                      Solution 1 mg/50 mL = 20 µg/mL soit {adrenalineIvseMlPerMin.toFixed(2)} mL/min.
                     </p>
                   )}
                 </div>
               </ColoredBlock>
-            </div>
-
-            <div className="space-y-4">
-              <ColoredBlock
-                tone="yellow"
-                title="ADRÉNALINE IM"
-                subtitle="0,01 mg/kg — Face latéro-externe de cuisse"
-              >
-                <div className="space-y-2 text-sm text-slate-800">
-                  <p>
-                    Dose calculée : <strong>{formatDose(adrenalineImDoseMg)}</strong>
-                    {Number.isFinite(adrenalineImVolume) && (
-                      <span> ({formatMl(adrenalineImVolume)} de solution 1 mg/mL)</span>
-                    )}
-                  </p>
-                  <p className="text-xs text-slate-600">Répéter toutes les 5 min si persistance des signes.</p>
-                </div>
-              </ColoredBlock>
-
               <ColoredBlock
                 tone="grey"
-                title="TRAITEMENTS ASSOCIÉS"
-                subtitle="Antihistaminique + Corticoïde"
-              >
-                <ul className="space-y-2 text-sm text-slate-800 list-disc pl-5">
-                  <li>
-                    Solumédrol : <strong>{formatDose(solumedrolRange.min)}</strong> – <strong>{formatDose(solumedrolRange.max)}</strong>
-                    <span className="text-xs text-slate-600 block">(1–2 mg/kg IV)</span>
-                  </li>
-                  <li>
-                    Polaramine : <strong>{formatDose(polaramineDoseMg)}</strong> (0,1 mg/kg)
-                  </li>
-                </ul>
-              </ColoredBlock>
-
-              <ColoredBlock
-                tone="yellow"
-                title="SUPPORT RESPIRATOIRE"
-                subtitle="Bronchospasme ou stridor"
+                title="POURSUITE AÉROSOLS"
                 bullets={[
-                  "Aérosol adrénaline 0,1 mg/kg (max 5 mg)",
-                  "Salbutamol AE répété, O₂ chauffé-humidifié",
-                  "Envisager VNI / IOT si épuisement",
+                  "Adrénaline nébulisée alternée ± salbutamol",
+                  "Ipratropium si bronchospasme sévère",
+                  "Kinésithérapie respiratoire à discuter",
                 ]}
               />
+            </div>
 
+            <div className="grid gap-5 lg:grid-cols-2">
+              <ColoredBlock
+                tone="red"
+                title="ADRÉNALINE IVSE + NAD 0,2 µG/KG/MIN"
+                bullets={[
+                  "Réévaluer TA toutes les 2-3 minutes",
+                  "Associer vasopresseurs selon réponse",
+                ]}
+              />
               <ColoredBlock
                 tone="grey"
-                title="SURVEILLANCE"
+                title="SURVEILLANCE & SORTIE"
                 bullets={[
                   "Observation minimale 6 h (risque biphasique)",
-                  "Cardio-monitoring continu ± saturométrie",
-                  "Carnet de sortie : kit d'adrénaline auto-injectable",
+                  "Cardio-monitoring ± saturométrie continue",
+                  "Prescription kit adrénaline auto-injectable",
                 ]}
               />
             </div>
-          </div>
 
-          <div className="rounded-3xl border border-[#C62828] bg-[#FFCDD2] px-5 py-4 shadow-md">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm font-semibold text-[#B71C1C] uppercase tracking-[0.2em]">
-                  Escalade & antidotes
+            <ColoredBlock
+              tone="orange"
+              title="ANTIHISTAMINIQUE & CORTICOÏDE"
+            >
+              <ul className="space-y-2 text-sm text-slate-800 list-disc pl-5">
+                <li>
+                  Solumédrol : <strong>{formatDose(solumedrolRange.min)}</strong> – <strong>{formatDose(solumedrolRange.max)}</strong>
+                  <span className="text-xs text-slate-600 block">(1–2 mg/kg IV)</span>
+                </li>
+                <li>
+                  Polaramine : <strong>{formatDose(polaramineDoseMg)}</strong> (0,1 mg/kg)
+                </li>
+              </ul>
+            </ColoredBlock>
+
+            <ColoredBlock
+              tone="red"
+              title="ESCALADE & ANTIDOTES"
+            >
+              <div className="space-y-1 text-sm text-slate-800">
+                <p>
+                  Glucagon IM/IV : <strong>{formatDose(glucagonDoseMg)}</strong> (répéter une fois si patient sous bêta-bloquant).
                 </p>
-                <p className="text-base text-[#4A0404]">
-                  Glucagon IM/IV : <strong>{formatDose(glucagonDoseMg)}</strong> (répéter x1 si besoin).
+                <p className="text-xs text-slate-600">
+                  Surveillance invasive si possible, gaz du sang et lactates répétés, prévenir réanimation.
                 </p>
               </div>
-              <div className="text-xs text-[#4A0404]/80 max-w-sm">
-                Surveillance continue : TA invasive si possible, gaz du sang répétés, lactates. Prévenir le
-                bloc opératoire/réanimation.
-              </div>
-            </div>
+            </ColoredBlock>
           </div>
         </div>
       </div>

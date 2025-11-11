@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 
 export type TheoreticalAge = { label: string; weightKg: number; };
 
-const THEORETICAL_WEIGHTS: TheoreticalAge[] = [
+export const THEORETICAL_WEIGHTS: TheoreticalAge[] = [
   { label: "Naissance", weightKg: 3 },
   { label: "3 mois", weightKg: 6 },
   { label: "6 mois", weightKg: 7.5 },
@@ -30,6 +30,23 @@ export function getTheoreticalWeight(ageLabel: string | null) {
   if (!ageLabel) return null;
   const found = THEORETICAL_WEIGHTS.find(a => a.label.toLowerCase() === ageLabel.toLowerCase());
   return found?.weightKg ?? null;
+}
+
+export function estimateAgeFromWeight(weightKg: number | null) {
+  if (weightKg == null) return null;
+
+  let bestMatch: TheoreticalAge | null = null;
+  let smallestDiff = Number.POSITIVE_INFINITY;
+
+  for (const candidate of THEORETICAL_WEIGHTS) {
+    const diff = Math.abs(candidate.weightKg - weightKg);
+    if (diff < smallestDiff) {
+      smallestDiff = diff;
+      bestMatch = candidate;
+    }
+  }
+
+  return bestMatch?.label ?? null;
 }
 
 type Props = {
