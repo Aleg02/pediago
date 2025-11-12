@@ -3,13 +3,14 @@ import { useState } from "react";
 
 type Props = {
   onFocus?: () => void;
+  onBlur?: () => void;
   onChange?: (q: string) => void;
   autoFocus?: boolean;
   value?: string;
   className?: string;
 };
 
-export default function SearchBar({ onFocus, onChange, autoFocus, value, className }: Props) {
+export default function SearchBar({ onFocus, onBlur, onChange, autoFocus, value, className }: Props) {
   const [internalValue, setInternalValue] = useState(value ?? "");
   const isControlled = value !== undefined;
   const inputValue = isControlled ? value : internalValue;
@@ -24,6 +25,7 @@ export default function SearchBar({ onFocus, onChange, autoFocus, value, classNa
           value={inputValue}
           autoFocus={autoFocus}
           onFocus={onFocus}
+          onBlur={onBlur}
           onChange={(e) => {
             const nextValue = e.target.value;
             setInternalValue(nextValue);

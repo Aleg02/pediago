@@ -20,6 +20,7 @@ export default function HomePage() {
 
   // état page
   const [query, setQuery] = useState("");
+  const [isSearchFocused, setSearchFocused] = useState(false);
 
   // index Fuse
   const fuse = useMemo(
@@ -34,12 +35,14 @@ export default function HomePage() {
 
   // On ne déclenche la recherche que si l'utilisateur saisit une requête.
   const trimmedQuery = query.trim();
-  const hits = useMemo(() => {
+  const filteredProtocols = useMemo(() => {
     if (trimmedQuery.length === 0) {
-      return [];
+      return PROTOCOLS;
     }
     return fuse.search(trimmedQuery).map((r) => r.item);
   }, [fuse, trimmedQuery]);
+
+  const shouldShowResults = isSearchFocused || trimmedQuery.length > 0;
 
   const openProtocol = (slug: string) => {
     router.push(`/protocols/${slug}`);
@@ -65,6 +68,8 @@ export default function HomePage() {
         <SearchBar
           className="mt-10"
           onChange={setQuery}
+          onFocus={() => setSearchFocused(true)}
+          onBlur={() => setSearchFocused(false)}
           autoFocus={false}
           value={query}
         />
@@ -78,19 +83,19 @@ export default function HomePage() {
           </div>
         </div>
 
-        {trimmedQuery.length > 0 && (
+        {shouldShowResults && (
           <div className="mt-10 w-full max-w-[420px] space-y-3">
-            {hits.length > 0 ? (
+            {filteredProtocols.length > 0 ? (
               <div className="space-y-3">
-                {hits.map((p) => (
+                {filteredProtocols.map((p) => (
                   <ProtocolCard key={p.slug} item={p} onOpen={openProtocol} />
                 ))}
               </div>
-            ) : (
+            ) : trimmedQuery.length > 0 ? (
               <div className="text-center text-slate-500 text-sm">
                 Aucun protocole ne correspond à « {trimmedQuery} ».
               </div>
-            )}
+            ) : null}
           </div>
         )}
       </div>

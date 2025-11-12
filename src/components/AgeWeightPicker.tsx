@@ -116,10 +116,15 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
 
   const handleWeightStep = (delta: number) => {
     const inferredIndex = (() => {
-      if (weightKg == null) return currentIndex;
-      const estimated = estimateAgeFromWeight(weightKg);
-      const idx = estimated ? ageOptions.findIndex((label) => label === estimated) : -1;
-      if (idx >= 0) return idx;
+      if (ageLabel) {
+        const idx = ageOptions.findIndex((label) => label === ageLabel);
+        if (idx >= 0) return idx;
+      }
+      if (weightKg != null) {
+        const estimated = estimateAgeFromWeight(weightKg);
+        const idx = estimated ? ageOptions.findIndex((label) => label === estimated) : -1;
+        if (idx >= 0) return idx;
+      }
       return currentIndex;
     })();
     goToIndex(inferredIndex + delta);
