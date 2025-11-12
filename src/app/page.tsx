@@ -8,6 +8,7 @@ import Fuse from "fuse.js";
 import { PROTOCOLS, type Protocol } from "@/data/protocols";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store/useAppStore";
+import Disclaimer from "@/components/Disclaimer";
 
 export default function HomePage() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function HomePage() {
     []
   );
 
-  // 🔎 NOUVEAU: si query vide ⇒ on affiche tout (trié A→Z). Sinon ⇒ résultats Fuse.
+  // Si query vide => tous les protocoles triés A→Z, sinon => résultats Fuse
   const hits: Protocol[] = useMemo(() => {
     const q = query.trim();
     if (q.length === 0) {
@@ -57,16 +58,16 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen w-full flex items-center justify-center">
-      <div className="w-full max-w-[420px] mx-auto px-6">
-        {/* Titre + sous-titre */}
-        <div className={`text-center ${searchMode ? "mt-2" : "mt-6"}`}>
-          <h1 className="text-[36px] leading-[1.1] font-semibold tracking-tight">PediaGo</h1>
-          <p className="text-slate-500 mt-2">Le bon geste, maintenant !</p>
-        </div>
+    <main className="min-h-screen flex flex-col justify-between items-center bg-white">
+      {/* --------- HEADER (logo + slogan) --------- */}
+      <header className="w-full max-w-[420px] mx-auto text-center mt-8 px-6">
+        <h1 className="text-[36px] leading-[1.1] font-semibold tracking-tight">PediaGo</h1>
+        <p className="text-slate-500 mt-2 text-base">Le bon geste, maintenant !</p>
+      </header>
 
-        {/* Âge / Poids */}
-        <div className={`${searchMode ? "mt-2" : "mt-6"}`}>
+      {/* --------- CONTENU CENTRAL --------- */}
+      <section className="w-full max-w-[420px] mx-auto px-6 flex flex-col items-center">
+        <div className="mt-4 w-full">
           <AgeWeightPicker
             ageLabel={ageLabel}
             setAgeLabel={setAgeLabel}
@@ -75,7 +76,6 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Barre de recherche */}
         <SearchBar
           onFocus={() => setSearchMode(true)}
           onChange={setQuery}
@@ -83,7 +83,6 @@ export default function HomePage() {
           value={query}
         />
 
-        {/* Zone “Search mode” */}
         {searchMode && (
           <div className="w-full max-w-[420px] mx-auto mt-6 space-y-3">
             {hits.length > 0 ? (
@@ -111,9 +110,12 @@ export default function HomePage() {
             </div>
           </div>
         )}
+      </section>
 
-        <div className="h-16" />
-      </div>
+      {/* --------- FOOTER (Disclaimer en bas d’écran) --------- */}
+      <footer className="w-full max-w-[420px] mx-auto px-6 mb-4">
+        <Disclaimer />
+      </footer>
     </main>
   );
 }

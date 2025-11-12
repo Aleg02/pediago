@@ -1,12 +1,21 @@
-// Convertit "10 mois", "6 ans", "3 ans 6 mois" → âge en mois
-export function ageLabelToMonths(label: string | null): number | null {
-  if (!label) return null;
+// src/lib/age.ts
+
+export function ageLabelToMonths(label: unknown): number | null {
+  // Sécurité : si ce n’est pas une string → on ignore
+  if (typeof label !== "string") return null;
+
   const lower = label.trim().toLowerCase();
 
-  // "10 mois"
+  // "nouveau-né"
+  if (lower.includes("nouveau")) return 0;
+
+  // "10 mois" / "1 mois"
   const m = lower.match(/(\d+)\s*mois?/);
-  // "6 ans" ou "3 ans 6 mois"
+  if (m) return parseInt(m[1], 10);
+
+  // "2 ans" / "1 an"
   const y = lower.match(/(\d+)\s*ans?/);
-  const months = (y ? parseInt(y[1], 10) * 12 : 0) + (m ? parseInt(m[1], 10) : 0);
-  return isNaN(months) ? null : months;
+  if (y) return parseInt(y[1], 10) * 12;
+
+  return null;
 }

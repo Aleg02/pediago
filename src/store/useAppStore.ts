@@ -1,29 +1,49 @@
+"use client";
+
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+// 👇 utilitaire: on est côté client ?
+const isClient = typeof window !== "undefined";
+
 type AppState = {
-  ageLabel: string | null;
   weightKg: number | null;
-  setAgeLabel: (age: string | null) => void;
-  setWeightKg: (w: number | null) => void;
-  reset: () => void;
+  setWeightKg: (v: number) => void;
+
+  ageLabel: string | null;
+  setAgeLabel: (v: string) => void;
+
+  // ... garde ici les autres champs de ton store
 };
 
-// Par défaut, on part sur le mockup: "10 mois" / 10 kg.
-// On persiste pour que le poids reste si on rafraîchit la page.
+const INITIAL_STATE: Pick<AppState, "weightKg" | "ageLabel"> = {
+  weightKg: 10,
+  ageLabel: "",
+};
+
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
-      ageLabel: "10 mois",
-      weightKg: 10,
-      setAgeLabel: (age) => set({ ageLabel: age }),
-      setWeightKg: (w) => set({ weightKg: w }),
-      reset: () => set({ ageLabel: "10 mois", weightKg: 10 }),
+    (set, get) => ({
+      ...INITIAL_STATE,
+
+      setWeightKg: (v) => set({ weightKg: v }),
+      setAgeLabel: (v) => set({ ageLabel: v }),
+
+      // ... tes autres actions
     }),
     {
-      name: "pediago-app-store",
-      storage: createJSONStorage(() => localStorage),
-      version: 1,
+      name: "pediago-store",
+      /**
+       * ⚠️ IMPORTANT :
+       * - côté client → on utilise localStorage
+       * - côté serveur → on laisse `storage` undefined pour désactiver la rehydratation SSR
+       */
+      storage: isClient
+        ? createJSONStorage(() => window.localStorage)
+        : undefined,
+
+      // (optionnel) utile si tu écoutes l’hydratation
+      // skipHydration: true,
     }
   )
 );
