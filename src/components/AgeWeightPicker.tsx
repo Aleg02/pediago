@@ -1,7 +1,9 @@
 "use client";
+
+import * as React from "react";
 import { useMemo, useState } from "react";
 
-export type TheoreticalAge = { label: string; weightKg: number; };
+export type TheoreticalAge = { label: string; weightKg: number };
 
 export const THEORETICAL_WEIGHTS: TheoreticalAge[] = [
   { label: "Naissance", weightKg: 3 },
@@ -28,10 +30,13 @@ export const THEORETICAL_WEIGHTS: TheoreticalAge[] = [
 
 export function getTheoreticalWeight(ageLabel: string | null) {
   if (!ageLabel) return null;
-  const found = THEORETICAL_WEIGHTS.find(a => a.label.toLowerCase() === ageLabel.toLowerCase());
+  const found = THEORETICAL_WEIGHTS.find(
+    (a) => a.label.toLowerCase() === ageLabel.toLowerCase()
+  );
   return found?.weightKg ?? null;
 }
 
+/** Estime le *label* d'âge le plus proche pour un poids donné */
 export function estimateAgeFromWeight(weightKg: number | null) {
   if (weightKg == null) return null;
 
@@ -54,18 +59,27 @@ type Props = {
   setAgeLabel: (v: string) => void;
   weightKg: number | null;
   setWeightKg: (v: number | null) => void;
+  className?: string;
 };
 
 const formatWeight = (value: number | null) =>
-  value == null ? "" : value.toString().replace(".", ",");
+  value == null ? "" : String(value).replace(".", ",");
 
-export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWeightKg }: Props) {
-  const ageOptions = useMemo(() => THEORETICAL_WEIGHTS.map(a => a.label), []);
+export default function AgeWeightPicker({
+  ageLabel,
+  setAgeLabel,
+  weightKg,
+  setWeightKg,
+  className,
+}: Props) {
+  const ageOptions = useMemo(() => THEORETICAL_WEIGHTS.map((a) => a.label), []);
 
+  // État local pour permettre la saisie progressive (ex: "10," ou "10.")
   const [weightDraft, setWeightDraft] = useState<string | null>(null);
 
   const onAgeChange = (value: string) => {
     setAgeLabel(value);
+
     const w = getTheoreticalWeight(value);
     if (w !== null) {
       setWeightKg(w); // règle: âge → poids
@@ -86,6 +100,7 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
       return;
     }
 
+    // Si l'utilisateur est en train de taper une décimale, on attend (ex: "10.")
     if (/[.,]$/.test(normalized)) {
       return;
     }
@@ -93,6 +108,12 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
     const parsed = Number(normalized);
     if (!Number.isNaN(parsed)) {
       setWeightKg(parsed);
+
+      // Optionnel : ajuster l'âge si non cohérent avec le poids saisi
+      const nearest = estimateAgeFromWeight(parsed);
+      if (nearest && nearest !== ageLabel) {
+        setAgeLabel(nearest);
+      }
     }
   };
 
@@ -102,13 +123,16 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
 
   const weightInput = weightDraft ?? formatWeight(weightKg);
 
-  const labelCls = "text-slate-500 text-sm mb-1";
-
-  const pillCls =
+  const labelCls = "text-slate-600 text-sm mb-1";
+  const pillBase =
     "rounded-full px-4 py-2 bg-white border border-black/10 shadow-sm text-[16px] leading-6 w-full";
+  // Forcer un texte sombre sur les champs, même si le parent est en texte blanc
+  const pillText = "text-gray-900 placeholder:text-gray-400";
+  const pillCls = `${pillBase} ${pillText}`;
 
   return (
-    <div className="w-full max-w-[360px] mx-auto grid grid-cols-2 gap-3 mt-6">
+    <div className={`w-full max-w-[420px] mx-auto grid grid-cols-2 gap-3 ${className ?? ""}`}>
+      {/* Sélecteur Âge */}
       <div>
         <div className={labelCls}>Âge</div>
         <select
@@ -116,11 +140,18 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
           value={ageLabel ?? ""}
           onChange={(e) => onAgeChange(e.target.value)}
         >
-          <option value="" disabled>Choisir…</option>
-          {ageOptions.map((label) => (<option key={label} value={label}>{label}</option>))}
+          <option value="" disabled>
+            Choisir…
+          </option>
+          {ageOptions.map((label) => (
+            <option key={label} value={label}>
+              {label}
+            </option>
+          ))}
         </select>
       </div>
 
+      {/* Saisie Poids */}
       <div>
         <div className={labelCls}>Poids</div>
         <div className="relative">
@@ -132,7 +163,9 @@ export default function AgeWeightPicker({ ageLabel, setAgeLabel, weightKg, setWe
             onBlur={onWeightBlur}
             placeholder="ex : 10"
           />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 select-none">kg</span>
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 select-none">
+            kg
+          </span>
         </div>
       </div>
     </div>
