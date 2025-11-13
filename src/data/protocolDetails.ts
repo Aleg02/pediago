@@ -68,4 +68,21 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       "EME réfractaire : coma thérapeutique (hypnovel/propofol) 24 h"
     ]},
   ],
+  "antalgiques": [
+    { title: "Évaluation", bullets: [
+      "Identifier le palier adapté à la douleur (EVA/EVENDOL)",
+      "Réévaluer systématiquement après chaque étape"
+    ]},
+    { title: "Palier 1", bullets: [
+      "Solutions sucrées pour nourrisson, MEOPA/EMLA pour gestes douloureux",
+      "Antalgiques de base : paracétamol ± AINS si absence de contre-indications"
+    ]},
+    { title: "Palier 2", bullets: [
+      "Tramadol PO/IV 1 mg/kg/6 h (>3 ans) en complément du palier 1"
+    ]},
+    { title: "Palier 3", bullets: [
+      "Morphine titrée IV/PO ± perfusion continue",
+      "Nalbuphine ou kétamine selon contexte, prévoir antagonistes"
+    ]},
+  ],
 };

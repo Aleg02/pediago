@@ -19,6 +19,7 @@ import ProtocolFlowAnaphylaxie from "@/components/ProtocolFlowAnaphylaxie";
 import ProtocolFlowChoc from "@/components/ProtocolFlowChoc";
 import ProtocolFlowACR from "@/components/ProtocolFlowACR";
 import ProtocolFlowEME from "@/components/ProtocolFlowEME";
+import ProtocolFlowAntalgiques from "@/components/ProtocolFlowAntalgiques";
 
 // Sections posologie (NOUVEAU rendu V2 depuis le JSON)
 import PosologySections from "@/components/PosologySections";
@@ -44,6 +45,7 @@ export default function ProtocolPage() {
     "choc-hemorragique": ProtocolFlowChoc,
     "acr-enfant": ProtocolFlowACR,
     eme: ProtocolFlowEME,
+    antalgiques: ProtocolFlowAntalgiques,
   };
   const Flow = FlowBySlug[slug];
 

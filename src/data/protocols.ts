@@ -12,4 +12,5 @@ export const PROTOCOLS: Protocol[] = [
   { slug: "choc-hemorragique", title: "Choc hémorragique (enfant)", version: "V0.1",  tags: ["hémorragie"] },
   { slug: "anaphylaxie",       title: "Anaphylaxie (enfant)",        version: "V0.1",  tags: ["allergie"] },
   { slug: "aag",               title: "Asthme aigu grave (AAG)",     version: "V0.1",  tags: ["respiratoire"] },
+  { slug: "antalgiques",       title: "Antalgiques (pédiatrie)",     version: "V0.1",  tags: ["douleur"] },
 ];

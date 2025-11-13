@@ -168,6 +168,7 @@ export const PROTOCOL_DRUGS: Record<string, string[]> = {
   "choc-hemorragique": ["exacyl", "adrenaline-im"],
   "acr-enfant":        ["adrenaline-bolus-acr", "amiodarone"],
   "eme":               ["clonazepam", "midazolam-buccal", "phenytoin", "phenobarbital", "levetiracetam"],
+  "antalgiques":      ["morphine", "naloxone", "flumazenil"],
 
   // À activer quand les workflows correspondants sont prêts :
   // "intoxication-opioides": ["naloxone"],
