@@ -241,7 +241,7 @@ export default function PosologySections({ slug }: Props) {
   return (
     <div className="space-y-5 pb-10">
       {/* Barre de poids en haut */}
-      <div className="sticky top-0 -mx-6 px-6 pt-1 pb-5 bg-slate-50/95 backdrop-blur">
+      <div className="sticky top-0 z-30 -mx-6 px-6 pt-1 pb-5 bg-slate-50/95 backdrop-blur">
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
           <div className="flex items-center justify-between gap-3">
             <div>

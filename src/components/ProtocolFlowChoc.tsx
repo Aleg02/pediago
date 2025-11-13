@@ -60,21 +60,30 @@ function Column({
   tone,
   title,
   subtitle,
+  icon,
   children,
 }: {
   tone: ColumnTone;
   title: string;
   subtitle?: string;
+  icon?: string;
   children: ReactNode;
 }) {
   const palette = COLUMN_TONES[tone];
   return (
-    <div className={`rounded-[28px] overflow-hidden border shadow-sm ${palette.border}`}>
+    <div className={`flex h-full flex-col overflow-hidden rounded-[28px] border shadow-sm ${palette.border}`}>
       <div className={`${palette.header} px-4 py-3 text-white`}>
-        <p className="text-sm font-semibold tracking-wide uppercase">{title}</p>
+        <div className="flex items-center gap-2">
+          {icon && (
+            <span className="text-lg" aria-hidden="true">
+              {icon}
+            </span>
+          )}
+          <p className="text-sm font-semibold tracking-wide uppercase">{title}</p>
+        </div>
         {subtitle && <p className="text-[12px] text-white/90">{subtitle}</p>}
       </div>
-      <div className={`${palette.body} px-4 py-4 text-sm text-slate-800 space-y-4`}>{children}</div>
+      <div className={`${palette.body} flex flex-1 flex-col gap-4 px-4 py-4 text-sm text-slate-800`}>{children}</div>
     </div>
   );
 }
@@ -169,7 +178,7 @@ export default function ProtocolFlowChoc() {
         <div className="overflow-x-auto pb-4">
           <div className="min-w-[920px] grid grid-cols-3 gap-4 pr-2">
             {/* Colonne gauche */}
-            <Column tone="blue" title="Réanimation initiale" subtitle="Stabiliser et perfuser">
+            <Column tone="blue" title="Réanimation initiale" subtitle="Stabiliser et perfuser" icon="🚨">
               <BubbleSection title="Débuter immédiatement" accent="left">
                 <ul className="list-disc pl-4 space-y-1">
                   <li>Libérer les VAS</li>
@@ -238,7 +247,12 @@ export default function ProtocolFlowChoc() {
             </Column>
 
             {/* Colonne centrale */}
-            <Column tone="red" title="Évaluation E-FAST" subtitle="Identifier la source hémorragique">
+            <Column
+              tone="red"
+              title="Évaluation E-FAST"
+              subtitle="Identifier la source hémorragique"
+              icon="🩻"
+            >
               <BubbleSection title="Scanner ciblé par l’écho" accent="center">
                 <p>
                   E-FAST au lit du patient : abdomen, thorax, péricarde, pelvis.
@@ -267,7 +281,12 @@ export default function ProtocolFlowChoc() {
             </Column>
 
             {/* Colonne droite */}
-            <Column tone="yellow" title="Hémostase pharmacologique" subtitle="Transfusion massive guidée">
+            <Column
+              tone="yellow"
+              title="Hémostase pharmacologique"
+              subtitle="Transfusion massive guidée"
+              icon="🩸"
+            >
               <BubbleSection title="Acide tranexamique (EXACYL)" accent="right">
                 <p>
                   À administrer idéalement <strong>&lt; 3 h</strong> après le traumatisme.
