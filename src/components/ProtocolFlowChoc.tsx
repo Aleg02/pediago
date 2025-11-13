@@ -70,7 +70,7 @@ function Column({
   const palette = COLUMN_TONES[tone];
   return (
     <div className={`rounded-[28px] overflow-hidden border shadow-sm ${palette.border}`}>
-      <div className={`${palette.header} px-4 py-3 text-white`}> 
+      <div className={`${palette.header} px-4 py-3 text-white`}>
         <p className="text-sm font-semibold tracking-wide uppercase">{title}</p>
         {subtitle && <p className="text-[12px] text-white/90">{subtitle}</p>}
       </div>
@@ -92,11 +92,11 @@ function BubbleSection({
     accent === "center"
       ? "border-red-200 bg-white/70"
       : accent === "right"
-        ? "border-amber-200 bg-white/70"
-        : "border-sky-200 bg-white/70";
+      ? "border-amber-200 bg-white/70"
+      : "border-sky-200 bg-white/70";
 
   return (
-    <div className={`rounded-2xl border ${accentCls} px-3 py-3 space-y-2 shadow-sm`}> 
+    <div className={`rounded-2xl border ${accentCls} px-3 py-3 space-y-2 shadow-sm`}>
       <p className="text-[13px] font-semibold text-slate-900 uppercase tracking-wide">{title}</p>
       <div className="text-[13px] text-slate-700 space-y-1.5">{children}</div>
     </div>
@@ -141,6 +141,7 @@ export default function ProtocolFlowChoc() {
 
   return (
     <div className="pb-6">
+      {/* HEADER */}
       <div className="rounded-3xl bg-gradient-to-b from-[#C62828] to-[#FF7043] px-4 pt-6 pb-5 text-white shadow-sm">
         <h1 className="text-2xl font-extrabold tracking-wide">CHOC HÉMORRAGIQUE 🩸</h1>
         <p className="text-sm text-white/90 mt-1">
@@ -157,6 +158,14 @@ export default function ProtocolFlowChoc() {
       </div>
 
       <div className="mt-5 px-2 sm:px-4">
+        {/* Hint swipe uniquement mobile */}
+        <div className="mb-3 px-1 sm:hidden">
+          <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">
+            <span>👆</span>
+            <span>Balayez horizontalement pour voir les 3 colonnes</span>
+          </div>
+        </div>
+
         <div className="overflow-x-auto pb-4">
           <div className="min-w-[920px] grid grid-cols-3 gap-4 pr-2">
             {/* Colonne gauche */}
@@ -189,7 +198,7 @@ export default function ProtocolFlowChoc() {
                         PAM ≥ 45 mmHg <span className="text-[11px] text-slate-600">(≤ 2 ans)</span>
                       </li>
                       <li>
-                        PAM ≥ 55 mmHg <span className="text-[11px] text-slate-600">(&gt; 2 ans)</span>
+                        PAM ≥ 55 mmHg <span className="text-[11px] text-slate-600">({'>'} 2 ans)</span>
                       </li>
                     </ul>
                   </div>
@@ -202,7 +211,7 @@ export default function ProtocolFlowChoc() {
                         PAM ≥ 50 mmHg <span className="text-[11px] text-slate-600">(≤ 2 ans)</span>
                       </li>
                       <li>
-                        PAM ≥ 65 mmHg <span className="text-[11px] text-slate-600">(&gt; 2 ans)</span>
+                        PAM ≥ 65 mmHg <span className="text-[11px] text-slate-600">({'>'} 2 ans)</span>
                       </li>
                     </ul>
                   </div>
@@ -216,12 +225,11 @@ export default function ProtocolFlowChoc() {
                   Débit calculé : <strong>{formatUg(noradUg)}</strong>
                 </p>
                 <p>
-                  Objectif PAS :
-                  {" "}
+                  Objectif PAS{" "}
                   <TargetPill
                     label={
                       pasTarget
-                        ? `&gt; ${pasTarget} mmHg`
+                        ? `> ${pasTarget} mmHg`
                         : "> 70 × âge (ans)"
                     }
                   />
@@ -243,7 +251,7 @@ export default function ProtocolFlowChoc() {
                 </ul>
               </BubbleSection>
 
-              <div className="rounded-2xl border border-red-300 bg-white px-4 py-3 shadow-sm">
+              <div className="rounded-2xl border border-red-300 bg-white/80 px-4 py-3 shadow-sm">
                 <p className="text-sm font-semibold text-red-700 uppercase tracking-wide">
                   Objectif central
                 </p>
@@ -277,8 +285,8 @@ export default function ProtocolFlowChoc() {
               <BubbleSection title="Transfusion massive" accent="right">
                 <ul className="list-disc pl-4 space-y-1">
                   <li>Ratio PFC : CGR = 1:2 → 1:1</li>
-                  <li>Hb cible : 7–10 g/dL (sans TC) · &gt; 10 g/dL (TC grave)</li>
-                  <li>Plaquettes : &gt; 50 G/L (sans TC) · &gt; 100 G/L (TC grave)</li>
+                  <li>Hb cible : 7–10 g/dL (sans TC) · {'>'} 10 g/dL (TC grave)</li>
+                  <li>Plaquettes : {'>'} 50 G/L (sans TC) · {'>'} 100 G/L (TC grave)</li>
                 </ul>
               </BubbleSection>
 
