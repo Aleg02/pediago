@@ -79,21 +79,33 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#eef4ff] via-white to-white text-slate-900">
-      <div className="flex min-h-screen flex-col items-center">
+    <main className="min-h-screen bg-white text-slate-900">
+      {/* fine barre de couleur en haut comme accent */}
+      <div className="h-1 w-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#22c55e]" />
+
+      <div className="flex min-h-[calc(100vh-4px)] flex-col items-center">
+        {/* HEADER : logo + titre + slogan */}
         <header className="w-full max-w-[420px] px-6 pt-10 text-center">
-          <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-[32px] bg-white/90 shadow-[0_20px_40px_rgba(15,23,42,0.12)]">
-            <Image src="/logo.svg" alt="PediaGo" width={128} height={128} priority />
-          </div>
-          <h1 className="mt-6 text-[36px] leading-none font-semibold tracking-tight text-slate-900 sm:text-[40px]">
-            Pedia<span className="text-[#ef4444]">Go</span>
+          <Image
+            src="/logo.svg"
+            alt="PediaGo"
+            width={160}
+            height={160}
+            priority
+            className="mx-auto h-20 w-auto"
+          />
+          <h1 className="mt-7 text-[64px] leading-none font-semibold tracking-tight text-slate-900">
+            <span>Pedia</span>
+            <span className="text-[#ef4444]">Go</span>
           </h1>
-          <p className="mt-2 text-sm text-slate-500 sm:text-base">Le bon geste, maintenant !</p>
+          <p className="mt-2 text-sm text-slate-500">Le bon geste, maintenant&nbsp;!</p>
         </header>
 
-        <section className="w-full max-w-[420px] flex-1 px-6 pb-16 sm:pb-24">
-          <div className="mt-8 rounded-[32px] border border-white/80 bg-white/90 p-6 shadow-[0_25px_50px_rgba(15,23,42,0.15)] backdrop-blur">
-            {/* Âge / Poids */}
+        {/* CONTENU PRINCIPAL */}
+        <section className="w-full max-w-[420px] flex-1 px-6 pb-14">
+          {/* Bloc Âge / Poids + recherche */}
+          <div className="mt-10 space-y-4">
+            {/* Âge / Poids : le composant interne gère déjà le layout */}
             <AgeWeightPicker
               ageLabel={ageLabel}
               setAgeLabel={setAgeLabel}
@@ -102,7 +114,7 @@ export default function HomePage() {
               className="max-w-none"
             />
 
-            {/* Barre de recherche */}
+            {/* Barre de recherche : style champ texte simple comme sur le mockup */}
             <SearchBar
               onFocus={() => {
                 searchModeTrigger.current = null;
@@ -118,7 +130,7 @@ export default function HomePage() {
               }}
               autoFocus={false}
               value={query}
-              className="mt-6"
+              className="mt-1"
               inputRef={searchInputRef}
             />
           </div>
@@ -126,7 +138,7 @@ export default function HomePage() {
           {/* HOME : disclaimer + CTA */}
           {!searchMode && (
             <>
-              <Disclaimer className="mt-6" />
+              <Disclaimer className="mt-5" />
               <button
                 type="button"
                 onClick={() => {
@@ -140,22 +152,22 @@ export default function HomePage() {
                     searchInputRef.current?.blur();
                   }
                 }}
-                className="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#2563eb] to-[#7c3aed] px-6 py-3 text-sm font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition hover:from-[#1d4ed8] hover:to-[#6d28d9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563eb] sm:mt-8 sm:py-4 sm:text-base"
+                className="mt-14 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#2563eb] to-[#7c3aed] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(37,99,235,0.45)] transition hover:from-[#1d4ed8] hover:to-[#6d28d9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563eb]"
               >
-                Accéder aux protocoles adaptés
+                Accéder aux protocoles
               </button>
             </>
           )}
 
-          {/* MODE RECHERCHE : résultats sous la carte */}
+          {/* MODE RECHERCHE : résultats sous les champs */}
           {searchMode && (
-            <div ref={resultsRef} className="mt-10 space-y-4">
+            <div ref={resultsRef} className="mt-8 space-y-4">
               {hits.length > 0 ? (
                 hits.map((p) => (
                   <ProtocolCard key={p.slug} item={p} onOpen={openProtocol} />
                 ))
               ) : (
-                <div className="rounded-2xl border border-dashed border-slate-200 bg-white/80 px-6 py-8 text-center text-sm text-slate-500">
+                <div className="rounded-2xl border border-dashed border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500">
                   Aucun protocole ne correspond à « {query} ».
                 </div>
               )}
@@ -167,7 +179,7 @@ export default function HomePage() {
                     setSearchMode(false);
                     setQuery("");
                   }}
-                  className="mt-4 text-sm font-medium text-slate-600 underline underline-offset-4"
+                  className="mt-2 text-sm font-medium text-slate-600 underline underline-offset-4"
                 >
                   Quitter le mode recherche
                 </button>
