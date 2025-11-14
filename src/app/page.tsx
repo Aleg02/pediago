@@ -82,8 +82,8 @@ export default function HomePage() {
     <main className="min-h-screen bg-gradient-to-b from-[#eef4ff] via-white to-white text-slate-900">
       <div className="flex min-h-screen flex-col items-center">
         <header className="w-full max-w-[420px] px-6 pt-10 text-center">
-          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-[32px] bg-white/90 shadow-[0_20px_40px_rgba(15,23,42,0.12)]">
-            <Image src="/logo.svg" alt="PediaGo" width={96} height={96} priority />
+          <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-[32px] bg-white/90 shadow-[0_20px_40px_rgba(15,23,42,0.12)]">
+            <Image src="/logo.svg" alt="PediaGo" width={128} height={128} priority />
           </div>
           <h1 className="mt-6 text-[36px] leading-none font-semibold tracking-tight text-slate-900 sm:text-[40px]">
             Pedia<span className="text-[#ef4444]">Go</span>
