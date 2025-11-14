@@ -28,7 +28,7 @@ export default function SearchBar({
         <input
           ref={inputRef}
           className="rounded-full border border-slate-200 bg-white px-5 py-3 text-[15px] leading-6 shadow-[0_10px_30px_rgba(15,23,42,0.08)] placeholder:text-slate-400 focus:border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 w-full pl-11"
-          placeholder="Rechercher un protocole d'urgence"
+          placeholder="Rechercher un protocole"
           value={inputValue}
           autoFocus={autoFocus}
           onFocus={onFocus}

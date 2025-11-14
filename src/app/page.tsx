@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
+import Image from "next/image";
 import AgeWeightPicker from "@/components/AgeWeightPicker";
 import SearchBar from "@/components/SearchBar";
 import ProtocolCard from "@/components/ProtocolCard";
@@ -9,38 +10,6 @@ import { PROTOCOLS, type Protocol } from "@/data/protocols";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import Disclaimer from "@/components/Disclaimer";
-
-function HeroIllustration() {
-  return (
-    <div className="relative flex h-32 w-32 items-center justify-center">
-      <div
-        className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-white via-white to-[#f2f6ff] shadow-[0_25px_50px_rgba(15,23,42,0.18)]"
-        aria-hidden="true"
-      />
-      <svg
-        viewBox="0 0 160 160"
-        className="relative h-24 w-24 drop-shadow-[0_12px_25px_rgba(239,68,68,0.35)]"
-        aria-hidden="true"
-      >
-        <rect x="56" y="16" width="48" height="128" rx="16" fill="#ef4444" />
-        <rect x="16" y="56" width="128" height="48" rx="16" fill="#ef4444" />
-        <circle cx="108" cy="88" r="44" fill="#fff" />
-        <path d="M108 56c-16 0-30 12-32 28h64c-2-16-16-28-32-28z" fill="#ef4444" />
-        <circle cx="96" cy="88" r="6" fill="#ef4444" />
-        <circle cx="120" cy="88" r="6" fill="#ef4444" />
-        <path
-          d="M96 104c4 6 12 10 12 10s8-4 12-10"
-          stroke="#ef4444"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-      </svg>
-      <span className="sr-only">Illustration d’un enfant sur une croix médicale</span>
-    </div>
-  );
-}
 
 export default function HomePage() {
   const router = useRouter();
@@ -80,6 +49,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!searchMode) {
       searchModeTrigger.current = null;
+      searchInputRef.current?.blur();
     }
   }, [searchMode]);
 
@@ -111,19 +81,18 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef4ff] via-white to-white text-slate-900">
       <div className="flex min-h-screen flex-col items-center">
-        <header className="w-full max-w-[420px] px-6 pt-12 text-center">
-          <h1 className="text-[40px] leading-none font-semibold tracking-tight text-slate-900">
+        <header className="w-full max-w-[420px] px-6 pt-10 text-center">
+          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-[32px] bg-white/90 shadow-[0_20px_40px_rgba(15,23,42,0.12)]">
+            <Image src="/logo.svg" alt="PediaGo" width={96} height={96} priority />
+          </div>
+          <h1 className="mt-6 text-[36px] leading-none font-semibold tracking-tight text-slate-900 sm:text-[40px]">
             Pedia<span className="text-[#ef4444]">Go</span>
           </h1>
-          <p className="mt-2 text-base text-slate-500">Le bon geste, maintenant !</p>
+          <p className="mt-2 text-sm text-slate-500 sm:text-base">Le bon geste, maintenant !</p>
         </header>
 
-        <section className="w-full max-w-[420px] flex-1 px-6 pb-24">
-          <div className="flex justify-center pt-6">
-            <HeroIllustration />
-          </div>
-
-          <div className="mt-10 rounded-[32px] border border-white/80 bg-white/90 p-6 shadow-[0_25px_50px_rgba(15,23,42,0.15)] backdrop-blur">
+        <section className="w-full max-w-[420px] flex-1 px-6 pb-16 sm:pb-24">
+          <div className="mt-8 rounded-[32px] border border-white/80 bg-white/90 p-6 shadow-[0_25px_50px_rgba(15,23,42,0.15)] backdrop-blur">
             {/* Âge / Poids */}
             <AgeWeightPicker
               ageLabel={ageLabel}
@@ -161,10 +130,17 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => {
-                  searchModeTrigger.current = "button";
+                  const shouldFocusInput =
+                    typeof window !== "undefined" &&
+                    !window.matchMedia("(pointer: coarse)").matches;
+
+                  searchModeTrigger.current = shouldFocusInput ? "button" : null;
                   setSearchMode(true);
+                  if (!shouldFocusInput) {
+                    searchInputRef.current?.blur();
+                  }
                 }}
-                className="mt-8 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#2563eb] to-[#7c3aed] px-6 py-4 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition hover:from-[#1d4ed8] hover:to-[#6d28d9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563eb]"
+                className="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#2563eb] to-[#7c3aed] px-6 py-3 text-sm font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition hover:from-[#1d4ed8] hover:to-[#6d28d9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563eb] sm:mt-8 sm:py-4 sm:text-base"
               >
                 Accéder aux protocoles adaptés
               </button>

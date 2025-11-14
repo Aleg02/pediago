@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>PediaGo</title>
+  <path fill="#f03a3a" d="M12 44h24V20c0-4.418 3.582-8 8-8h16c4.418 0 8 3.582 8 8v24h24c4.418 0 8 3.582 8 8v16c0 4.418-3.582 8-8 8H68v24c0 4.418-3.582 8-8 8H44c-4.418 0-8-3.582-8-8V76H12c-4.418 0-8-3.582-8-8V52c0-4.418 3.582-8 8-8Z"/>
+  <g transform="translate(60 36)">
+    <circle cx="36" cy="40" r="32" fill="#ffffff" />
+    <path d="M60 26c-5.973 0-11.317-3.12-14.438-8.16a2 2 0 0 0-3.12-.296l-7.26 8.068C32.37 23.63 28.526 22 24.316 22 14.48 22 6.4 30.08 6.4 39.916c0 9.837 8.08 17.916 17.916 17.916H36c15.464 0 28-12.536 28-28V26Z" fill="#f03a3a" />
+    <path d="M46 28.5c0-6.351-7.177-11.5-16-11.5s-16 5.149-16 11.5" fill="#fef1f1" />
+    <circle cx="26" cy="42" r="3" fill="#f03a3a" />
+    <circle cx="46" cy="42" r="3" fill="#f03a3a" />
+    <path d="M28 54c2.4 3.6 7.2 6 8 6s5.6-2.4 8-6" fill="none" stroke="#f03a3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M34 18c-5 0-9.5 1.7-13.1 4.6.6-6.7 6.1-12 12.9-12 4.6 0 8.6 2.4 10.9 6.1-3-.5-6.1-0.7-9.1-0.7h-1.6Z" fill="#f03a3a" />
+  </g>
+</svg>
