@@ -6,7 +6,7 @@ type DisclaimerProps = {
 
 export default function Disclaimer({ className }: DisclaimerProps) {
   return (
-    <div className={`mt-10 ${className ?? ""}`}>
+    <div className={className}>
       <div
         role="note"
         aria-label="Avertissement"
