@@ -79,7 +79,9 @@ export default function ProtocolFlowTCC() {
   return (
     <div className="pb-8">
       <div className="rounded-3xl bg-gradient-to-b from-[#0F172A] via-[#1D4ED8] to-[#1E3A8A] px-4 pt-6 pb-5 text-white shadow-sm">
-        <h1 className="text-2xl font-extrabold tracking-wide leading-tight">Traumatisme crânien pédiatrique</h1>
+        <h1 className="text-2xl font-extrabold tracking-wide leading-tight">
+          Traumatisme crânien pédiatrique
+        </h1>
         <p className="text-sm text-white/90 mt-1">
           Stabiliser ABCDE, identifier les signes de gravité et appliquer la conduite adaptée à la sévérité (PECARN).
         </p>
@@ -118,7 +120,10 @@ export default function ProtocolFlowTCC() {
             <FlowBlock
               title="C – Circulation"
               items={[
-                `Remplissage : NaCl 0,9 % ${formatMl(bolus20)} (20 mL/kg) si choc ou hypovolémie.`,
+                <>
+                  Remplissage : NaCl 0,9 %{" "}
+                  <strong>{formatMl(bolus20)}</strong> (20 mL/kg) si choc ou hypovolémie.
+                </>,
                 "Prévenir toute hypotension : maintenir une PAM adaptée à l’âge.",
               ]}
             />
@@ -126,7 +131,10 @@ export default function ProtocolFlowTCC() {
               title="D – Disability"
               items={[
                 "Évaluer GCS, pupilles (symétrie, réactivité) et déficit focal.",
-                `Convulsions : Midazolam IV ${formatDose(midazolamIvMg)} (0,1 mg/kg, max 4 mg) ou IN 0,2 mg/kg.`,
+                <>
+                  Convulsions : Midazolam IV{" "}
+                  <strong>{formatDose(midazolamIvMg)}</strong> (0,1 mg/kg, max 4 mg) ou IN 0,2 mg/kg.
+                </>,
               ]}
             />
             <FlowBlock
@@ -183,7 +191,13 @@ export default function ProtocolFlowTCC() {
                     }`}
                   >
                     <span>{meta.label}</span>
-                    <span className={active ? "text-white/80 text-xs" : "text-slate-500 text-xs"}>{meta.badge}</span>
+                    <span
+                      className={
+                        active ? "text-white/80 text-xs" : "text-slate-500 text-xs"
+                      }
+                    >
+                      {meta.badge}
+                    </span>
                   </button>
                 );
               })}
@@ -197,7 +211,11 @@ export default function ProtocolFlowTCC() {
                     ? [
                         "Appliquer strictement la règle PECARN (< 2 ans / ≥ 2 ans).",
                         "Scanner si facteur de risque majeur, sinon surveillance 3–6 h (neuro toutes 30 min).",
-                        `Douleur : Paracétamol ${formatDose(paracetamolMg)} (15 mg/kg, max 1 g).`,
+                        <>
+                          Douleur : Paracétamol{" "}
+                          <strong>{formatDose(paracetamolMg)}</strong>{" "}
+                          (15 mg/kg, max 1 g).
+                        </>,
                         "Pas d’AINS ni benzodiazépine en routine.",
                       ]
                     : severity === "modere"
@@ -207,7 +225,13 @@ export default function ProtocolFlowTCC() {
                         "Surveillance continue sur scope, transfert en unité neuro/pédiat dédiée.",
                       ]
                     : [
-                        `Séquence rapide : kétamine ${formatDose(ketamineMg)} (2 mg/kg) + rocuronium ${formatDose(rocuroniumMg)} (1 mg/kg).`,
+                        <>
+                          Séquence rapide : kétamine{" "}
+                          <strong>{formatDose(ketamineMg)}</strong>{" "}
+                          (2 mg/kg) + rocuronium{" "}
+                          <strong>{formatDose(rocuroniumMg)}</strong>{" "}
+                          (1 mg/kg).
+                        </>,
                         "Ventilation : normocapnie (PaCO₂ 35–40 mmHg), hyperventilation uniquement si signes d’engagement.",
                         "Deux VVP, monitorage complet, glycémie > 0,7 g/L, avis neurochir et scanner prioritaire.",
                       ]
@@ -236,8 +260,17 @@ export default function ProtocolFlowTCC() {
           <FlowBlock
             title="Osmothérapie"
             items={[
-              `Mannitol ${formatG(mannitolLowG)} – ${formatG(mannitolHighG)} (0,5–1 g/kg IV en 20 min) si signes d’HTIC.`,
-              `NaCl hypertonique 3 % : ${formatMl(naclHypertonicMl)} (5 mL/kg en 10 min).`,
+              <>
+                Mannitol{" "}
+                <strong>{formatG(mannitolLowG)}</strong> –{" "}
+                <strong>{formatG(mannitolHighG)}</strong>{" "}
+                (0,5–1 g/kg IV en 20 min) si signes d’HTIC.
+              </>,
+              <>
+                NaCl hypertonique 3 % :{" "}
+                <strong>{formatMl(naclHypertonicMl)}</strong>{" "}
+                (5 mL/kg en 10 min).
+              </>,
             ]}
           />
           <FlowBlock
