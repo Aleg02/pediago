@@ -14,6 +14,7 @@ import ProtocolFlowChoc from "@/components/ProtocolFlowChoc";
 import ProtocolFlowACR from "@/components/ProtocolFlowACR";
 import ProtocolFlowEME from "@/components/ProtocolFlowEME";
 import ProtocolFlowCFS from "@/components/ProtocolFlowCFS";
+import ProtocolFlowHypoglycemie from "@/components/ProtocolFlowHypoglycemie";
 import ProtocolFlowAntalgiques from "@/components/ProtocolFlowAntalgiques";
 import ProtocolFlowBronchiolite from "@/components/ProtocolFlowBronchiolite";
 import ProtocolFlowSepsisPurpura from "@/components/ProtocolFlowSepsisPurpura";
@@ -39,6 +40,7 @@ export default function ProtocolPage() {
     "acr-enfant": ProtocolFlowACR,
     eme: ProtocolFlowEME,
     "convulsion-febrile-simple": ProtocolFlowCFS,
+    hypoglycemie: ProtocolFlowHypoglycemie,
     antalgiques: ProtocolFlowAntalgiques,
     bronchiolite: ProtocolFlowBronchiolite,
     "fievre-sepsis-purpura": ProtocolFlowSepsisPurpura,
