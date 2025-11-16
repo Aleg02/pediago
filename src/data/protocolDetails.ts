@@ -699,4 +699,42 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "tachycardie-supraventriculaire": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Identifier rapidement la TSV pédiatrique et sécuriser la réversion du rythme sans erreur de calcul.",
+        "Limiter l'escalade thérapeutique aux situations nécessaires et anticiper l'orientation cardiopédiatrique.",
+      ],
+    },
+    {
+      title: "Diagnostic",
+      bullets: [
+        "Tachycardie régulière à QRS fins (< 80 ms), FC > 220 bpm nourrisson / > 180 bpm enfant.",
+        "Onde P rétrograde ± masquée, démarrage/arrêt abrupt, exclusion tachycardie sinusale.",
+      ],
+    },
+    {
+      title: "Instabilité",
+      bullets: [
+        "Hypotension, altération conscience, signes de choc ou insuffisance cardiaque.",
+        "Cardioversion synchronisée immédiate 0,5–2 J/kg (sédation si conscience).",
+      ],
+    },
+    {
+      title: "Enfant stable",
+      bullets: [
+        "Manœuvres vagales adaptées à l'âge (immersion eau glacée, Valsalva modifié).",
+        "Adénosine 0,1 mg/kg puis 0,2 mg/kg IV rapide (max 6/12 mg) avant antiarythmiques.",
+        "Amiodarone 5 mg/kg ou procaïnamide 10–15 mg/kg si échec, puis cardioversion.",
+      ],
+    },
+    {
+      title: "Surveillance & orientation",
+      bullets: [
+        "Monitoring ECG continu, correction facteurs déclenchants, traitement de la fièvre.",
+        "Hospitalisation pour toute TSV traitée, cardiopathie congénitale, suspicion WPW ou récidive.",
+      ],
+    },
+  ],
 };

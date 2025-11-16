@@ -210,6 +210,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "tachycardie-supraventriculaire",
+    title: "Tachycardie supraventriculaire (TSV)",
+    version: "V0.1",
+    tags: ["cardio", "rythme"],
+    icon: "💗",
+    accentColor: "#ec4899",
+    sources: [
+      { label: "HAS – Urgences pédiatriques : tachycardies supraventriculaires", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
+      { label: "Société Française de Cardiologie", url: "https://www.sfcardio.fr" },
+      { label: "AHA/PALS Tachycardia Algorithm", url: "https://cpr.heart.org" },
+      { label: "NICE – Supraventricular Tachycardia", url: "https://www.nice.org.uk" },
+    ],
+  },
+  {
     slug: "choc-hemorragique",
     title: "Choc hémorragique (enfant)",
     version: "V0.1",
