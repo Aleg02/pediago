@@ -260,6 +260,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "bronchospasme-nourrisson",
+    title: "Bronchospasme du nourrisson (hors asthme)",
+    version: "V0.1",
+    tags: ["respiratoire", "urgence"],
+    icon: "🫁",
+    accentColor: "#06b6d4",
+    sources: [
+      { label: "HAS – Bronchiolite / bronchospasme du nourrisson", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie – Recommandations urgences respiratoires", url: "https://www.sfpediatrie.com" },
+      { label: "SPLF – Obstruction aiguë des voies aériennes", url: "https://splf.fr" },
+      { label: "NICE – Bronchiolitis in children (NG9)", url: "https://www.nice.org.uk/guidance/ng9" },
+      { label: "AAP – Bronchiolitis Clinical Report", url: "https://publications.aap.org" },
+    ],
+  },
+  {
     slug: "traumatisme-cranien",
     title: "Traumatisme crânien (enfant)",
     version: "V0.1",

@@ -17,6 +17,7 @@ import ProtocolFlowCFS from "@/components/ProtocolFlowCFS";
 import ProtocolFlowHypoglycemie from "@/components/ProtocolFlowHypoglycemie";
 import ProtocolFlowAntalgiques from "@/components/ProtocolFlowAntalgiques";
 import ProtocolFlowBronchiolite from "@/components/ProtocolFlowBronchiolite";
+import ProtocolFlowBronchospasme from "@/components/ProtocolFlowBronchospasme";
 import ProtocolFlowSepsisPurpura from "@/components/ProtocolFlowSepsisPurpura";
 import ProtocolFlowTCC from "@/components/ProtocolFlowTCC";
 import ProtocolFlowLaryngite from "@/components/ProtocolFlowLaryngite";
@@ -44,6 +45,7 @@ export default function ProtocolPage() {
     hypoglycemie: ProtocolFlowHypoglycemie,
     antalgiques: ProtocolFlowAntalgiques,
     bronchiolite: ProtocolFlowBronchiolite,
+    "bronchospasme-nourrisson": ProtocolFlowBronchospasme,
     "fievre-sepsis-purpura": ProtocolFlowSepsisPurpura,
     "traumatisme-cranien": ProtocolFlowTCC,
     "laryngite-aigue": ProtocolFlowLaryngite,

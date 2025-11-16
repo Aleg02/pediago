@@ -97,6 +97,15 @@ const SECTION_MAP: Record<string, string[]> = {
     "etat_de_choc",
     "divers",
   ],
+  "bronchospasme-nourrisson": [
+    "constantes",
+    "iot",
+    "isr",
+    "perfusion_transfusion",
+    "sedation",
+    "etat_de_choc",
+    "divers",
+  ],
 
   // Fièvre / sepsis / purpura fulminans
   "fievre-sepsis-purpura": [

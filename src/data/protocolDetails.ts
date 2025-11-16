@@ -293,6 +293,80 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       "Kinésithérapie respiratoire hors DRP douce"
     ]},
   ],
+  "bronchospasme-nourrisson": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Standardiser la PEC d'un bronchospasme aigu non asthmatique chez le nourrisson en situation d'urgence.",
+        "Fournir un support dynamique pour les posologies (O₂, salbutamol, corticoïdes, remplissage) et l'orientation clinique.",
+      ],
+    },
+    {
+      title: "Définition",
+      bullets: [
+        "Obstruction bronchique aiguë liée le plus souvent à une infection virale type bronchiolite, sans asthme connu.",
+        "Tableau associant sibilants expiratoires, polypnée, tirage, toux et difficultés alimentaires (diagnostic clinique).",
+      ],
+    },
+    {
+      title: "ABCDE initial",
+      bullets: [
+        "A : position semi-assise, désobstruction rhinopharyngée systématique.",
+        "B : FR, tirage, geignement, SpO₂ continue ; O₂ 1–2 L/min si SpO₂ < 94 % (objectif 94–98 %).",
+        "C : FC, TRC, évaluer la déshydratation et les apports.",
+        "D : tonus, éveil, signes de fatigue ou hypotonie.",
+        "E : température, contexte infectieux, comorbidités / terrain fragile.",
+      ],
+    },
+    {
+      title: "Classer la sévérité",
+      bullets: [
+        "Léger : polypnée modérée, peu ou pas de tirage, alimentation conservée, SpO₂ ≥ 94 %.",
+        "Modéré : tirage intercostal, sibilants audibles, difficultés alimentaires, SpO₂ 92–94 %.",
+        "Sévère : GEU/tirage marqué, fatigue, cyanose, SpO₂ < 92 %, hypotonie ou apnées.",
+      ],
+    },
+    {
+      title: "Traitements essentiels",
+      bullets: [
+        "Désobstruction rhinopharyngée avant tout geste, hydratation fractionnée.",
+        "Oxygène bas débit 1–2 L/min si SpO₂ < 94 % (objectif 94–98 %).",
+        "Test thérapeutique salbutamol ≥ 6 mois : 2–4 bouffées (100 µg/bouffée) ×3 max toutes les 20 min.",
+        "Corticoïdes systémiques (prednisone/prednisolone 1–2 mg/kg, max 40 mg) si ≥ 12 mois ou suspicion asthme débutant.",
+        "Adrénaline nébulisée 5 mL (1 mg/mL) si forme sévère ou composante laryngée, support ventilatoire (HFNC/CPAP) si échec O₂.",
+        "Remplissage NaCl 0,9 % 10 mL/kg IV si déshydratation.",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Léger : désobstruction + hydratation, retour à domicile si surveillance parentale fiable.",
+        "Modéré : O₂, test salbutamol, réévaluation 20–30 min ; hospitalisation si SpO₂ < 94 %, apports < 50 % ou terrain fragile.",
+        "Sévère : O₂ immédiat, adrénaline, HFNC/CPAP, appel réanimateur et hospitalisation systématique.",
+      ],
+    },
+    {
+      title: "Critères d'hospitalisation / sortie",
+      bullets: [
+        "Hospitaliser si SpO₂ < 94 %, apports < 50 %, détresse respiratoire, < 6 mois, terrain à risque ou échec du test thérapeutique.",
+        "Sortie si SpO₂ ≥ 94 % en air ambiant, apports corrects, tirage minime et parents aptes à surveiller.",
+      ],
+    },
+    {
+      title: "Situations particulières",
+      bullets: [
+        "< 6 mois ou prématurés : seuil d'hospitalisation abaissé (risque d'apnées).",
+        "Pathologies pulmonaires chroniques / cardiopathies : avis spécialisé, monitorage prolongé.",
+      ],
+    },
+    {
+      title: "Non recommandés",
+      bullets: [
+        "Antibiotiques (hors surinfection avérée), antitussifs/mucolytiques, bronchodilatateurs IV.",
+        "Kinésithérapie respiratoire systématique et corticoïdes inhalés en phase aiguë.",
+      ],
+    },
+  ],
   "fievre-sepsis-purpura": [
     { title: "Objectif", bullets: [
       "Reconnaître très tôt les sepsis/purpuras fulminans, déclencher l'ATB IV sans délai",
