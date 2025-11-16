@@ -45,7 +45,7 @@ export default function ProtocolPage() {
       <main className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-slate-500 mb-4">Protocole introuvable 😕</p>
-          <button onClick={() => router.push("/")} className="underline text-slate-700">
+          <button onClick={() => router.push("/?mode=search")} className="underline text-slate-700">
             Retour
           </button>
         </div>
@@ -57,7 +57,7 @@ export default function ProtocolPage() {
     <main className="min-h-screen w-full flex flex-col items-center bg-slate-50">
       <div className="w-full max-w-[440px] px-6 py-8">
         <button
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/?mode=search")}
           className="text-sm text-slate-500 inline-flex items-center gap-2 mb-5 hover:text-slate-700 transition"
         >
           ← Retour

@@ -7,12 +7,13 @@ import SearchBar from "@/components/SearchBar";
 import ProtocolCard from "@/components/ProtocolCard";
 import Fuse from "fuse.js";
 import { PROTOCOLS, type Protocol } from "@/data/protocols";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import Disclaimer from "@/components/Disclaimer";
 
 export default function HomePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // store global
   const ageLabel = useAppStore((s) => s.ageLabel);
@@ -21,7 +22,7 @@ export default function HomePage() {
   const setWeightKg = useAppStore((s) => s.setWeightKg);
 
   // état page
-  const [searchMode, setSearchMode] = useState(false);
+  const [searchMode, setSearchMode] = useState(() => searchParams.get("mode") === "search");
   const [query, setQuery] = useState("");
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
