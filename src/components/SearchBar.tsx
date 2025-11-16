@@ -36,6 +36,12 @@ export default function SearchBar({
           value={inputValue}
           autoFocus={autoFocus}
           onFocus={onFocus}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              inputRef?.current?.blur();
+              event.currentTarget.blur();
+            }
+          }}
           onChange={(e) => {
             const nextValue = e.target.value;
             setInternalValue(nextValue);
