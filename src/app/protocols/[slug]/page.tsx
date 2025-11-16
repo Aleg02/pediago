@@ -22,6 +22,7 @@ import ProtocolFlowSepsisPurpura from "@/components/ProtocolFlowSepsisPurpura";
 import ProtocolFlowTCC from "@/components/ProtocolFlowTCC";
 import ProtocolFlowLaryngite from "@/components/ProtocolFlowLaryngite";
 import ProtocolFlowPCB from "@/components/ProtocolFlowPCB";
+import ProtocolFlowPneumopathieMyco from "@/components/ProtocolFlowPneumopathieMyco";
 
 // Sections posologie (NOUVEAU rendu V2 depuis le JSON)
 import PosologySections from "@/components/PosologySections";
@@ -51,6 +52,7 @@ export default function ProtocolPage() {
     "traumatisme-cranien": ProtocolFlowTCC,
     "laryngite-aigue": ProtocolFlowLaryngite,
     "pneumopathie-communautaire-bacterienne": ProtocolFlowPCB,
+    "pneumopathie-atypique-mycoplasma": ProtocolFlowPneumopathieMyco,
   };
   const Flow = FlowBySlug[slug];
 

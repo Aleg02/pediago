@@ -116,6 +116,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "pneumopathie-atypique-mycoplasma",
+    title: "Pneumopathie atypique (Mycoplasma)",
+    version: "V0.1",
+    tags: ["respiratoire", "infectieux"],
+    icon: "🧬",
+    accentColor: "#2563eb",
+    sources: [
+      { label: "HAS – Infections respiratoires", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
+      { label: "SPLF – Pneumonies atypiques", url: "https://splf.fr" },
+      { label: "NICE – Atypical Pneumonia (NG138)", url: "https://www.nice.org.uk/guidance/ng138" },
+      { label: "AAP – Mycoplasma pneumoniae", url: "https://publications.aap.org" },
+    ],
+  },
+  {
     slug: "fievre-sepsis-purpura",
     title: "Fièvre sévère / Sepsis / Purpura fulminans",
     version: "V0.1",
