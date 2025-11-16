@@ -29,6 +29,32 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "convulsion-febrile-simple",
+    title: "Convulsion fébrile simple (CFS)",
+    version: "V0.1",
+    tags: ["neuro", "urgence"],
+    icon: "🌡️",
+    accentColor: "#9333ea",
+    sources: [
+      {
+        label: "HAS – Convulsions fébriles de l'enfant",
+        url: "https://www.has-sante.fr",
+      },
+      {
+        label: "Société Française de Pédiatrie – Recommandations CFS",
+        url: "https://www.sfpediatrie.com",
+      },
+      {
+        label: "AAP – Febrile Seizures Clinical Report (2021)",
+        url: "https://publications.aap.org",
+      },
+      {
+        label: "NICE – Fever in under 5s",
+        url: "https://www.nice.org.uk/guidance",
+      },
+    ],
+  },
+  {
     slug: "fievre-sepsis-purpura",
     title: "Fièvre sévère / Sepsis / Purpura fulminans",
     version: "V0.1",

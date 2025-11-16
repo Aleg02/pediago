@@ -68,6 +68,61 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       "EME réfractaire : coma thérapeutique (hypnovel/propofol) 24 h"
     ]},
   ],
+  "convulsion-febrile-simple": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Standardiser la PEC des convulsions fébriles simples (6 mois – 5 ans) pour sécuriser gestes et calculs.",
+        "Limiter les examens inutiles tout en dépistant les formes compliquées / infections du SNC.",
+      ],
+    },
+    {
+      title: "Définition",
+      bullets: [
+        "Crise généralisée tonico-clonique < 15 min, unique en 24 h, examen neuro normal ensuite.",
+        "Pas d'antécédent neurologique significatif, pas d'argument pour infection du SNC.",
+      ],
+    },
+    {
+      title: "Arbre décisionnel",
+      bullets: [
+        "Crise en cours ? → ABC + benzodiazépine si ≥ 5 min.",
+        "Tous les critères CFS réunis ? → PEC simple + surveillance courte.",
+        "Sinon → convulsion fébrile compliquée / autre protocole.",
+      ],
+    },
+    {
+      title: "ABC initial",
+      bullets: [
+        "PLS, libération des VAS, O₂ titré (94–98 %), VVP si crise prolongée.",
+        "TA, TRC, glycémie systématique (corriger si < 0,7 g/L par glucose 10 % 2 mL/kg).",
+        "Recherche foyer infectieux, T°, signes méningés ou purpura.",
+      ],
+    },
+    {
+      title: "Traitement crise",
+      bullets: [
+        "Midazolam IN 0,2 mg/kg (max 10 mg) ou buccal 0,3 mg/kg.",
+        "Si VVP : midazolam IV 0,1 mg/kg (max 4 mg). Répéter une fois à 5 min.",
+        "Échec x2 → protocole statut convulsif.",
+      ],
+    },
+    {
+      title: "Post-critique",
+      bullets: [
+        "Pas d'examens systématiques si clinique rassurante (pas de scanner, EEG ou biologie).",
+        "PL si suspicion méningite, ionogramme si troubles hydroélectrolytiques.",
+        "Traiter la fièvre : paracétamol 15 mg/kg, pas d’alternance systématique.",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Hospitaliser si < 1 an, crise avant 6 mois, critères complexes, mauvaise tolérance ou surveillance impossible.",
+        "Sortie si examen neuro redevenu normal, fièvre contrôlée, parents rassurés + consignes écrites.",
+      ],
+    },
+  ],
   "antalgiques": [
     { title: "Évaluation", bullets: [
       "Identifier le palier adapté à la douleur (EVA/EVENDOL)",
