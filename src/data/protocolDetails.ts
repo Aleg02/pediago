@@ -786,4 +786,46 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "polytraumatisme-pediatrique": [
+    {
+      title: "Objectif",
+      bullets: [
+        "PEC opérationnelle du polytrauma pédiatrique avec ABCDE systématique et décisions rapides bloc / imagerie / transfert.",
+        "Garantir les calculs pondérés des bolus, transfusions et drogues d’induction pour éviter toute règle de trois au lit du patient.",
+      ],
+    },
+    {
+      title: "Définition & triage",
+      bullets: [
+        "Atteinte d’au moins deux régions dont une engage potentiellement le pronostic vital : traiter comme urgence vitale.",
+        "Activation de la filière polytrauma, FAST immédiat si instabilité, imagerie ciblée si stable.",
+      ],
+    },
+    {
+      title: "ABCDE",
+      bullets: [
+        "A : immobilisation tête–cou, aspiration, oxygène 10–15 L/min, IOT si GCS ≤ 8 ou détresse respiratoire.",
+        "B : recherche pneumothorax suffocant, décompression 14–18G, drainage thoracique si hémothorax massif.",
+        "C : NaCl 0,9 % 20 mL/kg avant transfusion (CGR/PFC 10–15 mL/kg, plaquettes 10–20 mL/kg).",
+        "D : GCS, pupilles, convulsions → midazolam 0,1 mg/kg IV ou 0,2 mg/kg IN, glycémie → G10 % 2 mL/kg.",
+        "E : déshabillage complet, prévention hypothermie, recherche hémorragie externe.",
+      ],
+    },
+    {
+      title: "Imagerie & orientation",
+      bullets: [
+        "FAST + instable → bloc immédiat ; FAST + stable → scanner TAP ; FAST − instable → chercher thorax / bassin / neuro.",
+        "Scanner corps entier si mécanisme violent, sinon ciblé ; patient instable → pas de scanner avant geste vital.",
+        "Décision conjointe réa/chirurgie/transfert + surveillance continue.",
+      ],
+    },
+    {
+      title: "Situations particulières",
+      bullets: [
+        "Nourrisson : choc masqué, transfusion précoce ; prématuré ou pathologie chronique : adapter volumes.",
+        "Traumatisme pénétrant : forte probabilité de geste chirurgical ; suspicion maltraitance < 2 ans → imagerie systématique.",
+        "Hospitalisation en soins intensifs pour tout polytrauma, sortie uniquement si trauma mineur confirmé après 4–6 h d’observation.",
+      ],
+    },
+  ],
 };

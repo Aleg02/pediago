@@ -395,4 +395,19 @@ export const PROTOCOLS: Protocol[] = [
       { label: "ATLS Pédiatrique – American College of Surgeons", url: "https://www.facs.org" },
     ],
   },
+  {
+    slug: "polytraumatisme-pediatrique",
+    title: "Polytraumatisme pédiatrique",
+    version: "V1.0",
+    tags: ["trauma", "urgence"],
+    icon: "🚑",
+    accentColor: "#ef4444",
+    sources: [
+      { label: "HAS – Urgences pédiatriques", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
+      { label: "SFAR – Trauma", url: "https://sfar.org" },
+      { label: "ATLS pédiatrique – American College of Surgeons", url: "https://www.facs.org" },
+      { label: "NICE Trauma Guidelines", url: "https://www.nice.org.uk" },
+    ],
+  },
 ];
