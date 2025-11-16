@@ -80,6 +80,27 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "laryngite-aigue",
+    title: "Laryngite aiguë (Croup)",
+    version: "V0.1",
+    tags: ["respiratoire", "urgence"],
+    icon: "🌬️",
+    accentColor: "#3b82f6",
+    sources: [
+      { label: "HAS – Laryngite aiguë de l'enfant", url: "https://www.has-sante.fr" },
+      {
+        label: "Société Française de Pédiatrie – Recommandations laryngite",
+        url: "https://www.sfpediatrie.com",
+      },
+      { label: "SPLF – Urgences respiratoires", url: "https://splf.fr" },
+      { label: "NICE – Croup: assessment and management", url: "https://www.nice.org.uk/guidance/ng9" },
+      {
+        label: "American Academy of Pediatrics – Croup Clinical Report",
+        url: "https://publications.aap.org",
+      },
+    ],
+  },
+  {
     slug: "fievre-sepsis-purpura",
     title: "Fièvre sévère / Sepsis / Purpura fulminans",
     version: "V0.1",

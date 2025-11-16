@@ -197,6 +197,58 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "laryngite-aigue": [
+    {
+      title: "Objectif",
+      bullets: [
+        "PEC rapide de la laryngite aiguë virale (croup) avec calcul immédiat des posologies et guidance clinique.",
+        "Limiter les stimulations, rassurer l'enfant et suivre les recommandations HAS/SFP/SPLF/NICE/AAP.",
+      ],
+    },
+    {
+      title: "Définition rapide",
+      bullets: [
+        "Inflammation laryngo-trachéale virale (parainfluenza majoritaire) → toux aboyante, enrouement, stridor.",
+        "Signes de gravité : stridor au repos, tirage, agitation, hypoxémie, balancement thoraco-abdominal, épuisement.",
+      ],
+    },
+    {
+      title: "Évaluation initiale ABCDE",
+      bullets: [
+        "A : installer l'enfant calmement dans les bras du parent, éviter toute agitation inutile.",
+        "B : monitorer SpO₂ ; O₂ haut débit si < 94 % (objectif 94–98 %).",
+        "C : FC, TRC, TA ; rechercher signes de choc ou déshydratation.",
+        "D : état de vigilance, agitation, signes d'épuisement.",
+        "E : température, écoute des VAS, rechercher corps étranger / épiglottite.",
+      ],
+    },
+    {
+      title: "Classer la sévérité",
+      bullets: [
+        "Légère : stridor uniquement à l'effort, pas de tirage ni d'agitation.",
+        "Modérée : stridor au repos, tirage modéré, +/- agitation, SpO₂ ≥ 94 %.",
+        "Sévère / menace vitale : stridor très bruyant voire silence, tirage marqué, SpO₂ < 94 %, cyanose, obnubilation.",
+      ],
+    },
+    {
+      title: "Traitements essentiels",
+      bullets: [
+        "Dexaméthasone PO ou IV 0,6 mg/kg (0,15–0,6 mg/kg possibles) dose unique, max 10 mg.",
+        "Adrénaline nébulisée si modéré à sévère : 5 mL L(+) 1 mg/mL (ou racémique 0,5 mL + NaCl).",
+        "Budesonide nébulisé 2 mg si corticoïde inhalé préféré, surveillance 2 h post-adrénaline.",
+        "Paracétamol 15 mg/kg si fièvre / inconfort, hydratation orale si possible.",
+      ],
+    },
+    {
+      title: "Orientation & surveillance",
+      bullets: [
+        "Légère : dexaméthasone PO, observation 1–2 h, sortie avec consignes si disparition du stridor.",
+        "Modérée : dexaméthasone + adrénaline, surveillance 2–4 h, répéter nébulisation si reprise des signes.",
+        "Sévère : O₂ 10 L/min, adrénaline immédiate, corticoïde IV si besoin, préparation VAS difficile, appel réanimation.",
+        "Hospitalisation si < 6 mois, SpO₂ < 94 %, stridor au repos persistant, multiples nébulisations, terrain fragile ou surveillance parentale difficile.",
+      ],
+    },
+  ],
   "antalgiques": [
     { title: "Évaluation", bullets: [
       "Identifier le palier adapté à la douleur (EVA/EVENDOL)",
