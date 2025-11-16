@@ -79,43 +79,50 @@ export default function HomePage() {
     router.push(`/protocols/${slug}`);
   };
 
+  const resetHomepage = () => {
+    router.push("/");
+    setQuery("");
+    setSearchMode(false);
+    searchModeTrigger.current = null;
+    searchInputRef.current?.blur();
+  };
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
       {/* fine barre de couleur en haut comme accent */}
       <div className="h-1 w-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#22c55e]" />
 
       <div className="flex min-h-[calc(100vh-4px)] flex-col items-center">
-        {/* HEADER : logo + titre + slogan */}
-        <header className="w-full max-w-[420px] px-6 pt-10 text-center">
-          <Image
-            src="/logo.svg"
-            alt="PediaGo"
-            width={160}
-            height={160}
-            priority
-            className="mx-auto h-20 w-auto"
-          />
-          <h1 className="mt-7 text-[64px] leading-none font-semibold tracking-tight text-slate-900">
-            <span>Pedia</span>
-            <span className="text-[#ef4444]">Go</span>
-          </h1>
-          <p className="mt-2 text-sm text-slate-500">Le bon geste, maintenant&nbsp;!</p>
-        </header>
-
-        {/* CONTENU PRINCIPAL */}
-        <section className="w-full max-w-[420px] flex-1 px-6 pb-14">
-          {/* Bloc Âge / Poids + recherche */}
-          <div className="mt-10 space-y-4">
-            {/* Âge / Poids : le composant interne gère déjà le layout */}
-            <AgeWeightPicker
-              ageLabel={ageLabel}
-              setAgeLabel={setAgeLabel}
-              weightKg={weightKg}
-              setWeightKg={setWeightKg}
-              className="max-w-none"
+        {/* HEADER : logo + titre + formulaire de recherche */}
+        <header
+          className={`w-full max-w-[420px] px-6 text-center transition-shadow ${
+            searchMode
+              ? "sticky top-0 z-20 bg-white/95 pb-4 pt-4 shadow-[0_8px_30px_rgba(15,23,42,0.12)] backdrop-blur"
+              : "pt-10"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={resetHomepage}
+            className="mx-auto flex w-full max-w-[320px] flex-col items-center text-center focus:outline-none"
+            aria-label="Revenir à l’accueil"
+          >
+            <Image
+              src="/logo.svg"
+              alt="PediaGo"
+              width={160}
+              height={160}
+              priority
+              className="mx-auto h-20 w-auto"
             />
+            <h1 className="mt-7 text-[64px] leading-none font-semibold tracking-tight text-slate-900">
+              <span>Pedia</span>
+              <span className="text-[#ef4444]">Go</span>
+            </h1>
+          </button>
+          <p className="mt-2 text-sm text-slate-500">Le bon geste, maintenant&nbsp;!</p>
 
-            {/* Barre de recherche */}
+          <div className={`${searchMode ? "mt-4" : "mt-8"}`}>
             <SearchBar
               onFocus={() => {
                 searchModeTrigger.current = null;
@@ -138,6 +145,32 @@ export default function HomePage() {
               className="mt-1"
               inputRef={searchInputRef}
             />
+          </div>
+        </header>
+
+        {/* CONTENU PRINCIPAL */}
+        <section className="w-full max-w-[420px] flex-1 px-6 pb-14">
+          <div className={`${searchMode ? "mt-6" : "mt-10"} space-y-4`}>
+            <AgeWeightPicker
+              ageLabel={ageLabel}
+              setAgeLabel={setAgeLabel}
+              weightKg={weightKg}
+              setWeightKg={setWeightKg}
+              className="max-w-none"
+            />
+
+            {searchMode && (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery("");
+                  setSearchMode(true);
+                }}
+                className="w-full rounded-full border border-slate-200/80 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-[0_4px_18px_rgba(15,23,42,0.08)] transition hover:border-slate-300"
+              >
+                Tous les protocoles ({PROTOCOLS.length})
+              </button>
+            )}
           </div>
 
           {/* HOME : disclaimer + CTA */}
