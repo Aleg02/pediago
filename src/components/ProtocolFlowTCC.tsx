@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import AgeWeightPicker from "@/components/AgeWeightPicker";
 import { FlowBlock, FlowChevron, FlowRibbon } from "@/components/flow/FlowParts";
 import { useAppStore } from "@/store/useAppStore";
@@ -33,11 +35,35 @@ const formatG = (value: number | null | undefined) => {
   return `${Number(v.toFixed(v >= 10 ? 0 : 1))} g`;
 };
 
+const SEVERITY_META = {
+  leger: {
+    label: "TCC léger",
+    badge: "GCS 14–15",
+    subtitle: "PECARN et surveillance rapprochée",
+    bg: "bg-emerald-50",
+  },
+  modere: {
+    label: "TCC modéré",
+    badge: "GCS 9–13",
+    subtitle: "Scanner + avis spécialisé",
+    bg: "bg-amber-50",
+  },
+  severe: {
+    label: "TCC sévère",
+    badge: "GCS ≤ 8",
+    subtitle: "Réanimation et traitement HTIC",
+    bg: "bg-rose-50",
+  },
+} as const;
+
+type SeverityKey = keyof typeof SEVERITY_META;
+
 export default function ProtocolFlowTCC() {
   const weightFromStore = useAppStore((s) => s.weightKg);
   const setWeightKg = useAppStore((s) => s.setWeightKg);
   const ageLabel = useAppStore((s) => s.ageLabel);
   const setAgeLabel = useAppStore((s) => s.setAgeLabel);
+  const [severity, setSeverity] = useState<SeverityKey>("leger");
 
   const weightKg = clampWeight(weightFromStore);
 
@@ -140,32 +166,55 @@ export default function ProtocolFlowTCC() {
             subtitle="Conduite spécifique selon la sévérité"
             gradient="from-emerald-500 via-lime-500 to-teal-500"
           />
-          <div className="grid gap-3 md:grid-cols-3">
-            <FlowBlock
-              title="TCC léger (GCS 14–15)"
-              items={[
-                "Appliquer strictement la règle PECARN (< 2 ans / ≥ 2 ans).",
-                "Scanner si facteur de risque majeur, sinon surveillance 3–6 h (neuro toutes 30 min).",
-                `Douleur : Paracétamol ${formatDose(paracetamolMg)} (15 mg/kg, max 1 g).`,
-                "Pas d’AINS ni benzodiazépine en routine.",
-              ]}
-            />
-            <FlowBlock
-              title="TCC modéré (GCS 9–13)"
-              items={[
-                "Scanner cérébral en urgence + avis spécialisé.",
-                "O₂ 10–15 L/min, VVP, remplissage selon état, calme et analgésie contrôlée.",
-                "Surveillance continue sur scope, transfert en unité neuro/pédiat dédiée.",
-              ]}
-            />
-            <FlowBlock
-              title="TCC sévère (GCS ≤ 8)"
-              items={[
-                `Séquence rapide : kétamine ${formatDose(ketamineMg)} (2 mg/kg) + rocuronium ${formatDose(rocuroniumMg)} (1 mg/kg).`,
-                "Ventilation : normocapnie (PaCO₂ 35–40 mmHg), hyperventilation uniquement si signes d’engagement.",
-                "Deux VVP, monitorage complet, glycémie > 0,7 g/L, avis neurochir et scanner prioritaire.",
-              ]}
-            />
+          <div className="rounded-3xl border border-black/10 bg-white/90 p-4 shadow-sm">
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(SEVERITY_META) as SeverityKey[]).map((key) => {
+                const meta = SEVERITY_META[key];
+                const active = severity === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setSeverity(key)}
+                    className={`flex flex-col rounded-2xl border px-3 py-2 text-left text-sm font-semibold transition ${
+                      active
+                        ? "border-slate-900 bg-slate-900 text-white shadow"
+                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-400"
+                    }`}
+                  >
+                    <span>{meta.label}</span>
+                    <span className={active ? "text-white/80 text-xs" : "text-slate-500 text-xs"}>{meta.badge}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-4">
+              <FlowBlock
+                title={`${SEVERITY_META[severity].label} (${SEVERITY_META[severity].badge})`}
+                subtitle={SEVERITY_META[severity].subtitle}
+                items={
+                  severity === "leger"
+                    ? [
+                        "Appliquer strictement la règle PECARN (< 2 ans / ≥ 2 ans).",
+                        "Scanner si facteur de risque majeur, sinon surveillance 3–6 h (neuro toutes 30 min).",
+                        `Douleur : Paracétamol ${formatDose(paracetamolMg)} (15 mg/kg, max 1 g).`,
+                        "Pas d’AINS ni benzodiazépine en routine.",
+                      ]
+                    : severity === "modere"
+                    ? [
+                        "Scanner cérébral en urgence + avis spécialisé.",
+                        "O₂ 10–15 L/min, VVP, remplissage selon état, calme et analgésie contrôlée.",
+                        "Surveillance continue sur scope, transfert en unité neuro/pédiat dédiée.",
+                      ]
+                    : [
+                        `Séquence rapide : kétamine ${formatDose(ketamineMg)} (2 mg/kg) + rocuronium ${formatDose(rocuroniumMg)} (1 mg/kg).`,
+                        "Ventilation : normocapnie (PaCO₂ 35–40 mmHg), hyperventilation uniquement si signes d’engagement.",
+                        "Deux VVP, monitorage complet, glycémie > 0,7 g/L, avis neurochir et scanner prioritaire.",
+                      ]
+                }
+                bg={SEVERITY_META[severity].bg}
+              />
+            </div>
           </div>
         </div>
 

@@ -108,6 +108,16 @@ const SECTION_MAP: Record<string, string[]> = {
     "etat_de_choc",
     "purpura_fulminans",
   ],
+
+  // Traumatisme crânien
+  "traumatisme-cranien": [
+    "constantes",
+    "iot",
+    "isr",
+    "perfusion_transfusion",
+    "sedation",
+    "etat_de_choc",
+  ],
 };
 
 /* ===============================
