@@ -131,6 +131,22 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "meningite-bacterienne-purulente",
+    title: "Méningite bactérienne purulente",
+    version: "V0.1",
+    tags: ["infectieux", "urgence"],
+    icon: "🧠",
+    accentColor: "#8b5cf6",
+    sources: [
+      { label: "HAS – Méningites bactériennes", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
+      { label: "RéPias – Infections invasives", url: "https://www.preventioninfection.fr" },
+      { label: "SPLF – Urgences respiratoires", url: "https://splf.fr" },
+      { label: "NICE – Meningitis (NG143)", url: "https://www.nice.org.uk/guidance/ng143" },
+      { label: "AAP – Bacterial Meningitis", url: "https://publications.aap.org" },
+    ],
+  },
+  {
     slug: "fievre-sepsis-purpura",
     title: "Fièvre sévère / Sepsis / Purpura fulminans",
     version: "V0.1",

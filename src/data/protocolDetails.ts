@@ -608,4 +608,61 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "meningite-bacterienne-purulente": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Méningite purulente = urgence vitale : ATB IV immédiate + hospitalisation spécialisée.",
+        "Identifier rapidement l’âge (< 3 mois vs ≥ 3 mois) pour adapter l’antibiothérapie.",
+      ],
+    },
+    {
+      title: "Diagnostic express",
+      bullets: [
+        "Fièvre + céphalées/vomissements, raideur méningée, altération de conscience, purpura fulminans si méningococcémie.",
+        "ABCDE, glycémie capillaire, monitorage SpO₂, recherche convulsions (Midazolam si nécessaire).",
+      ],
+    },
+    {
+      title: "Signes de gravité (ATB sans attendre la PL)",
+      bullets: [
+        "Purpura, choc, instabilité hémodynamique, Glasgow < 11, convulsions persistantes, détresse respiratoire.",
+        "Remplissage NaCl 0,9 % 20 mL/kg si choc, O₂ 10–15 L/min si SpO₂ < 94 %.",
+      ],
+    },
+    {
+      title: "Ponction lombaire",
+      bullets: [
+        "Possible seulement si patient stable, sans signe d’HTIC ni trouble de coagulation.",
+        "CI : instabilité, purpura, crise convulsive persistante, signes d’engagement, trouble hémostase.",
+      ],
+    },
+    {
+      title: "Antibiothérapie IV",
+      bullets: [
+        "< 3 mois : Cefotaxime 200 mg/kg/j + Amoxicilline 200 mg/kg/j en 3–4 injections.",
+        "≥ 3 mois : Cefotaxime 200 mg/kg/j (3–4 inj) ou Ceftriaxone 100 mg/kg/j (max 4 g). Ajouter Vancomycine 60 mg/kg/j si pneumocoque à CMI élevée, Amoxicilline si suspicion Listeria.",
+      ],
+    },
+    {
+      title: "Corticothérapie",
+      bullets: [
+        "Dexaméthasone 0,15 mg/kg IV toutes les 6 h pendant 48 h si suspicion pneumocoque ≥ 3 mois (avant/avec 1ère dose d’ATB).",
+      ],
+    },
+    {
+      title: "Traitements associés",
+      bullets: [
+        "Antipyrétiques (Paracétamol 15 mg/kg), remplissage, monitorage neurologique.",
+        "Convulsions : Midazolam 0,1 mg/kg IV ou 0,2 mg/kg IN, puis protocole EME si échec.",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Hospitalisation obligatoire. Réanimation si choc, SpO₂ < 94 %, altération de conscience, purpura fulminans ou convulsions réfractaires.",
+        "Sortie uniquement après hospitalisation complète : apyrexie, amélioration neuro, relais ATB défini.",
+      ],
+    },
+  ],
 };
