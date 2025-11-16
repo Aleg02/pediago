@@ -64,9 +64,22 @@ export default function ProtocolPage() {
         </button>
 
         <div className="mb-6 flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold text-slate-900">{protocol.title}</h1>
-            {protocol.version && <p className="text-slate-500 text-sm">Version {protocol.version}</p>}
+          <div className="flex items-center gap-4">
+            {protocol.icon ? (
+              <div
+                className="flex h-14 w-14 items-center justify-center rounded-2xl text-2xl shadow-sm"
+                style={{
+                  background: `radial-gradient(circle at 30% 30%, ${protocol.accentColor}22 0%, ${protocol.accentColor}10 100%)`,
+                }}
+                aria-hidden
+              >
+                {protocol.icon}
+              </div>
+            ) : null}
+            <div>
+              <h1 className="text-2xl font-semibold text-slate-900">{protocol.title}</h1>
+              {protocol.version && <p className="text-slate-500 text-sm">Version {protocol.version}</p>}
+            </div>
           </div>
           {protocol.sources?.length ? (
             <button
