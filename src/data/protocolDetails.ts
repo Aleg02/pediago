@@ -123,6 +123,80 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "hypoglycemie": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Stabiliser rapidement toute glycémie < 0,7 g/L et sécuriser la correction du glucose.",
+        "Limiter les erreurs de calcul grâce aux volumes/grammages pondérés et orienter l'enfant selon la gravité.",
+      ],
+    },
+    {
+      title: "Définition",
+      bullets: [
+        "Hypoglycémie pédiatrique : glycémie plasmatique < 0,7 g/L (3,9 mmol/L).",
+        "Hypoglycémie sévère si < 0,4 g/L ou présence de signes neurologiques.",
+      ],
+    },
+    {
+      title: "Arbre décisionnel",
+      bullets: [
+        "Confirmer la glycémie capillaire → si doute, recontrôler sur gaz/veineux.",
+        "Signes de gravité ou glycémie < 0,4 g/L → voie IV urgente (bolus G10 %).",
+        "Enfant conscient, 0,4–0,7 g/L → resucrage oral 0,3 g/kg + contrôle à 15 min.",
+        "Identifier la cause (jeûne, infection, intoxication) et planifier la surveillance.",
+      ],
+    },
+    {
+      title: "Évaluation initiale",
+      bullets: [
+        "ABCDE : PLS si inconscient, aspiration si encombrement, O₂ titré (94–98 %).",
+        "SpO₂ < 94 % → O₂ 10 L/min, pose VVP/IO si signes de gravité.",
+        "GCS/AVPU, recherche signes neuro (tremblements, convulsions, coma).",
+        "Inspection complète : déshydratation, foyer infectieux, toxiques.",
+      ],
+    },
+    {
+      title: "Signes de gravité",
+      bullets: [
+        "Glycémie < 0,4 g/L ou évolution rapide malgré resucrage.",
+        "Convulsions, troubles de conscience, hypotonie, incapacité à boire.",
+        "Suspicion intoxication (insuline, bêtabloquant, alcool) ou trouble neuro persistant.",
+      ],
+    },
+    {
+      title: "Traitement sévère",
+      bullets: [
+        "Bolus G10 % 2 mL/kg IV suivi d'une perfusion 6–8 mg/kg/min.",
+        "Si IV impossible : glucagon IM 0,5 mg (< 25 kg) ou 1 mg (≥ 25 kg).",
+        "Convulsions : midazolam IN 0,2 mg/kg ou IV 0,1 mg/kg.",
+        "Surveillance glycémique toutes les 15 min + recherche de cause.",
+      ],
+    },
+    {
+      title: "Traitement modéré / léger",
+      bullets: [
+        "Resucrage oral 0,3 g/kg (gel glucosé, jus, sucre) + recontrôle à 15 min.",
+        "Si glycémie toujours < 0,7 g/L ou symptômes persistants → répétition ou voie IV.",
+        "Hypoglycémie légère asymptomatique : même correction orale + surveillance 1–2 h.",
+      ],
+    },
+    {
+      title: "Situations particulières",
+      bullets: [
+        "Nourrisson < 1 an ou suspicion EIIM → hospitalisation + perfusion continue.",
+        "Déshydratation / gastroentérite : réhydratation + glucose.",
+        "Suspicion intoxication → avis centre antipoison, monitoring continu.",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Hospitalisation : hypoglycémie sévère, convulsions, perfusion continue, intoxication, terrain à risque.",
+        "Sortie : glycémie > 0,7 g/L stable ≥ 4 h, asymptomatique, cause identifiée, parents formés.",
+      ],
+    },
+  ],
   "antalgiques": [
     { title: "Évaluation", bullets: [
       "Identifier le palier adapté à la douleur (EVA/EVENDOL)",

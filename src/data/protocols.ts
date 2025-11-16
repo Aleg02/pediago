@@ -55,6 +55,31 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "hypoglycemie",
+    title: "Hypoglycémie du nourrisson & de l'enfant",
+    version: "V0.1",
+    tags: ["metabolique", "urgence"],
+    icon: "🍬",
+    accentColor: "#0ea5e9",
+    sources: [
+      {
+        label: "HAS – Urgences pédiatriques : hypoglycémie",
+        url: "https://www.has-sante.fr",
+      },
+      {
+        label: "Société Française de Pédiatrie – Recommandations hypoglycémie",
+        url: "https://www.sfpediatrie.com",
+      },
+      {
+        label: "NICE – Hypoglycaemia in children",
+        url: "https://www.nice.org.uk",
+      },
+      {
+        label: "Annales d'Endocrinologie – Guidelines hypoglycémie pédiatrique (2021)",
+      },
+    ],
+  },
+  {
     slug: "fievre-sepsis-purpura",
     title: "Fièvre sévère / Sepsis / Purpura fulminans",
     version: "V0.1",
