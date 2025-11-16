@@ -17,6 +17,16 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["neuro", "urgence"],
     icon: "⚡️",
     accentColor: "#6366f1",
+    sources: [
+      {
+        label: "HAS – Prise en charge des crises convulsives prolongées de l'enfant (2016)",
+        url: "https://www.has-sante.fr/jcms/c_2724683",
+      },
+      {
+        label: "SFNP – Recommandations sur l'état de mal épileptique pédiatrique (2022)",
+        url: "https://www.societe-neurologie-pediatrique.com/",
+      },
+    ],
   },
   {
     slug: "acr-enfant",
@@ -25,6 +35,16 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["réa"],
     icon: "❤️‍🩹",
     accentColor: "#ef4444",
+    sources: [
+      {
+        label: "European Resuscitation Council – Pediatric Life Support Guidelines (2021)",
+        url: "https://cprguidelines.eu/",
+      },
+      {
+        label: "American Heart Association – Pediatric Advanced Life Support (2020)",
+        url: "https://cpr.heart.org/",
+      },
+    ],
   },
   {
     slug: "choc-hemorragique",
@@ -33,6 +53,16 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["hémorragie"],
     icon: "🩸",
     accentColor: "#f97316",
+    sources: [
+      {
+        label: "SFAR – Prise en charge du choc hémorragique sévère (2019)",
+        url: "https://sfar.org/pratiques-reanimation/choc-hemorragique/",
+      },
+      {
+        label: "ATLS – Advanced Trauma Life Support 10e édition (section pédiatrique)",
+        url: "https://www.facs.org/quality-programs/trauma/atls/",
+      },
+    ],
   },
   {
     slug: "anaphylaxie",
@@ -41,6 +71,16 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["allergie"],
     icon: "🌿",
     accentColor: "#22c55e",
+    sources: [
+      {
+        label: "HAS – Diagnostic et prise en charge de l'anaphylaxie (2021)",
+        url: "https://www.has-sante.fr/jcms/c_2789769",
+      },
+      {
+        label: "EAACI – Anaphylaxis Guidelines Update (2021)",
+        url: "https://www.eaaci.org/resources/guidelines",
+      },
+    ],
   },
   {
     slug: "aag",
@@ -49,6 +89,16 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire"],
     icon: "💨",
     accentColor: "#0ea5e9",
+    sources: [
+      {
+        label: "Groupe de Pneumologie Pédiatrique – Asthme aigu grave (2020)",
+        url: "https://www.sfpediatrie.com/",
+      },
+      {
+        label: "GINA – Global Strategy for Asthma Management (section pédiatrique 2023)",
+        url: "https://ginasthma.org/",
+      },
+    ],
   },
   {
     slug: "antalgiques",
@@ -57,6 +107,16 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["douleur"],
     icon: "💊",
     accentColor: "#f59e0b",
+    sources: [
+      {
+        label: "SFETD – Douleur de l'enfant : protocoles antalgiques (2022)",
+        url: "https://www.sfetd-douleur.org/",
+      },
+      {
+        label: "OMS – Lignes directrices sur la douleur aiguë chez l'enfant (2012)",
+        url: "https://www.who.int/publications/i/item/9789241548120",
+      },
+    ],
   },
   {
     slug: "bronchiolite",
