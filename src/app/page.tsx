@@ -99,7 +99,7 @@ export default function HomePage() {
         <header
           className={`w-full max-w-[420px] px-6 text-center transition-shadow ${
             searchMode
-              ? "sticky top-0 z-20 bg-white/95 pb-6 pt-6 shadow-[0_8px_30px_rgba(15,23,42,0.12)] backdrop-blur"
+              ? "sticky top-0 z-20 bg-white/95 pb-4 pt-4 shadow-[0_8px_30px_rgba(15,23,42,0.12)] backdrop-blur"
               : "pt-10"
           }`}
         >
@@ -109,25 +109,32 @@ export default function HomePage() {
             className="mx-auto flex w-full max-w-[320px] flex-col items-center text-center focus:outline-none"
             aria-label="Revenir à l’accueil"
           >
-            <Image
-              src="/logo.svg"
-              alt="PediaGo"
-              width={160}
-              height={160}
-              priority
-              className="mx-auto h-20 w-auto"
-            />
-            <h1 className="mt-7 text-[64px] leading-none font-semibold tracking-tight text-slate-900">
+            {!searchMode && (
+              <Image
+                src="/logo.svg"
+                alt="PediaGo"
+                width={160}
+                height={160}
+                priority
+                className="mx-auto h-20 w-auto"
+              />
+            )}
+            <h1
+              className={`${
+                searchMode
+                  ? "text-4xl"
+                  : "mt-7 text-[64px]"
+              } leading-none font-semibold tracking-tight text-slate-900`}
+            >
               <span>Pedia</span>
               <span className="text-[#ef4444]">Go</span>
             </h1>
           </button>
-
-          <p className="mt-2 text-sm text-slate-500">
+          <p className={`${searchMode ? "mt-1" : "mt-2"} text-sm text-slate-500`}>
             Le bon geste, maintenant&nbsp;!
           </p>
 
-          <div className={`${searchMode ? "mt-6" : "mt-10"} space-y-4`}>
+          <div className={`${searchMode ? "mt-4" : "mt-10"} space-y-4`}>
             {/* Âge / Poids : le composant interne gère déjà le layout */}
             <AgeWeightPicker
               ageLabel={ageLabel}
