@@ -6,6 +6,7 @@ export type Protocol = {
   tags?: string[];
   icon: string;
   accentColor: string;
+  sources?: { label: string; url?: string }[];
 };
 
 export const PROTOCOLS: Protocol[] = [
@@ -56,5 +57,44 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["douleur"],
     icon: "💊",
     accentColor: "#f59e0b",
+  },
+  {
+    slug: "bronchiolite",
+    title: "Bronchiolite aiguë du nourrisson (< 12 mois)",
+    version: "V0.1",
+    tags: ["respiratoire", "nourrisson"],
+    icon: "👶",
+    accentColor: "#0ea5e9",
+    sources: [
+      {
+        label:
+          "HAS – Prise en charge du 1er épisode de bronchiolite aiguë chez le nourrisson de moins de 12 mois (2019)",
+        url: "https://www.has-sante.fr/jcms/p_3118113",
+      },
+      {
+        label: "HAS – Texte complet des recommandations bronchiolite (PDF)",
+        url: "https://www.has-sante.fr/upload/docs/application/pdf/2019-11/hascnpp_bronchiolite_texte_recommandations_2019.pdf",
+      },
+      {
+        label: "HAS – Fiches outils évaluation et conseils parents",
+        url: "https://www.has-sante.fr/jcms/p_3118175",
+      },
+      {
+        label: "NICE Guideline NG9 – Bronchiolitis in children",
+        url: "https://www.nice.org.uk/guidance/ng9",
+      },
+      {
+        label: "AAP – Clinical Practice Guideline: Bronchiolitis (2014)",
+        url: "https://pubmed.ncbi.nlm.nih.gov/25349312/",
+      },
+      {
+        label: "VIDAL – Bronchiolite aiguë du nourrisson (2024)",
+        url: "https://www.vidal.fr/maladies/recommandations/bronchiolite-aigue-du-nourrisson-4058.html",
+      },
+      {
+        label: "Société Française de Pédiatrie – Bronchiolite / stratégie de prévention VRS",
+        url: "https://www.sfpediatrie.com/",
+      },
+    ],
   },
 ];

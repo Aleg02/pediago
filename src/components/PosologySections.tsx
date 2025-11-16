@@ -86,26 +86,18 @@ const SECTION_MAP: Record<string, string[]> = {
     "etat_de_choc",
     "eme",
   ],
+
+  // Bronchiolite du nourrisson
+  "bronchiolite": [
+    "constantes",
+    "iot",
+    "isr",
+    "perfusion_transfusion",
+    "sedation",
+    "etat_de_choc",
+    "divers",
+  ],
 };
-
-// normalisation + alias pour tolérer variations d’URL
-function getSectionsForSlug(slug: string): string[] {
-  const key = slug
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, "-");
-
-  const aliases: Record<string, string> = {
-    "arret-cardio": "acr-enfant",
-    "arret-cardiorespiratoire": "acr-enfant",
-    "asthme-severe": "aag",
-    "choc-hemorragique-enfant": "choc-hemorragique",
-  };
-
-  const normalized = aliases[key] ?? key;
-  return SECTION_MAP[normalized] ?? [];
-}
 
 /* ===============================
    Titres lisibles

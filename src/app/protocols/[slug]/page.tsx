@@ -2,16 +2,10 @@
 
 import type { ComponentType } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { PROTOCOLS } from "@/data/protocols";
 import { PROTOCOL_DETAILS } from "@/data/protocolDetails";
-import { DRUGS, DOSING_RULES, WEIGHT_OVERRIDES, PROTOCOL_DRUGS } from "@/data/drugs";
-import { computeDose } from "@/lib/dosing";
-import { useAppStore } from "@/store/useAppStore";
-import { DRUG_INFOS } from "@/data/drugInfos";
-import { formatMg } from "@/lib/units";
-import { ageLabelToMonths } from "@/lib/age";
 
 // Flows (bandes + chevrons)
 import ProtocolFlowAAG from "@/components/ProtocolFlowAAG";
@@ -20,6 +14,7 @@ import ProtocolFlowChoc from "@/components/ProtocolFlowChoc";
 import ProtocolFlowACR from "@/components/ProtocolFlowACR";
 import ProtocolFlowEME from "@/components/ProtocolFlowEME";
 import ProtocolFlowAntalgiques from "@/components/ProtocolFlowAntalgiques";
+import ProtocolFlowBronchiolite from "@/components/ProtocolFlowBronchiolite";
 
 // Sections posologie (NOUVEAU rendu V2 depuis le JSON)
 import PosologySections from "@/components/PosologySections";
@@ -30,14 +25,9 @@ export default function ProtocolPage() {
 
   const protocol = PROTOCOLS.find((p) => p.slug === slug);
   const sections = PROTOCOL_DETAILS[slug] ?? [];
-  const drugIds = PROTOCOL_DRUGS[slug] ?? [];
-
-  const ageLabel = useAppStore((s) => s.ageLabel);
-  const ageMonths = ageLabelToMonths(ageLabel);
 
   const [tab, setTab] = useState<"protocole" | "posologie">("protocole");
-
-  const drugs = useMemo(() => DRUGS.filter((d) => drugIds.includes(d.id)), [drugIds]);
+  const [showSources, setShowSources] = useState(false);
 
   const FlowBySlug: Record<string, ComponentType | undefined> = {
     aag: ProtocolFlowAAG,
@@ -46,6 +36,7 @@ export default function ProtocolPage() {
     "acr-enfant": ProtocolFlowACR,
     eme: ProtocolFlowEME,
     antalgiques: ProtocolFlowAntalgiques,
+    bronchiolite: ProtocolFlowBronchiolite,
   };
   const Flow = FlowBySlug[slug];
 
@@ -72,9 +63,19 @@ export default function ProtocolPage() {
           ← Retour
         </button>
 
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold text-slate-900">{protocol.title}</h1>
-          {protocol.version && <p className="text-slate-500 text-sm">Version {protocol.version}</p>}
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-900">{protocol.title}</h1>
+            {protocol.version && <p className="text-slate-500 text-sm">Version {protocol.version}</p>}
+          </div>
+          {protocol.sources?.length ? (
+            <button
+              onClick={() => setShowSources(true)}
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-100"
+            >
+              📚 Sources
+            </button>
+          ) : null}
         </div>
 
         {/* Tabs */}
@@ -125,6 +126,39 @@ export default function ProtocolPage() {
           // ✅ Rendu POSOLOGIE V2 (depuis posology_normalized.json)
           <PosologySections slug={slug} />
         )}
+        {showSources && protocol.sources?.length ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+            <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-lg font-semibold text-slate-900">Sources</p>
+                <button
+                  onClick={() => setShowSources(false)}
+                  className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700 hover:bg-slate-200"
+                >
+                  Fermer
+                </button>
+              </div>
+              <ul className="space-y-3 text-sm text-slate-700">
+                {protocol.sources.map((source, idx) => (
+                  <li key={idx} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+                    {source.url ? (
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-dotted underline-offset-2 hover:text-slate-900"
+                      >
+                        {source.label}
+                      </a>
+                    ) : (
+                      <span>{source.label}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : null}
       </div>
     </main>
   );

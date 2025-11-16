@@ -85,4 +85,31 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       "Nalbuphine ou kétamine selon contexte, prévoir antagonistes"
     ]},
   ],
+  "bronchiolite": [
+    { title: "Évaluation initiale", bullets: [
+      "DRP douce + installation avant toute mesure",
+      "FR/FC/SpO₂, état général, signes de lutte, apports sur 3 prises",
+      "Classer légère/modérée/grave selon critères HAS"
+    ]},
+    { title: "Vulnérabilités", bullets: [
+      "Prématurité < 36 SA, âge < 2 mois, cardiopathie, DBP",
+      "Immunodépression, neuro-musculaire, polyhandicap, trisomie 21",
+      "Environnement défavorable : accès aux soins, précarité, tabagisme"
+    ]},
+    { title: "Orientation", bullets: [
+      "Grave : hospitalisation USC/réa, transport médicalisé",
+      "Modérée : UHCD/conventionnel si SpO₂ ≤ 92 %, apports < 50 %, vulnérabilité ou contexte défavorable",
+      "Légère : domicile + surveillance si environnement favorable"
+    ]},
+    { title: "Traitements", bullets: [
+      "Oxygène si SpO₂ ≤ 92 % (cible > 92 % à l'éveil)",
+      "Support nutritionnel entéral prioritaire si apports < 50 %",
+      "HFNC 2 L/kg/min ou CPAP si échec O₂ bas débit"
+    ]},
+    { title: "À éviter", bullets: [
+      "Bronchodilatateurs, adrénaline, corticoïdes, antibiotiques systématiques",
+      "Caféine, fluidifiants, antitussifs, anti-reflux systématiques",
+      "Kinésithérapie respiratoire hors DRP douce"
+    ]},
+  ],
 };

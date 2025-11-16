@@ -23,7 +23,7 @@ const INITIAL_STATE: Pick<AppState, "weightKg" | "ageLabel"> = {
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       ...INITIAL_STATE,
 
       setWeightKg: (v) => set({ weightKg: v }),

@@ -5,7 +5,7 @@ import { useAppStore } from "@/store/useAppStore";
 import { computeDose } from "@/lib/dosing";
 import { DOSING_RULES, WEIGHT_OVERRIDES } from "@/data/drugs";
 import { formatMg } from "@/lib/units";
-import { estimateAgeFromWeight } from "@/lib/ageWeight"; // info UI facultative
+// import { estimateAgeFromWeight } from "@/lib/ageWeight"; // info UI facultative
 import { ageLabelToMonths } from "@/lib/age";             // ← pour convertir le label en mois
 import AgeWeightPicker from "@/components/AgeWeightPicker";
 
@@ -58,8 +58,9 @@ const Card: React.FC<{
 function pickEffectiveWeight(w?: number | null) {
   if (!Number.isFinite(w as number) || (w as number) <= 0) return undefined;
   const rounded = Math.round(w as number);
-  const override = (WEIGHT_OVERRIDES as any)?.[rounded];
-  return Number.isFinite(override) ? override : (w as number);
+  const overridesByKg = WEIGHT_OVERRIDES as unknown as Record<number, unknown>;
+  const override = overridesByKg?.[rounded];
+  return typeof override === "number" && Number.isFinite(override) ? override : (w as number);
 }
 function maintenance421(kg?: number) {
   const w = pickEffectiveWeight(kg);

@@ -52,8 +52,9 @@ const Card: React.FC<{
 function pickEffectiveWeight(w?: number | null) {
   if (!Number.isFinite(w as number) || (w as number) <= 0) return undefined;
   const rounded = Math.round(w as number);
-  const override = (WEIGHT_OVERRIDES as any)?.[rounded];
-  return Number.isFinite(override) ? override : (w as number);
+  const overridesByKg = WEIGHT_OVERRIDES as unknown as Record<number, unknown>;
+  const override = overridesByKg?.[rounded];
+  return typeof override === "number" && Number.isFinite(override) ? override : (w as number);
 }
 
 function calcVT(w?: number) {
