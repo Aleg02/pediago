@@ -15,6 +15,7 @@ import ProtocolFlowACR from "@/components/ProtocolFlowACR";
 import ProtocolFlowEME from "@/components/ProtocolFlowEME";
 import ProtocolFlowCFS from "@/components/ProtocolFlowCFS";
 import ProtocolFlowHypoglycemie from "@/components/ProtocolFlowHypoglycemie";
+import ProtocolFlowAcidocetose from "@/components/ProtocolFlowAcidocetose";
 import ProtocolFlowAntalgiques from "@/components/ProtocolFlowAntalgiques";
 import ProtocolFlowBronchiolite from "@/components/ProtocolFlowBronchiolite";
 import ProtocolFlowBronchospasme from "@/components/ProtocolFlowBronchospasme";
@@ -46,6 +47,7 @@ export default function ProtocolPage() {
     eme: ProtocolFlowEME,
     "convulsion-febrile-simple": ProtocolFlowCFS,
     hypoglycemie: ProtocolFlowHypoglycemie,
+    "acidocetose-diabetique": ProtocolFlowAcidocetose,
     antalgiques: ProtocolFlowAntalgiques,
     bronchiolite: ProtocolFlowBronchiolite,
     "bronchospasme-nourrisson": ProtocolFlowBronchospasme,

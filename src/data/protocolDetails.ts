@@ -197,6 +197,40 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "acidocetose-diabetique": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Standardiser la PEC de l'ACD pédiatrique pour limiter les variations d'hydratation et sécuriser les calculs d'insuline.",
+        "Prévenir l'œdème cérébral en assurant un remplissage raisonné et une correction lente de la glycémie.",
+      ],
+    },
+    {
+      title: "Définition & gravité",
+      bullets: [
+        "ACD = glycémie > 11 mmol/L + cétonémie ≥ 3 mmol/L (ou cétonurie ++/+++) + acidose pH < 7,3 ou HCO₃⁻ < 15 mmol/L.",
+        "Gravité modérée si pH 7,1–7,3 ; sévère si pH < 7,1 ; risque majeur d'œdème cérébral.",
+      ],
+    },
+    {
+      title: "Arbre décisionnel",
+      bullets: [
+        "Confirmer l'ACD et éliminer les diagnostics différentiels.",
+        "Réhydratation prudente ± bolus NaCl 0,9 % si choc.",
+        "Insuline IV continue 0,05–0,1 U/kg/h (pas de bolus).",
+        "Ajouter glucose quand glycémie < 2,5 g/L, corriger le potassium systématiquement.",
+        "Surveiller neuro + biologique rapproché, hospitaliser en réanimation si pH < 7,1 ou signes neurologiques.",
+      ],
+    },
+    {
+      title: "Surveillance",
+      bullets: [
+        "Glycémie toutes les 30 min puis 1 h, ionogramme toutes les 2–4 h.",
+        "Scope continu, diurèse horaire, recherche signes d'œdème cérébral.",
+        "Hospitalisation systématique avec transition vers insuline SC après correction de la cétose.",
+      ],
+    },
+  ],
   "pneumopathie-communautaire-bacterienne": [
     {
       title: "Objectif",

@@ -80,6 +80,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "acidocetose-diabetique",
+    title: "Acidocétose diabétique de l'enfant",
+    version: "V1.0",
+    tags: ["metabolique", "urgence"],
+    icon: "🧪",
+    accentColor: "#f43f5e",
+    sources: [
+      { label: "HAS – Diabète", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
+      { label: "ISPAD Clinical Practice Guidelines 2022", url: "https://www.ispad.org" },
+      { label: "NICE – Diabetic ketoacidosis", url: "https://www.nice.org.uk/guidance/ng18" },
+      { label: "AAP – Diabetes Guidelines", url: "https://publications.aap.org" },
+    ],
+  },
+  {
     slug: "laryngite-aigue",
     title: "Laryngite aiguë (Croup)",
     version: "V0.1",
