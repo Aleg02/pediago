@@ -112,4 +112,49 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       "Kinésithérapie respiratoire hors DRP douce"
     ]},
   ],
+  "fievre-sepsis-purpura": [
+    { title: "Objectif", bullets: [
+      "Reconnaître très tôt les sepsis/purpuras fulminans, déclencher l'ATB IV sans délai",
+      "Standardiser l'évaluation ABC + peau + contexte à risque",
+      "Transport médicalisé rapide si signe de gravité"
+    ]},
+    { title: "Évaluation initiale ≤ 5 min", bullets: [
+      "Constantes vitales complètes (FC, FR, SpO₂, TA ≥1 an, T°, TRC)",
+      "Examen cutané systématique : purpura non blanchissant, extension, nécrose",
+      "Examen neurologique : AVPU, convulsions, irritabilité",
+      "Contexte : <3 mois, asplénie/drépanocytose, immunodépression, vaccins méningocoque/pneumocoque"
+    ]},
+    { title: "Signes de gravité", bullets: [
+      "Perfusion altérée : TRC >3s, marbrures, extrémités froides, hypotension tardive",
+      "Tachycardie persistante, polypnée sévère, SpO₂ <92 %",
+      "Altération neurologique (AVPU = P/U, convulsions)",
+      "Diurèse <1 mL/kg/h",
+      "Purpura extensif ou nécrotique → purpura fulminans"
+    ]},
+    { title: "Mesures immédiates", bullets: [
+      "Oxygénothérapie : cible SpO₂ 94–98 %",
+      "VVP/IO en <90 s",
+      "Remplissage NaCl 0,9 % 10–20 mL/kg, répéter jusqu'à 40–60 mL/kg",
+      "Antibiothérapie IV dans l'heure, jamais retardée",
+      "Vasopresseur (noradrénaline/adrénaline) si hypotension persistante"
+    ]},
+    { title: "Antibiothérapie", bullets: [
+      "Purpura fulminans : Ceftriaxone 100 mg/kg (max 1–2 g) IV dose unique",
+      "Alternative : Céfotaxime 150–200 mg/kg/j en 3–4 doses",
+      "Sepsis sévère sans purpura : Céfotaxime 150 mg/kg/j ou Amox + Ac. clav selon foyer",
+      "Nourrisson <3 mois : protocole spécifique élargi",
+      "Notification obligatoire si méningocoque + prophylaxie des contacts"
+    ]},
+    { title: "Hospitalisation / réanimation", bullets: [
+      "Tous purpuras et sepsis suspect/confirmé",
+      "Réa directe si choc septique, besoin vaso-actif, polypnée sévère, apnées",
+      "Autres critères : remplissage >20 mL/kg, SpO₂ <94 % malgré O₂, TRC >3s, tachycardie >2 SDS, âge <3 mois",
+      "Sortie seulement après 24 h de stabilité, apyrésie, hémodynamique stable sans O₂, absence d'extension du purpura"
+    ]},
+    { title: "Situations particulières", bullets: [
+      "<3 mois : hospitalisation systématique et bilan complet",
+      "Asplénie / drépanocytose : risque fulminant pneumocoque → ATB immédiate",
+      "Immunodépression : adapter l'ATB selon protocole d'hémato-oncologie"
+    ]},
+  ],
 };

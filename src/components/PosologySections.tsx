@@ -97,6 +97,17 @@ const SECTION_MAP: Record<string, string[]> = {
     "etat_de_choc",
     "divers",
   ],
+
+  // Fièvre / sepsis / purpura fulminans
+  "fievre-sepsis-purpura": [
+    "constantes",
+    "iot",
+    "isr",
+    "perfusion_transfusion",
+    "sedation",
+    "etat_de_choc",
+    "purpura_fulminans",
+  ],
 };
 
 /* ===============================
@@ -113,6 +124,7 @@ const TITLES: Record<string, string> = {
   acr: "ACR",
   eme: "EME",
   divers: "DIVERS",
+  purpura_fulminans: "PURPURA FULMINANS",
 };
 
 const WEIGHT_VALUES = Array.from(new Set(POSOLOGY?.weights?.map((w) => w.kg) ?? [])).sort((a, b) => a - b);

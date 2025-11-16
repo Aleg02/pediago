@@ -29,6 +29,36 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "fievre-sepsis-purpura",
+    title: "Fièvre sévère / Sepsis / Purpura fulminans",
+    version: "V0.1",
+    tags: ["infectieux", "urgence"],
+    icon: "🌡️",
+    accentColor: "#db2777",
+    sources: [
+      {
+        label: "HAS – Sepsis (2025)",
+        url: "https://www.has-sante.fr/jcms/p_3587144/",
+      },
+      {
+        label: "HCSP – Conduite à tenir devant un purpura fulminans",
+        url: "https://sante.gouv.fr/IMG/html/Avis_du_CSHPF_du_10_mars_2000_sur_la_conduite_immediate_a_tenir_en_cas_de_suspicion_clinique_de_purpura_fulminans_et_sur_la_definition_des_cas_de_meningite_a_meningocoque_et_de_meningoc.html",
+      },
+      {
+        label: "Société Française de Pédiatrie – Sepsis pédiatrique",
+        url: "https://www.sfpediatrie.com/sites/www.sfpediatrie.com/files/medias/documents/Presentation%20sepsis%20enfant%20CGL%2016.09.25.pdf",
+      },
+      {
+        label: "RéPias / Surviving Sepsis Campaign – Pediatrics",
+        url: "https://pubmed.ncbi.nlm.nih.gov/36328442",
+      },
+      {
+        label: "Santé Publique France – Purpura fulminans & Méningocoque",
+        url: "https://www.santepubliquefrance.fr",
+      },
+    ],
+  },
+  {
     slug: "acr-enfant",
     title: "Arrêt cardiorespiratoire (enfant)",
     version: "V0.1",
