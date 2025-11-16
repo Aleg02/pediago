@@ -8,9 +8,15 @@ type Props = {
   item: Protocol;
   onOpen?: (slug: string) => void;
   highlightQuery?: string;
+  isLocked?: boolean;
 };
 
-export default function ProtocolCard({ item, onOpen, highlightQuery }: Props) {
+export default function ProtocolCard({
+  item,
+  onOpen,
+  highlightQuery,
+  isLocked,
+}: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLButtonElement | null>(null);
 
@@ -45,6 +51,20 @@ export default function ProtocolCard({ item, onOpen, highlightQuery }: Props) {
     [item.accentColor]
   );
 
+  const badgeLabel = useMemo(() => {
+    if (isLocked) {
+      return "🔒 Premium";
+    }
+    if (item.accessLevel === "free") {
+      return "Gratuit";
+    }
+    return null;
+  }, [isLocked, item.accessLevel]);
+
+  const badgeClassName = isLocked
+    ? "border border-white/25 bg-slate-900/90 text-white"
+    : "border border-emerald-200 bg-emerald-50 text-emerald-700";
+
   return (
     <button
       ref={cardRef}
@@ -57,6 +77,13 @@ export default function ProtocolCard({ item, onOpen, highlightQuery }: Props) {
         )} 0%, ${withAlpha(item.accentColor, "05")} 100%)`,
       }}
     >
+      {badgeLabel && (
+        <span
+          className={`pointer-events-none absolute right-4 top-4 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide shadow-sm ${badgeClassName}`}
+        >
+          {badgeLabel}
+        </span>
+      )}
       <div
         className={`flex items-start gap-3 transition-all duration-500 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"

@@ -238,6 +238,7 @@ export default function HomePage() {
                     item={p}
                     onOpen={openProtocol}
                     highlightQuery={trimmedQuery}
+                    isLocked={p.accessLevel === "premium"}
                   />
                 ))
               ) : (
