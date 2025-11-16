@@ -436,6 +436,59 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "noyade-submersion": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Uniformiser la PEC des noyades/submersions pédiatriques selon HAS/SFP/SFAR/SPLF/ERC/AAP.",
+        "Limiter les erreurs de calcul (intubation, remplissage, nébulisations) grâce aux doses pondérées.",
+      ],
+    },
+    {
+      title: "Définition & sévérité",
+      bullets: [
+        "Noyade = détresse respiratoire aiguë post immersion, du simple réflexe tussigène à l’ACR.",
+        "Classification : légère (SpO₂ > 94 %), modérée (SpO₂ < 94 %, signes respi), sévère/ACR (troubles conscience, apnée).",
+      ],
+    },
+    {
+      title: "Arbre décisionnel",
+      bullets: [
+        "ACR ? → RCP immédiate, O₂ 100 %, BAVU, adrénaline IV/IO 0,01 mg/kg.",
+        "Détresse sévère ? → Intubation séquence rapide, ventilation protectrice, réchauffement actif.",
+        "Symptômes modérés ? → O₂ titré, monitorage, radio thorax, nébulisations ciblées.",
+        "Forme légère ? → Surveillance 6–8 h et critères de sortie stricts.",
+      ],
+    },
+    {
+      title: "ABCDE initial",
+      bullets: [
+        "A : aspiration des VAS, PLS si inconscient, collier si suspicion traumatique.",
+        "B : SpO₂ 94–98 %, O₂ 10–15 L/min si &lt; 94 %, BAVU si apnée ; intubation si GCS &lt; 8.",
+        "C : TA/FC/TRC, 1–2 VVP, NaCl 0,9 % 20 mL/kg (max 40 mL/kg), adrénaline ACR.",
+        "D : GCS, pupilles, glycémie (Glucose 10 % 2 mL/kg si &lt; 0,7 g/L).",
+        "E : retirer vêtements mouillés, réchauffer activement, rechercher hypothermie/traumatismes.",
+      ],
+    },
+    {
+      title: "Traitements spécifiques",
+      bullets: [
+        "ISR : kétamine 2 mg/kg + rocuronium 1 mg/kg IV.",
+        "Ventilation protectrice : Vt 6–8 mL/kg, PEEP 5–8 cmH₂O, FiO₂ titrée.",
+        "Laryngospasme : adrénaline 1 mg/mL 0,5 mL/kg (max 5 mL) en nébulisation.",
+        "Bronchospasme : salbutamol 0,15 mg/kg (min 2,5 mg, max 5 mg) ± ipratropium.",
+        "Pas d’antibiotique/corticoïde systématique sauf indication, réévaluer SDRA/hypothermie.",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Hospitaliser si SpO₂ &lt; 95 % après 1 h, signes respiratoires, radio anormale, hypothermie, GCS &lt; 15, réanimation initiale.",
+        "Surveillance 6–8 h pour formes légères asymptomatiques, consignes parentales et réchauffement.",
+        "Pas de différence eau douce/salée dans la PEC ; signalement si suspicion maltraitance (&lt; 2 ans).",
+      ],
+    },
+  ],
   "antalgiques": [
     { title: "Évaluation", bullets: [
       "Identifier le palier adapté à la douleur (EVA/EVENDOL)",
