@@ -2,10 +2,13 @@
 
 import type { ComponentType } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import type { Protocol } from "@/data/protocols";
 import { PROTOCOLS } from "@/data/protocols";
+import type { ProtocolSection } from "@/data/protocolDetails";
 import { PROTOCOL_DETAILS } from "@/data/protocolDetails";
+import { fetchCardBySlug } from "@/lib/cardsClient";
 
 // Flows (bandes + chevrons)
 import ProtocolFlowAAG from "@/components/ProtocolFlowAAG";
@@ -37,11 +40,46 @@ export default function ProtocolPage() {
   const router = useRouter();
   const { slug } = useParams() as { slug: string };
 
-  const protocol = PROTOCOLS.find((p) => p.slug === slug);
-  const sections = PROTOCOL_DETAILS[slug] ?? [];
+  const fallbackProtocol = useMemo(
+    () => PROTOCOLS.find((p) => p.slug === slug),
+    [slug]
+  );
+  const fallbackSections = useMemo(
+    () => PROTOCOL_DETAILS[slug] ?? [],
+    [slug]
+  );
 
+  const [remoteProtocols, setRemoteProtocols] = useState<Record<string, Protocol>>({});
+  const [remoteSections, setRemoteSections] = useState<Record<string, ProtocolSection[]>>({});
   const [tab, setTab] = useState<"protocole" | "posologie">("protocole");
   const [showSources, setShowSources] = useState(false);
+  const [cardErrors, setCardErrors] = useState<Record<string, string | null>>({});
+
+  const protocol = remoteProtocols[slug] ?? fallbackProtocol;
+  const sectionBlocks = remoteSections[slug] ?? fallbackSections;
+  const cardError = cardErrors[slug] ?? null;
+
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      const { protocol: remoteProtocol, sections, error } = await fetchCardBySlug(slug);
+      if (!active) {
+        return;
+      }
+      if (remoteProtocol) {
+        setRemoteProtocols((prev) => ({ ...prev, [slug]: remoteProtocol }));
+      }
+      if (sections && sections.length > 0) {
+        setRemoteSections((prev) => ({ ...prev, [slug]: sections }));
+      }
+      setCardErrors((prev) => ({ ...prev, [slug]: error ? error.message : null }));
+    };
+
+    load();
+    return () => {
+      active = false;
+    };
+  }, [slug]);
 
   const FlowBySlug: Record<string, ComponentType | undefined> = {
     aag: ProtocolFlowAAG,
@@ -119,6 +157,12 @@ export default function ProtocolPage() {
           ) : null}
         </div>
 
+        {cardError && (
+          <div className="mb-6 rounded-2xl border border-rose-200/70 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
+            Impossible de synchroniser la fiche depuis Supabase. Affichage du contenu local.
+          </div>
+        )}
+
         {/* Tabs */}
         <div className="mb-8">
           <div className="bg-white border border-slate-200 rounded-full shadow-sm p-1 flex gap-1">
@@ -150,7 +194,7 @@ export default function ProtocolPage() {
             <Flow />
           ) : (
             <div className="space-y-4">
-              {sections.map((sec, idx) => (
+              {sectionBlocks.map((sec, idx) => (
                 <div key={idx} className="rounded-xl bg-white border border-black/10 shadow-sm px-4 py-3">
                   <p className="font-medium mb-2">{sec.title}</p>
                   <ul className="list-disc pl-5 space-y-1 text-slate-700">
@@ -160,7 +204,7 @@ export default function ProtocolPage() {
                   </ul>
                 </div>
               ))}
-              {sections.length === 0 && <p className="text-sm text-slate-500">Contenu détaillé à venir.</p>}
+              {sectionBlocks.length === 0 && <p className="text-sm text-slate-500">Contenu détaillé à venir.</p>}
             </div>
           )
         ) : (

@@ -10,6 +10,7 @@ import { PROTOCOLS, type Protocol } from "@/data/protocols";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import Disclaimer from "@/components/Disclaimer";
+import { fetchCardsList } from "@/lib/cardsClient";
 
 export default function HomePage() {
   const router = useRouter();
@@ -26,6 +27,9 @@ export default function HomePage() {
     () => searchParams.get("mode") === "search"
   );
   const [query, setQuery] = useState("");
+  const [protocols, setProtocols] = useState<Protocol[]>(PROTOCOLS);
+  const [cardsLoading, setCardsLoading] = useState(true);
+  const [cardsError, setCardsError] = useState<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
   const searchModeTrigger = useRef<"button" | null>(null);
@@ -63,25 +67,55 @@ export default function HomePage() {
     }
   }, [searchMode]);
 
+  useEffect(() => {
+    let active = true;
+
+    const loadCards = async () => {
+      setCardsLoading(true);
+      const { data, error } = await fetchCardsList();
+      if (!active) {
+        return;
+      }
+      if (error) {
+        console.warn("Supabase cards fetch error", error);
+        setCardsError(error.message);
+        setCardsLoading(false);
+        return;
+      }
+      if (data && data.length > 0) {
+        setProtocols(data);
+      } else {
+        setProtocols(PROTOCOLS);
+      }
+      setCardsError(null);
+      setCardsLoading(false);
+    };
+
+    loadCards();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   // index Fuse
   const fuse = useMemo(
     () =>
-      new Fuse(PROTOCOLS, {
+      new Fuse(protocols, {
         keys: ["title", "slug"],
         threshold: 0.35,
         ignoreLocation: true,
       }),
-    []
+    [protocols]
   );
 
   const hits: Protocol[] = useMemo(() => {
     if (trimmedQuery.length === 0) {
-      return [...PROTOCOLS].sort((a, b) =>
+      return [...protocols].sort((a, b) =>
         a.title.localeCompare(b.title, "fr", { sensitivity: "base" })
       );
     }
     return fuse.search(trimmedQuery).map((r) => r.item);
-  }, [fuse, trimmedQuery]);
+  }, [fuse, trimmedQuery, protocols]);
 
   const openProtocol = (slug: string) => {
     router.push(`/protocols/${slug}`);
@@ -191,6 +225,16 @@ export default function HomePage() {
 
         {/* CONTENU PRINCIPAL */}
         <section className="w-full max-w-[420px] flex-1 px-6 pb-14">
+          {cardsError && (
+            <div className="mt-4 rounded-2xl border border-rose-200/70 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
+              Impossible de charger les fiches depuis Supabase. Affichage des données locales.
+            </div>
+          )}
+          {cardsLoading && !cardsError && (
+            <p className="mt-4 text-center text-xs uppercase tracking-[0.3em] text-slate-400">
+              Synchronisation Supabase…
+            </p>
+          )}
           {/* HOME : disclaimer + CTA */}
           {!searchMode && (
             <>
