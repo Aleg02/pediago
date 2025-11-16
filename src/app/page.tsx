@@ -97,7 +97,7 @@ export default function HomePage() {
         <header
           className={`w-full max-w-[420px] px-6 text-center transition-shadow ${
             searchMode
-              ? "sticky top-0 z-20 bg-white/95 pb-4 pt-4 shadow-[0_8px_30px_rgba(15,23,42,0.12)] backdrop-blur"
+              ? "sticky top-0 z-20 bg-white/95 pb-6 pt-6 shadow-[0_8px_30px_rgba(15,23,42,0.12)] backdrop-blur"
               : "pt-10"
           }`}
         >
@@ -114,6 +114,22 @@ export default function HomePage() {
               height={160}
               priority
               className="mx-auto h-20 w-auto"
+            />
+            <h1 className="mt-7 text-[64px] leading-none font-semibold tracking-tight text-slate-900">
+              <span>Pedia</span>
+              <span className="text-[#ef4444]">Go</span>
+            </h1>
+          </button>
+          <p className="mt-2 text-sm text-slate-500">Le bon geste, maintenant&nbsp;!</p>
+
+          <div className={`${searchMode ? "mt-6" : "mt-10"} space-y-4`}>
+            {/* Âge / Poids : le composant interne gère déjà le layout */}
+            <AgeWeightPicker
+              ageLabel={ageLabel}
+              setAgeLabel={setAgeLabel}
+              weightKg={weightKg}
+              setWeightKg={setWeightKg}
+              className="max-w-none"
             />
             <h1 className="mt-7 text-[64px] leading-none font-semibold tracking-tight text-slate-900">
               <span>Pedia</span>
@@ -145,19 +161,6 @@ export default function HomePage() {
               className="mt-1"
               inputRef={searchInputRef}
             />
-          </div>
-        </header>
-
-        {/* CONTENU PRINCIPAL */}
-        <section className="w-full max-w-[420px] flex-1 px-6 pb-14">
-          <div className={`${searchMode ? "mt-6" : "mt-10"} space-y-4`}>
-            <AgeWeightPicker
-              ageLabel={ageLabel}
-              setAgeLabel={setAgeLabel}
-              weightKg={weightKg}
-              setWeightKg={setWeightKg}
-              className="max-w-none"
-            />
 
             {searchMode && (
               <button
@@ -172,6 +175,10 @@ export default function HomePage() {
               </button>
             )}
           </div>
+        </header>
+
+        {/* CONTENU PRINCIPAL */}
+        <section className="w-full max-w-[420px] flex-1 px-6 pb-14">
 
           {/* HOME : disclaimer + CTA */}
           {!searchMode && (
