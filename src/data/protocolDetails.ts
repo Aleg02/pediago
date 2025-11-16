@@ -272,6 +272,84 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "pneumopathie-atypique-mycoplasma": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Décrire une PEC immédiate, pondérée au poids, pour les pneumopathies atypiques à Mycoplasma (HAS/SFP/SPLF/NICE/AAP).",
+        "Focus sur enfants ≥ 5 ans : titrer l’O₂, sécuriser l’antibiothérapie par macrolide et la réévaluation à 48 h.",
+      ],
+    },
+    {
+      title: "Définition succincte",
+      bullets: [
+        "Toux sèche prolongée, fièvre modérée, céphalées/myalgies, auscultation souvent pauvre, atteinte interstitielle à la radio.",
+        "Principal germe : Mycoplasma pneumoniae, sensible aux macrolides.",
+      ],
+    },
+    {
+      title: "Résumé décisionnel",
+      bullets: [
+        "Identifier la sévérité (léger / modéré / sévère) puis réaliser ABCDE.",
+        "SpO₂ < 94 % → O₂ 1–2 L/min ; antibiothérapie par azithromycine ou clarithromycine adaptée au poids.",
+        "Réévaluation clinique à 48 h, hospitalisation si critères de gravité ou évolution défavorable.",
+      ],
+    },
+    {
+      title: "ABCDE",
+      bullets: [
+        "A – Désobstruction rhinopharyngée, VAS libres.",
+        "B – FR selon l’âge, auscultation discrète (MV ↓, rares sibilants), SpO₂ continue.",
+        "C – FC, TRC, TA, rechercher signes de déshydratation.",
+        "D – Évaluer état général, vigilance, signes neuro.",
+        "E – Température, recherche autres foyers infectieux.",
+      ],
+    },
+    {
+      title: "Signes de gravité",
+      bullets: [
+        "SpO₂ < 94 %, tirage ou polypnée nette.",
+        "Altération de l’état général, asthénie majeure.",
+        "Vomissements empêchant la prise orale.",
+        "Âge < 5 ans avec forte suspicion, ou comorbidités / immunodépression.",
+        "Suspicion atteinte extrapulmonaire (myocardite, neurologique).",
+      ],
+    },
+    {
+      title: "Examens",
+      bullets: [
+        "Radio thoracique si gravité, fièvre prolongée (> 72 h) ou absence d’amélioration.",
+        "Biologie ciblée : CRP modérée, PCR Mycoplasma si doute.",
+        "Gaz du sang si hypoxémie ou détresse respiratoire.",
+      ],
+    },
+    {
+      title: "Antibiothérapie",
+      bullets: [
+        "Azithromycine : 10 mg/kg J1 puis 5 mg/kg J2–J5.",
+        "Clarithromycine : 15 mg/kg/j en 2 prises.",
+        "Allergie vraie aux macrolides : discussion spécialisée, pas d’alternative simple.",
+      ],
+    },
+    {
+      title: "Traitements associés",
+      bullets: [
+        "Paracétamol 15 mg/kg/dose en cas de fièvre ou inconfort.",
+        "Hydratation IV NaCl 0,9 % 10–20 mL/kg si intolérance orale.",
+        "O₂ lunettes 1–2 L/min si SpO₂ < 94 %, objectif 94–98 %.",
+        "Pas de β2, corticoïdes ou β-lactamines seuls en routine.",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Léger : traitement PO + surveillance à domicile, contrôle 48 h.",
+        "Modéré : réévaluation 24–48 h, O₂ si besoin, imagerie si complication.",
+        "Sévère : O₂, VVP, hydratation IV, hospitalisation.",
+        "Sortie si amélioration clinique, SpO₂ ≥ 94 %, alimentation possible, parents aptes.",
+      ],
+    },
+  ],
   "laryngite-aigue": [
     {
       title: "Objectif",
