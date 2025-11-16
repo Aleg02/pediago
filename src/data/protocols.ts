@@ -116,6 +116,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "noyade-submersion",
+    title: "Noyade / Submersion",
+    version: "V0.1",
+    tags: ["respiratoire", "urgence"],
+    icon: "🌊",
+    accentColor: "#0284c7",
+    sources: [
+      { label: "HAS – Urgences pédiatriques", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie – Recommandations noyade", url: "https://www.sfpediatrie.com" },
+      { label: "SPLF – Urgences respiratoires", url: "https://splf.fr" },
+      { label: "European Resuscitation Council 2021", url: "https://www.cprguidelines.eu" },
+      { label: "American Academy of Pediatrics – Drowning", url: "https://publications.aap.org" },
+    ],
+  },
+  {
     slug: "pneumopathie-communautaire-bacterienne",
     title: "Pneumopathie communautaire bactérienne",
     version: "V0.1",

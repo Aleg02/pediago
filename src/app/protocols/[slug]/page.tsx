@@ -28,6 +28,7 @@ import ProtocolFlowMeningite from "@/components/ProtocolFlowMeningite";
 import ProtocolFlowTSV from "@/components/ProtocolFlowTSV";
 import ProtocolFlowFAST from "@/components/ProtocolFlowFAST";
 import ProtocolFlowPolytrauma from "@/components/ProtocolFlowPolytrauma";
+import ProtocolFlowNoyade from "@/components/ProtocolFlowNoyade";
 
 // Sections posologie (NOUVEAU rendu V2 depuis le JSON)
 import PosologySections from "@/components/PosologySections";
@@ -63,6 +64,7 @@ export default function ProtocolPage() {
     "tachycardie-supraventriculaire": ProtocolFlowTSV,
     "traumatisme-thoraco-abdominal-fast": ProtocolFlowFAST,
     "polytraumatisme-pediatrique": ProtocolFlowPolytrauma,
+    "noyade-submersion": ProtocolFlowNoyade,
   };
   const Flow = FlowBySlug[slug];
 
