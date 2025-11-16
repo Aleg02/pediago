@@ -197,6 +197,81 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "pneumopathie-communautaire-bacterienne": [
+    {
+      title: "Objectif",
+      bullets: [
+        "PEC standardisée d'une pneumopathie communautaire bactérienne selon HAS/SFP/SPLF/NICE/AAP.",
+        "Aider à titrer l'oxygène, choisir l'antibiothérapie pondérée et sécuriser la réévaluation à 48 h.",
+      ],
+    },
+    {
+      title: "Définition succincte",
+      bullets: [
+        "Infection aiguë du parenchyme pulmonaire hors milieu hospitalier, souvent Streptococcus pneumoniae.",
+        "Clinique évocatrice : fièvre élevée, polypnée, tirage, crépitants / souffle tubaire, altération de l'état général.",
+      ],
+    },
+    {
+      title: "Résumé décisionnel",
+      bullets: [
+        "Évaluer la sévérité (légère, modérée, sévère) puis initier ABCDE + O₂ si SpO₂ < 94 %.",
+        "Amoxicilline PO en 1ère intention, macrolides si allergie, IV si gravité, contrôle à 48 h.",
+        "Hospitaliser si critères de gravité, sortie si amélioration clinique et SpO₂ ≥ 94 %.",
+      ],
+    },
+    {
+      title: "Évaluation initiale",
+      bullets: [
+        "A – VAS libres, position confortable, désobstruction rhinopharyngée.",
+        "B – FR selon âge, tirage, geignement, SpO₂, auscultation (crépitants, MV diminué).",
+        "C – FC, TRC, recherche de déshydratation.",
+        "D – Vigilance, tonus, score AVPU.",
+        "E – Température, recherche de signes extra-respiratoires / comorbidités.",
+      ],
+    },
+    {
+      title: "Signes de gravité",
+      bullets: [
+        "SpO₂ < 92–94 %, besoin d'O₂ élevé.",
+        "Tirage marqué, polypnée sévère, geignement.",
+        "Déshydratation, incapacité à s'alimenter, vomissements.",
+        "Âge < 3 mois ou comorbidités respiratoires / immunitaires.",
+        "Altération de l'état général ou suspicion de complication (SDRA, sepsis).",
+      ],
+    },
+    {
+      title: "Examens",
+      bullets: [
+        "Radiographie thoracique si doute diagnostique, gravité ou non-amélioration à 48 h.",
+        "Biologie ciblée (NFS, CRP, hémocultures) si hospitalisation ou complication.",
+        "Gaz du sang si hypoxémie, suspicion SDRA.",
+      ],
+    },
+    {
+      title: "Antibiothérapie",
+      bullets: [
+        "Amoxicilline PO 80–100 mg/kg/j en 3 prises (1ère intention).",
+        "Allergie β-lactamines : azithromycine (10 mg/kg J1 puis 5 mg/kg J2–J5) ou clarithromycine 15 mg/kg/j en 2 prises.",
+        "Formes sévères : amoxicilline IV 100 mg/kg/j (3–4 inj) ou céfotaxime 100–150 mg/kg/j ou ceftriaxone 50–75 mg/kg/j.",
+      ],
+    },
+    {
+      title: "Traitements associés",
+      bullets: [
+        "O₂ si SpO₂ < 94 % (objectif 94–98 %).",
+        "Paracétamol 15 mg/kg/dose, hydratation IV NaCl 0,9 % 10–20 mL/kg si déshydratation.",
+        "Pas de β2 ni de corticoïdes systémiques hors terrain asthmatique, pas de kiné systématique.",
+      ],
+    },
+    {
+      title: "Hospitalisation / sortie",
+      bullets: [
+        "Critères : SpO₂ < 94 %, détresse respi, difficulté d'hydratation, < 3 mois, comorbidités, absence d'amélioration 48 h.",
+        "Sortie si amélioration clinique, apyréxie ou fièvre décroissante, SpO₂ ≥ 94 % en air ambiant, alimentation correcte.",
+      ],
+    },
+  ],
   "laryngite-aigue": [
     {
       title: "Objectif",

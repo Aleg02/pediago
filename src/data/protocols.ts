@@ -101,6 +101,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "pneumopathie-communautaire-bacterienne",
+    title: "Pneumopathie communautaire bactérienne",
+    version: "V0.1",
+    tags: ["respiratoire", "infectieux"],
+    icon: "🫁",
+    accentColor: "#0ea5e9",
+    sources: [
+      { label: "HAS – Pneumopathie aiguë", url: "https://www.has-sante.fr" },
+      { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
+      { label: "SPLF – Infections respiratoires", url: "https://splf.fr" },
+      { label: "NICE – Pneumonia (NG138)", url: "https://www.nice.org.uk/guidance/ng138" },
+      { label: "AAP – Community-Acquired Pneumonia", url: "https://publications.aap.org" },
+    ],
+  },
+  {
     slug: "fievre-sepsis-purpura",
     title: "Fièvre sévère / Sepsis / Purpura fulminans",
     version: "V0.1",

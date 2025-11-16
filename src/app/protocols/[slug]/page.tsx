@@ -21,6 +21,7 @@ import ProtocolFlowBronchospasme from "@/components/ProtocolFlowBronchospasme";
 import ProtocolFlowSepsisPurpura from "@/components/ProtocolFlowSepsisPurpura";
 import ProtocolFlowTCC from "@/components/ProtocolFlowTCC";
 import ProtocolFlowLaryngite from "@/components/ProtocolFlowLaryngite";
+import ProtocolFlowPCB from "@/components/ProtocolFlowPCB";
 
 // Sections posologie (NOUVEAU rendu V2 depuis le JSON)
 import PosologySections from "@/components/PosologySections";
@@ -49,6 +50,7 @@ export default function ProtocolPage() {
     "fievre-sepsis-purpura": ProtocolFlowSepsisPurpura,
     "traumatisme-cranien": ProtocolFlowTCC,
     "laryngite-aigue": ProtocolFlowLaryngite,
+    "pneumopathie-communautaire-bacterienne": ProtocolFlowPCB,
   };
   const Flow = FlowBySlug[slug];
 
