@@ -85,7 +85,7 @@ export default function TopMenu() {
             className="absolute right-0 mt-3 w-72 rounded-2xl border border-slate-200/80 bg-white/95 p-3 text-left shadow-xl shadow-slate-900/10 backdrop-blur"
           >
             <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Menu PediaGo
+              Menu
             </p>
             <ul className="space-y-1">
               {MENU_ITEMS.map((item) => (

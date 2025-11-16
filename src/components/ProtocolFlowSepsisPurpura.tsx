@@ -28,6 +28,30 @@ const formatDose = (value: number | null | undefined) => {
   return formatMg(value as number);
 };
 
+// Plafond de ceftriaxone en fonction de l’âge sélectionné
+// Règle : Naissance → 11 ans = 1 g max ; 12 → 15 ans = 2 g max
+function getCeftriaxoneMaxMg(ageLabel: string | null | undefined): number {
+  const label = (ageLabel ?? "").trim();
+
+  if (!label) {
+    // Par défaut, on reste prudent : 1 g max
+    return 1000;
+  }
+
+  const teenLabels = new Set([
+    "12 ans",
+    "13 ans",
+    "14 ans",
+    "15 ans",
+  ]);
+
+  if (teenLabels.has(label)) {
+    return 2000; // 2 g max pour l’adolescent
+  }
+
+  return 1000; // 1 g max pour tous les autres (nourrisson + enfant)
+}
+
 function SectionCard({
   title,
   subtitle,
@@ -94,7 +118,10 @@ export default function ProtocolFlowSepsisPurpura() {
   const bolus40 = weightKg * 40;
   const bolus60 = weightKg * 60;
 
-  const ceftriaxoneMg = Math.min(weightKg * 100, weightKg < 12 ? 1000 : 2000);
+  // Plafond ceftriaxone selon âge (et non plus selon poids)
+  const ceftriaxoneMax = getCeftriaxoneMaxMg(ageLabel);
+  const ceftriaxoneMg = Math.min(weightKg * 100, ceftriaxoneMax);
+
   const cefotaximeDay = weightKg * 150;
   const cefotaximeDose = cefotaximeDay / 3; // 3 perfusions/jour
 
@@ -118,16 +145,27 @@ export default function ProtocolFlowSepsisPurpura() {
       </div>
 
       <div className="mt-5 space-y-5">
-        <SectionCard title="Évaluation initiale ≤ 5 min" subtitle="ABC + peau + contexte" tone="indigo">
+        <SectionCard
+          title="Évaluation initiale ≤ 5 min"
+          subtitle="ABC + peau + contexte"
+          tone="indigo"
+        >
           <ul className="list-disc pl-4 space-y-1.5">
             <li>Constantes : FC, FR, SpO₂, TA (&ge; 1 an), température, TRC.</li>
             <li>Peau : purpura non blanchissant, nécrose, vitesse d’extension.</li>
             <li>Neurologique : alerte/AVPU, convulsions, irritabilité inhabituelle.</li>
-            <li>Contexte à risque : &lt; 3 mois, asplénie, drépanocytose, immunodépression, absence de vaccination méningocoque/pneumocoque.</li>
+            <li>
+              Contexte à risque : &lt; 3 mois, asplénie, drépanocytose, immunodépression,
+              absence de vaccination méningocoque/pneumocoque.
+            </li>
           </ul>
         </SectionCard>
 
-        <SectionCard title="Arbre décisionnel" subtitle="Orienter immédiatement" tone="amber">
+        <SectionCard
+          title="Arbre décisionnel"
+          subtitle="Orienter immédiatement"
+          tone="amber"
+        >
           <div className="grid gap-3 text-[13px]">
             <div className="rounded-2xl border border-amber-200 bg-white/80 px-3 py-3">
               <p className="font-semibold text-amber-800">Purpura non blanchissant ?</p>
@@ -139,12 +177,19 @@ export default function ProtocolFlowSepsisPurpura() {
             </div>
             <div className="rounded-2xl border border-amber-200 bg-white/80 px-3 py-3">
               <p className="font-semibold text-amber-800">Aucun critère de gravité</p>
-              <p>Fièvre simple : PEC adaptée (mais surveillance stricte si &lt; 3 mois ou contexte défavorable).</p>
+              <p>
+                Fièvre simple : PEC adaptée (mais surveillance stricte si &lt; 3 mois ou contexte
+                défavorable).
+              </p>
             </div>
           </div>
         </SectionCard>
 
-        <SectionCard title="Signes de gravité = Sepsis" subtitle="Déclenchent remplissage + ATB" tone="rose">
+        <SectionCard
+          title="Signes de gravité = Sepsis"
+          subtitle="Déclenchent remplissage + ATB"
+          tone="rose"
+        >
           <div className="flex flex-wrap gap-2">
             <Pill>TRC &gt; 3 s / extrémités froides</Pill>
             <Pill>Hypotension ou tachycardie persistante</Pill>
@@ -155,7 +200,11 @@ export default function ProtocolFlowSepsisPurpura() {
           </div>
         </SectionCard>
 
-        <SectionCard title="Mesures immédiates ≤ 15 min" subtitle="Toutes réalisées en parallèle" tone="emerald">
+        <SectionCard
+          title="Mesures immédiates ≤ 15 min"
+          subtitle="Toutes réalisées en parallèle"
+          tone="emerald"
+        >
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-2xl border border-emerald-200 bg-white/70 px-3 py-3">
               <p className="font-semibold text-emerald-900 mb-1">Oxygène</p>
@@ -168,25 +217,38 @@ export default function ProtocolFlowSepsisPurpura() {
             <div className="rounded-2xl border border-emerald-200 bg-white/70 px-3 py-3">
               <p className="font-semibold text-emerald-900 mb-1">Remplissage NaCl 0,9 %</p>
               <p className="text-[13px]">
-                Bolus 10–20 mL/kg → <strong>{formatMl(bolus10)}</strong> – <strong>{formatMl(bolus20)}</strong>.
-                <br />Répéter jusqu’à 40–60 mL/kg selon réponse ({formatMl(bolus40)} – {formatMl(bolus60)}).
+                Bolus 10–20 mL/kg → <strong>{formatMl(bolus10)}</strong> –{" "}
+                <strong>{formatMl(bolus20)}</strong>.
+                <br />
+                Répéter jusqu’à 40–60 mL/kg selon réponse ({formatMl(bolus40)} –{" "}
+                {formatMl(bolus60)}).
               </p>
             </div>
             <div className="rounded-2xl border border-emerald-200 bg-white/70 px-3 py-3">
               <p className="font-semibold text-emerald-900 mb-1">Vasopresseur</p>
-              <p className="text-[13px]">Si hypotension après 40–60 mL/kg : noradrénaline (ou adrénaline) titrée en réanimation.</p>
+              <p className="text-[13px]">
+                Si hypotension après 40–60 mL/kg : noradrénaline (ou adrénaline) titrée en
+                réanimation.
+              </p>
             </div>
           </div>
         </SectionCard>
 
-        <SectionCard title="Antibiothérapie IV dans l’heure" subtitle="Ne jamais retarder" tone="slate">
+        <SectionCard
+          title="Antibiothérapie IV dans l’heure"
+          subtitle="Ne jamais retarder"
+          tone="slate"
+        >
           <div className="space-y-3 text-[13px]">
             <div className="rounded-2xl border border-slate-200 bg-white px-3 py-3">
               <p className="font-semibold text-slate-900">Purpura fulminans</p>
               <ul className="list-disc pl-4 mt-1 space-y-1">
                 <li>
                   Ceftriaxone dose unique : <strong>{formatDose(ceftriaxoneMg)}</strong>
-                  <span className="text-xs text-slate-500"> (100 mg/kg, max 1–2 g selon âge)</span>
+                  <span className="text-xs text-slate-500">
+                    {" "}
+                    (100 mg/kg, max {ceftriaxoneMax >= 2000 ? "2 g" : "1 g"} selon l’âge)
+                  </span>
                 </li>
                 <li>Alternative : Céfotaxime 150–200 mg/kg/j en 3–4 injections.</li>
               </ul>
@@ -195,31 +257,58 @@ export default function ProtocolFlowSepsisPurpura() {
               <p className="font-semibold text-slate-900">Sepsis sévère sans purpura</p>
               <ul className="list-disc pl-4 mt-1 space-y-1">
                 <li>
-                  Céfotaxime total/jour : <strong>{formatDose(cefotaximeDay)}</strong> ({formatDose(cefotaximeDose)} par dose si 3 injections).
+                  Céfotaxime total/jour : <strong>{formatDose(cefotaximeDay)}</strong> (
+                  {formatDose(cefotaximeDose)} par dose si 3 injections).
                 </li>
-                <li>OU Amoxicilline + Acide clavulanique selon foyer (adapter au contexte &lt; 3 mois).</li>
+                <li>
+                  OU Amoxicilline + Acide clavulanique selon foyer (adapter au contexte &lt; 3
+                  mois).
+                </li>
               </ul>
             </div>
             <p className="text-xs text-slate-500">
-              Toujours documenter : hémocultures, PCR, notification obligatoire si méningocoque + prophylaxie des contacts.
+              Toujours documenter : hémocultures, PCR, notification obligatoire si méningocoque +
+              prophylaxie des contacts.
             </p>
           </div>
         </SectionCard>
 
-        <SectionCard title="Orientation & hospitalisation" subtitle="Décisions HAS/HCSP" tone="amber">
+        <SectionCard
+          title="Orientation & hospitalisation"
+          subtitle="Décisions HAS/HCSP"
+          tone="amber"
+        >
           <ul className="list-disc pl-4 space-y-1.5 text-[13px]">
             <li>Tous les purpuras, sepsis suspect ou confirmé → hospitalisation.</li>
-            <li>Réanimation directe si purpura fulminans, choc septique, besoin vaso-actif, polypnée sévère ou apnées.</li>
-            <li>Indications fortes : remplissage &gt; 20 mL/kg, SpO₂ &lt; 94 % malgré O₂, TRC &gt; 3 s, tachycardie &gt; 2 SDS, âge &lt; 3 mois.</li>
-            <li>Critères de sortie : stabilité &gt; 24 h, apyrétique, hémodynamique stable sans O₂, pas d’extension du purpura, suivi programmé.</li>
+            <li>
+              Réanimation directe si purpura fulminans, choc septique, besoin vaso-actif, polypnée
+              sévère ou apnées.
+            </li>
+            <li>
+              Indications fortes : remplissage &gt; 20 mL/kg, SpO₂ &lt; 94 % malgré O₂, TRC &gt; 3 s,
+              tachycardie &gt; 2 SDS, âge &lt; 3 mois.
+            </li>
+            <li>
+              Critères de sortie : stabilité &gt; 24 h, apyrétique, hémodynamique stable sans O₂,
+              pas d’extension du purpura, suivi programmé.
+            </li>
           </ul>
         </SectionCard>
 
-        <SectionCard title="Situations particulières" subtitle="Surveillance renforcée" tone="indigo">
+        <SectionCard
+          title="Situations particulières"
+          subtitle="Surveillance renforcée"
+          tone="indigo"
+        >
           <ul className="list-disc pl-4 space-y-1.5 text-[13px]">
             <li>&lt; 3 mois : hospitalisation systématique avec bilan complet.</li>
-            <li>Asplénie / drépanocytose : risque fulminant pneumocoque → ATB immédiate et transport médicalisé.</li>
-            <li>Immunodépression : élargir l’antibiothérapie selon protocole hémato-oncologie.</li>
+            <li>
+              Asplénie / drépanocytose : risque fulminant pneumocoque → ATB immédiate et transport
+              médicalisé.
+            </li>
+            <li>
+              Immunodépression : élargir l’antibiothérapie selon protocole hémato-oncologie.
+            </li>
           </ul>
         </SectionCard>
       </div>

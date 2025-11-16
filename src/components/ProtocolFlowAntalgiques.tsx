@@ -566,7 +566,7 @@ export default function ProtocolFlowAntalgiques() {
   return (
     <div className="pb-6">
       <div className="rounded-3xl bg-gradient-to-b from-[#5C6BC0] to-[#7E57C2] px-4 pt-6 pb-5 text-white shadow-sm">
-        <h1 className="text-2xl font-extrabold tracking-wide">ANTALGIQUES 🎯</h1>
+        <h1 className="text-2xl font-extrabold tracking-wide">ANTALGIQUES 💊</h1>
         <p className="text-sm text-white/80 mt-1">
           Adapter la stratégie selon le palier et la réévaluation clinique.
         </p>

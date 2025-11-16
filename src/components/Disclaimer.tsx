@@ -165,7 +165,7 @@ export default function Disclaimer({ className }: DisclaimerProps) {
               <section>
                 <h3 className="font-semibold text-slate-900">15. Contact</h3>
                 <p className="mt-2">
-                  Pour toute question relative aux CGU ou à l’application : <a className="font-semibold text-[#2563eb]" href="mailto:contact@pediasquare.com">contact@pediasquare.com</a>.
+                  Pour toute question relative aux CGU ou à l’application : <a className="font-semibold text-[#2563eb]" href="mailto:contact@pediasquare.com">contact@pediago.app</a>.
                 </p>
               </section>
               <p className="text-[13px] italic text-slate-600">
