@@ -18,7 +18,7 @@ npm run dev
 L’interface est disponible sur [http://localhost:3000](http://localhost:3000). Configurez au minimum :
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_URL=https://jhynhvocvvwgggqqpkeb.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
 
