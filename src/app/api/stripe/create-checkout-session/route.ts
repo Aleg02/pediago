@@ -7,7 +7,7 @@ import { createStripeCheckoutSession } from "@/lib/stripeServer";
 const DEFAULT_PLAN_CODE = process.env.STRIPE_PREMIUM_PLAN_CODE ?? "premium-monthly";
 
 export async function POST(request: Request) {
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const supabase = createRouteHandlerClient({ cookies });
   const {
     data: { user },
   } = await supabase.auth.getUser();
