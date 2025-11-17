@@ -9,6 +9,7 @@ import { PROTOCOLS } from "@/data/protocols";
 import type { ProtocolSection } from "@/data/protocolDetails";
 import { PROTOCOL_DETAILS } from "@/data/protocolDetails";
 import { fetchCardBySlug } from "@/lib/cardsClient";
+import { useUserEntitlements } from "@/hooks/useUserEntitlements";
 
 // Flows (bandes + chevrons)
 import ProtocolFlowAAG from "@/components/ProtocolFlowAAG";
@@ -54,8 +55,11 @@ export default function ProtocolPage() {
   const [tab, setTab] = useState<"protocole" | "posologie">("protocole");
   const [showSources, setShowSources] = useState(false);
   const [cardErrors, setCardErrors] = useState<Record<string, string | null>>({});
+  const { canViewPremium, loading: entitlementLoading } = useUserEntitlements();
+  const [redirecting, setRedirecting] = useState(false);
 
   const protocol = remoteProtocols[slug] ?? fallbackProtocol;
+  const protocolTitle = protocol?.title;
   const sectionBlocks = remoteSections[slug] ?? fallbackSections;
   const cardError = cardErrors[slug] ?? null;
 
@@ -105,6 +109,29 @@ export default function ProtocolPage() {
     "noyade-submersion": ProtocolFlowNoyade,
   };
   const Flow = FlowBySlug[slug];
+  const requiresPremium = protocol?.accessLevel === "premium";
+
+  useEffect(() => {
+    if (!requiresPremium || entitlementLoading) {
+      return;
+    }
+
+    if (!canViewPremium) {
+      setRedirecting(true);
+      const target = protocolTitle ?? slug;
+      router.replace(`/mon-compte?reason=premium&slug=${encodeURIComponent(target)}`);
+    }
+  }, [requiresPremium, entitlementLoading, canViewPremium, router, slug, protocolTitle]);
+
+  if (requiresPremium && (entitlementLoading || redirecting)) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="rounded-2xl border border-slate-200 bg-white/90 px-6 py-5 text-center text-sm text-slate-600">
+          {entitlementLoading ? "Vérification de l'abonnement en cours..." : "Redirection vers la page d'abonnement..."}
+        </div>
+      </main>
+    );
+  }
 
   if (!protocol) {
     return (

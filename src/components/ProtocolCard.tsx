@@ -55,20 +55,30 @@ export default function ProtocolCard({
     if (isLocked) {
       return "🔒 Premium";
     }
+    if (item.accessLevel === "premium") {
+      return "Premium";
+    }
     if (item.accessLevel === "free") {
       return "Gratuit";
     }
     return null;
   }, [isLocked, item.accessLevel]);
 
-  const badgeClassName = isLocked
-    ? "border border-white/25 bg-slate-900/90 text-white"
-    : "border border-emerald-200 bg-emerald-50 text-emerald-700";
+  const badgeClassName = useMemo(() => {
+    if (isLocked) {
+      return "border border-rose-200/80 bg-white/80 text-rose-600";
+    }
+    if (item.accessLevel === "premium") {
+      return "border border-amber-200 bg-amber-50 text-amber-800";
+    }
+    return "border border-emerald-200 bg-emerald-50 text-emerald-700";
+  }, [isLocked, item.accessLevel]);
 
   return (
     <button
       ref={cardRef}
       onClick={() => onOpen?.(item.slug)}
+      data-testid={`protocol-card-${item.slug}`}
       className={`group relative w-full overflow-hidden rounded-3xl border border-slate-200/60 bg-white/90 px-5 py-4 text-left shadow-[0_20px_40px_rgba(15,23,42,0.12)] transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_24px_45px_rgba(15,23,42,0.16)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white/60`}
       style={{
         background: `linear-gradient(135deg, ${withAlpha(
@@ -77,6 +87,12 @@ export default function ProtocolCard({
         )} 0%, ${withAlpha(item.accentColor, "05")} 100%)`,
       }}
     >
+      {isLocked && (
+        <div
+          className="pointer-events-none absolute inset-0 rounded-3xl bg-white/5 backdrop-blur-[1px]"
+          aria-hidden
+        />
+      )}
       {badgeLabel && (
         <span
           className={`pointer-events-none absolute right-4 top-4 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide shadow-sm ${badgeClassName}`}

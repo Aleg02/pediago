@@ -6,7 +6,18 @@ export const metadata: Metadata = {
   description: "Informations à venir concernant l'abonnement PediaGo",
 };
 
-export default function AccountPage() {
+type AccountPageProps = {
+  searchParams?: {
+    reason?: string;
+    slug?: string;
+  };
+};
+
+export default function AccountPage({ searchParams }: AccountPageProps) {
+  const reason = searchParams?.reason;
+  const redirectedSlug = searchParams?.slug;
+  const showPremiumNotice = reason === "premium";
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <div className="h-1 w-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#22c55e]" />
@@ -21,6 +32,17 @@ export default function AccountPage() {
             Centralisation des informations liées à l’abonnement professionnel et aux licences.
           </p>
         </header>
+
+        {showPremiumNotice && (
+          <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-sm text-amber-900">
+            <p className="font-semibold">Abonnement requis pour cette fiche premium.</p>
+            <p className="mt-1">
+              {redirectedSlug
+                ? `Pour consulter la fiche « ${redirectedSlug} », connectez-vous avec un compte abonné ou souscrivez à PediaGo+.`
+                : "Connectez-vous avec un compte abonné ou souscrivez à PediaGo+ pour débloquer les fiches premium."}
+            </p>
+          </div>
+        )}
 
         <section className="mt-10 rounded-3xl border border-dashed border-slate-200 bg-slate-50/60 p-6 text-center text-slate-600">
           <p className="text-sm uppercase tracking-[0.2em] text-slate-400">Bientôt disponible</p>

@@ -11,10 +11,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import Disclaimer from "@/components/Disclaimer";
 import { fetchCardsList } from "@/lib/cardsClient";
+import { useSession } from "@supabase/auth-helpers-react";
+import { useUserEntitlements } from "@/hooks/useUserEntitlements";
+import PremiumAccessDialog from "@/components/PremiumAccessDialog";
 
 export default function HomePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const session = useSession();
+  const { canViewPremium } = useUserEntitlements();
 
   // store global
   const ageLabel = useAppStore((s) => s.ageLabel);
@@ -117,7 +122,20 @@ export default function HomePage() {
     return fuse.search(trimmedQuery).map((r) => r.item);
   }, [fuse, trimmedQuery, protocols]);
 
-  const openProtocol = (slug: string) => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [pendingPremiumTitle, setPendingPremiumTitle] = useState<string | null>(null);
+
+  const closePremiumDialog = () => {
+    setAuthDialogOpen(false);
+    setPendingPremiumTitle(null);
+  };
+
+  const openProtocol = (slug: string, accessLevel: Protocol["accessLevel"], title: string) => {
+    if (accessLevel === "premium" && !session) {
+      setPendingPremiumTitle(title);
+      setAuthDialogOpen(true);
+      return;
+    }
     router.push(`/protocols/${slug}`);
   };
 
@@ -280,9 +298,9 @@ export default function HomePage() {
                   <ProtocolCard
                     key={p.slug}
                     item={p}
-                    onOpen={openProtocol}
+                    onOpen={(slug) => openProtocol(slug, p.accessLevel, p.title)}
                     highlightQuery={trimmedQuery}
-                    isLocked={p.accessLevel === "premium"}
+                    isLocked={p.accessLevel === "premium" && !canViewPremium}
                   />
                 ))
               ) : (
@@ -314,6 +332,7 @@ export default function HomePage() {
           </footer>
         )}
       </div>
+      <PremiumAccessDialog open={authDialogOpen} title={pendingPremiumTitle} onClose={closePremiumDialog} />
     </main>
   );
 }
