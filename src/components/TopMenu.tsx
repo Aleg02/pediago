@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import UserMenu from "./UserMenu";
 
 const MENU_ITEMS = [
   {
@@ -53,7 +54,10 @@ export default function TopMenu() {
   }, [isOpen]);
 
   return (
-    <div className="pointer-events-none fixed right-4 top-4 z-40 flex justify-end sm:right-6 sm:top-6">
+    <div className="pointer-events-none fixed right-4 top-4 z-40 flex items-start gap-3 sm:right-6 sm:top-6">
+      <div className="pointer-events-auto">
+        <UserMenu />
+      </div>
       <div ref={menuRef} className="pointer-events-auto">
         <button
           id={buttonId}
