@@ -3,7 +3,6 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/types/database";
 
 export type AuthActionState = {
   status: "idle" | "success" | "error";
@@ -13,10 +12,14 @@ export type AuthActionState = {
 export const initialAuthState: AuthActionState = { status: "idle" };
 
 function getSupabaseServerClient() {
-  return createServerActionClient<Database>({ cookies });
+  // cast en any car le helper est typé pour retourner unknown sans générique
+  return createServerActionClient({ cookies }) as any;
 }
 
-export async function passwordLoginAction(_: AuthActionState, formData: FormData): Promise<AuthActionState> {
+export async function passwordLoginAction(
+  _: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
   const email = formData.get("email");
   const password = formData.get("password");
 
@@ -36,15 +39,25 @@ export async function passwordLoginAction(_: AuthActionState, formData: FormData
   return { status: "success", message: "Connexion réussie." };
 }
 
-export async function magicLinkAction(_: AuthActionState, formData: FormData): Promise<AuthActionState> {
+export async function magicLinkAction(
+  _: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
   const email = formData.get("magicEmail");
 
   if (typeof email !== "string" || !email) {
     return { status: "error", message: "Veuillez saisir une adresse email." };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
-  const redirectUrl = baseUrl?.startsWith("http") ? baseUrl : baseUrl ? `https://${baseUrl}` : "http://localhost:3000";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+
+  const redirectUrl = baseUrl?.startsWith("http")
+    ? baseUrl
+    : baseUrl
+    ? `https://${baseUrl}`
+    : "http://localhost:3000";
+
   const supabase = getSupabaseServerClient();
   const { error } = await supabase.auth.signInWithOtp({
     email,
@@ -57,5 +70,8 @@ export async function magicLinkAction(_: AuthActionState, formData: FormData): P
     return { status: "error", message: error.message };
   }
 
-  return { status: "success", message: "Lien magique envoyé. Consultez votre boîte mail." };
+  return {
+    status: "success",
+    message: "Lien magique envoyé. Consultez votre boîte mail.",
+  };
 }

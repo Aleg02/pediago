@@ -1,17 +1,20 @@
-import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/types/database";
 
-export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
-  const redirectTo = requestUrl.searchParams.get("next") ?? "/mon-compte";
+export const runtime = "nodejs";
+
+export async function GET(request: NextRequest) {
+  const url = new URL(request.url);
+  const code = url.searchParams.get("code");
 
   if (code) {
-    const supabase = createRouteHandlerClient<Database>({ cookies });
+    // cast en any pour contourner le type 'unknown' de createRouteHandlerClient
+    const supabase = createRouteHandlerClient({ cookies }) as any;
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  return NextResponse.redirect(new URL(redirectTo, requestUrl.origin));
+  // On permet éventuellement un paramètre redirect_to, sinon on renvoie vers la home
+  const redirectTo = url.searchParams.get("redirect_to") ?? "/";
+  return NextResponse.redirect(new URL(redirectTo, url.origin));
 }

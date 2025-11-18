@@ -1,10 +1,13 @@
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { retrieveStripeSubscription, type StripeSubscription } from "@/lib/stripeServer";
+import {
+  retrieveStripeSubscription,
+  type StripeSubscription,
+} from "@/lib/stripeServer";
 import { verifyStripeSignature } from "@/lib/stripeWebhook";
 import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
-const PREMIUM_PLAN_CODE = process.env.STRIPE_PREMIUM_PLAN_CODE ?? "premium-monthly";
+const PREMIUM_PLAN_CODE =
+  process.env.STRIPE_PREMIUM_PLAN_CODE ?? "premium-monthly";
 
 export const runtime = "nodejs";
 
@@ -28,12 +31,13 @@ function secondsToIso(value: number | null | undefined) {
   return new Date(value * 1000).toISOString();
 }
 
-function normalizeMetadata(...records: Array<Record<string, string | null | undefined> | undefined>) {
+function normalizeMetadata(
+  ...records: Array<Record<string, string | null | undefined> | undefined>
+) {
   const result: Record<string, string> = {};
   for (const record of records) {
-    if (!record) {
-      continue;
-    }
+    if (!record) continue;
+
     for (const [key, value] of Object.entries(record)) {
       if (typeof value === "string" && value.length > 0 && result[key] == null) {
         result[key] = value;
@@ -43,12 +47,18 @@ function normalizeMetadata(...records: Array<Record<string, string | null | unde
   return result;
 }
 
-async function persistSubscription(subscription: StripeSubscription, fallbackMetadata?: Record<string, string>) {
+async function persistSubscription(
+  subscription: StripeSubscription,
+  fallbackMetadata?: Record<string, string>,
+) {
   const metadata = normalizeMetadata(subscription.metadata, fallbackMetadata);
   const userId = metadata.supabase_user_id;
 
   if (!userId) {
-    console.warn("Stripe webhook: utilisateur Supabase manquant", subscription.id);
+    console.warn(
+      "Stripe webhook: utilisateur Supabase manquant",
+      subscription.id,
+    );
     return;
   }
 
@@ -58,19 +68,21 @@ async function persistSubscription(subscription: StripeSubscription, fallbackMet
   const { status, tier } = normalizeStatus(subscription.status);
   const supabase = getSupabaseAdminClient();
 
-  const { error: subscriptionError } = await supabase.from("subscriptions").upsert(
-    {
-      profile_id: userId,
-      provider: "stripe",
-      provider_customer_id: subscription.customer ?? null,
-      plan_code: planCode,
-      status,
-      current_period_end: currentPeriodEnd,
-      cancel_at: cancelAt,
-      metadata,
-    },
-    { onConflict: "profile_id,provider,plan_code" }
-  );
+  const { error: subscriptionError } = await supabase
+    .from("subscriptions")
+    .upsert(
+      {
+        profile_id: userId,
+        provider: "stripe",
+        provider_customer_id: subscription.customer ?? null,
+        plan_code: planCode,
+        status,
+        current_period_end: currentPeriodEnd,
+        cancel_at: cancelAt,
+        metadata,
+      },
+      { onConflict: "profile_id,provider,plan_code" },
+    );
 
   if (subscriptionError) {
     console.error("Erreur Supabase subscriptions", subscriptionError);
@@ -90,12 +102,18 @@ async function persistSubscription(subscription: StripeSubscription, fallbackMet
   }
 }
 
-async function syncSubscriptionById(subscriptionId: string, fallbackMetadata?: Record<string, string>) {
+async function syncSubscriptionById(
+  subscriptionId: string,
+  fallbackMetadata?: Record<string, string>,
+) {
   try {
     const subscription = await retrieveStripeSubscription(subscriptionId);
     await persistSubscription(subscription, fallbackMetadata);
   } catch (error) {
-    console.error("Impossible de synchroniser l'abonnement Stripe", error);
+    console.error(
+      "Impossible de synchroniser l'abonnement Stripe",
+      error,
+    );
   }
 }
 
@@ -103,14 +121,30 @@ export async function POST(request: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
   if (!webhookSecret) {
-    return NextResponse.json({ error: "Webhook Stripe non configuré" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Webhook Stripe non configuré" },
+      { status: 500 },
+    );
   }
 
+  // Récupération du payload brut (obligatoire pour Stripe)
   const payload = await request.text();
-  const signature = headers().get("stripe-signature");
+
+  // Utilisation directe des headers de la requête
+  const signature = request.headers.get("stripe-signature");
+
+  if (!signature) {
+    return NextResponse.json(
+      { error: "Signature Stripe manquante" },
+      { status: 400 },
+    );
+  }
 
   if (!verifyStripeSignature(payload, signature, webhookSecret)) {
-    return NextResponse.json({ error: "Signature Stripe invalide" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Signature Stripe invalide" },
+      { status: 400 },
+    );
   }
 
   const event = JSON.parse(payload) as {
@@ -146,7 +180,10 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error("Erreur lors du traitement du webhook Stripe", error);
-    return NextResponse.json({ error: "Webhook Stripe en erreur" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Webhook Stripe en erreur" },
+      { status: 500 },
+    );
   }
 
   return NextResponse.json({ received: true });
