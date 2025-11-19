@@ -18,7 +18,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["neuro", "urgence"],
     icon: "⚡️",
     accentColor: "#6366f1",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "HAS – Prise en charge des crises convulsives prolongées de l'enfant (2016)",
@@ -37,7 +37,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["neuro", "urgence"],
     icon: "🌡️",
     accentColor: "#9333ea",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "HAS – Convulsions fébriles de l'enfant",
@@ -64,7 +64,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["metabolique", "urgence"],
     icon: "🍬",
     accentColor: "#0ea5e9",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "HAS – Urgences pédiatriques : hypoglycémie",
@@ -90,7 +90,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["metabolique", "urgence"],
     icon: "🧪",
     accentColor: "#f43f5e",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Diabète", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
@@ -106,7 +106,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire", "urgence"],
     icon: "🌬️",
     accentColor: "#3b82f6",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Laryngite aiguë de l'enfant", url: "https://www.has-sante.fr" },
       {
@@ -128,7 +128,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire", "urgence"],
     icon: "🌊",
     accentColor: "#0284c7",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Urgences pédiatriques", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie – Recommandations noyade", url: "https://www.sfpediatrie.com" },
@@ -144,7 +144,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire", "infectieux"],
     icon: "🫁",
     accentColor: "#0ea5e9",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Pneumopathie aiguë", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
@@ -160,7 +160,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire", "infectieux"],
     icon: "🧬",
     accentColor: "#2563eb",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Infections respiratoires", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
@@ -176,7 +176,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["infectieux", "urgence"],
     icon: "🧠",
     accentColor: "#8b5cf6",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Méningites bactériennes", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
@@ -193,7 +193,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["infectieux", "urgence"],
     icon: "🌡️",
     accentColor: "#db2777",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "HAS – Sepsis (2025)",
@@ -243,7 +243,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["cardio", "rythme"],
     icon: "💗",
     accentColor: "#ec4899",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Urgences pédiatriques : tachycardies supraventriculaires", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
@@ -259,7 +259,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["hémorragie"],
     icon: "🩸",
     accentColor: "#f97316",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "SFAR – Prise en charge du choc hémorragique sévère (2019)",
@@ -316,7 +316,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["douleur"],
     icon: "💊",
     accentColor: "#f59e0b",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "SFETD – Douleur de l'enfant : protocoles antalgiques (2022)",
@@ -335,7 +335,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire", "nourrisson"],
     icon: "👶",
     accentColor: "#0ea5e9",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label:
@@ -375,7 +375,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["respiratoire", "urgence"],
     icon: "🫁",
     accentColor: "#06b6d4",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Bronchiolite / bronchospasme du nourrisson", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie – Recommandations urgences respiratoires", url: "https://www.sfpediatrie.com" },
@@ -391,7 +391,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["trauma", "neuro"],
     icon: "🧠",
     accentColor: "#3b82f6",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       {
         label: "HAS – Traumatisme crânien léger",
@@ -422,7 +422,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["trauma", "urgence"],
     icon: "🛡️",
     accentColor: "#dc2626",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Trauma pédiatrique", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
@@ -438,7 +438,7 @@ export const PROTOCOLS: Protocol[] = [
     tags: ["trauma", "urgence"],
     icon: "🚑",
     accentColor: "#ef4444",
-    accessLevel: "premium",
+    accessLevel: "free",
     sources: [
       { label: "HAS – Urgences pédiatriques", url: "https://www.has-sante.fr" },
       { label: "Société Française de Pédiatrie", url: "https://www.sfpediatrie.com" },
