@@ -17,8 +17,8 @@ project_id = "pediago"
 [project]
 # À remplacer par ton ref réel (ex: jhynhvocvvwgggqqpkeb)
 ref = "env(SUPABASE_REF)"
-api_url = "https://UPABASE_REF.supabase.co"
-studio_url = "https://SUPABASE_REF.supabase.co"
+api_url = "env(SUPABASE_URL)"
+studio_url = "env(SUPABASE_URL)"
 
 # On lit les clés depuis les variables d’environnement pour éviter
 # de les versionner en clair dans le repo.
