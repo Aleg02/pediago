@@ -26,9 +26,7 @@ function normalizeStatus(status: string) {
 }
 
 function secondsToIso(value: number | null | undefined) {
-  if (!value) {
-    return null;
-  }
+  if (!value) return null;
   return new Date(value * 1000).toISOString();
 }
 
@@ -36,6 +34,7 @@ function normalizeMetadata(
   ...records: Array<Record<string, string | null | undefined> | undefined>
 ) {
   const result: Record<string, string> = {};
+
   for (const record of records) {
     if (!record) continue;
 
@@ -45,6 +44,7 @@ function normalizeMetadata(
       }
     }
   }
+
   return result;
 }
 
@@ -67,10 +67,14 @@ async function persistSubscription(
   const currentPeriodEnd = secondsToIso(subscription.current_period_end);
   const cancelAt = secondsToIso(subscription.cancel_at);
   const { status, tier } = normalizeStatus(subscription.status);
+
   const supabase = getSupabaseAdminClient() as unknown as {
     from: (table: string) => any;
   };
-  type SubscriptionInsert = Database["public"]["Tables"]["subscriptions"]["Insert"];
+
+  type SubscriptionInsert =
+    Database["public"]["Tables"]["subscriptions"]["Insert"];
+
   const subscriptionPayload: SubscriptionInsert = {
     profile_id: userId,
     provider: "stripe",
@@ -84,18 +88,22 @@ async function persistSubscription(
 
   const { error: subscriptionError } = await supabase
     .from("subscriptions")
-    .upsert(subscriptionPayload, { onConflict: "profile_id,provider,plan_code" });
+    .upsert(subscriptionPayload, {
+      onConflict: "profile_id,provider,plan_code",
+    });
 
   if (subscriptionError) {
     console.error("Erreur Supabase subscriptions", subscriptionError);
   }
 
   type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"];
+
   const profilePayload: ProfileUpdate = {
     subscription_status: status,
     subscription_tier: tier === "premium" ? "premium" : "free",
     expires_at: currentPeriodEnd,
   };
+
   const { error: profileError } = await supabase
     .from("profiles")
     .update(profilePayload)
@@ -131,10 +139,8 @@ export async function POST(request: Request) {
     );
   }
 
-  // Récupération du payload brut (obligatoire pour Stripe)
+  // Payload brut obligatoire (ne pas utiliser request.json())
   const payload = await request.text();
-
-  // Utilisation directe des headers de la requête
   const signature = request.headers.get("stripe-signature");
 
   if (!signature) {
@@ -161,26 +167,43 @@ export async function POST(request: Request) {
       case "checkout.session.completed": {
         const checkout = event.data.object;
         const subscriptionId = checkout.subscription as string | undefined;
+
         if (subscriptionId) {
           await syncSubscriptionById(subscriptionId, checkout.metadata);
+        } else {
+          console.warn(
+            "[Stripe] checkout.session.completed sans subscriptionId",
+            checkout.id,
+          );
         }
         break;
       }
+
       case "customer.subscription.created":
       case "customer.subscription.updated":
       case "customer.subscription.deleted": {
         await persistSubscription(event.data.object as StripeSubscription);
         break;
       }
-      case "invoice.payment_succeeded": {
+
+      case "invoice.payment_succeeded":
+      case "invoice.payment_failed": {
         const invoice = event.data.object;
+
         if (typeof invoice.subscription === "string") {
           await syncSubscriptionById(invoice.subscription);
+        } else {
+          console.warn(
+            `[Stripe] ${event.type} sans subscription id`,
+            invoice.id,
+          );
         }
         break;
       }
-      default:
+
+      default: {
         console.log(`Stripe event ignoré: ${event.type}`);
+      }
     }
   } catch (error) {
     console.error("Erreur lors du traitement du webhook Stripe", error);

@@ -1,112 +1,111 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import Stripe from "stripe";
+
+import { createStripeCheckoutSession } from "@/lib/stripeServer";
+import type { Database } from "@/types/database";
 
 export const runtime = "nodejs";
 
-// Plan par défaut (tu adapteras quand ta logique d'abonnement sera en place)
-const DEFAULT_PLAN_CODE = "premium";
+type PlanId = "monthly" | "yearly";
 
-type CreateStripeCheckoutSessionArgs = {
-  userId: string;
-  email?: string;
-  successUrl: string;
-  cancelUrl: string;
-  priceId: string;
-  planCode: string;
+type CreateCheckoutBody = {
+  plan?: PlanId;
 };
 
-async function createStripeCheckoutSession(
-  args: CreateStripeCheckoutSessionArgs,
-): Promise<{ url: string | null }> {
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-  if (!stripeSecretKey) {
-    throw new Error(
-      "STRIPE_SECRET_KEY n'est pas configurée dans l'environnement.",
-    );
-  }
-
-  const stripe = new Stripe(stripeSecretKey);
-
-  const session = await stripe.checkout.sessions.create({
-    mode: "subscription", // ou "payment" selon ton modèle
-    customer_email: args.email,
-    line_items: [
-      {
-        price: args.priceId,
-        quantity: 1,
-      },
-    ],
-    success_url: args.successUrl,
-    cancel_url: args.cancelUrl,
-    metadata: {
-      user_id: args.userId,
-      plan_code: args.planCode,
-    },
-  });
-
-  return { url: session.url };
-}
+const PLAN_CONFIG: Record<
+  PlanId,
+  { priceId: string | undefined; planCode: string }
+> = {
+  monthly: {
+    priceId: process.env.STRIPE_PRICE_PREMIUM_MONTHLY_ID,
+    planCode: "premium-monthly",
+  },
+  yearly: {
+    priceId: process.env.STRIPE_PRICE_PREMIUM_YEARLY_ID,
+    planCode: "premium-yearly",
+  },
+};
 
 export async function POST(request: Request) {
-  // Cast explicite pour contourner le type 'unknown' retourné par createRouteHandlerClient
-  const supabase = createRouteHandlerClient({ cookies }) as any;
+  // 1. Auth utilisateur via Supabase
+  const cookieStore = cookies();
+  const supabase = createRouteHandlerClient<Database>({
+    cookies: () => cookieStore,
+  }) as any;
 
   const {
     data: { user },
     error: authError,
   } = await supabase.auth.getUser();
 
-  if (authError) {
+  if (authError || !user) {
     console.error("Erreur Supabase auth.getUser :", authError);
-  }
-
-  if (!user) {
     return NextResponse.json(
-      { error: "Authentification requise." },
+      { error: "Utilisateur non authentifié" },
       { status: 401 },
     );
   }
 
-  const priceId = process.env.STRIPE_PRICE_PREMIUM_ID;
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+  // 2. Lecture du body et choix du plan
+  let body: CreateCheckoutBody = {};
+  try {
+    body = (await request.json()) as CreateCheckoutBody;
+  } catch {
+    // body vide → on laissera le plan par défaut
+  }
 
-  if (!priceId || !secretKey) {
+  const requestedPlan: PlanId =
+    body.plan === "yearly" ? "yearly" : "monthly";
+
+  const config = PLAN_CONFIG[requestedPlan];
+
+  if (!config.priceId) {
+    console.error(
+      "Price Stripe manquant pour le plan",
+      requestedPlan,
+      config,
+    );
     return NextResponse.json(
-      {
-        error:
-          "Stripe n'est pas configuré (STRIPE_PRICE_PREMIUM_ID / STRIPE_SECRET_KEY).",
-      },
+      { error: "Configuration Stripe incomplète pour ce plan." },
       { status: 500 },
     );
   }
 
-  const origin = request.headers.get("origin") ?? new URL(request.url).origin;
-  const successUrl =
-    `${origin}/subscribe?status=success&session_id={CHECKOUT_SESSION_ID}`;
-  const cancelUrl = `${origin}/subscribe?status=cancel`;
-
+  // 3. Création de la session Checkout Stripe
   try {
+    const successUrl = `${SITE_URL}/subscribe?status=success&plan=${requestedPlan}`;
+    const cancelUrl = `${SITE_URL}/subscribe?status=cancel&plan=${requestedPlan}`;
+
     const session = await createStripeCheckoutSession({
       userId: user.id,
       email: user.email ?? undefined,
       successUrl,
       cancelUrl,
-      priceId,
-      planCode: DEFAULT_PLAN_CODE,
+      priceId: config.priceId,
+      planCode: config.planCode,
     });
 
     if (!session.url) {
-      throw new Error("Stripe a renvoyé une session sans URL.");
+      console.error("Stripe session créée sans URL", session);
+      return NextResponse.json(
+        { error: "URL de session Stripe absente." },
+        { status: 500 },
+      );
     }
 
+    // IMPORTANT : le front attend data.checkoutUrl
     return NextResponse.json({ checkoutUrl: session.url });
   } catch (error) {
-    console.error("Erreur Stripe checkout", error);
+    console.error(
+      "Erreur lors de la création de la session Stripe :",
+      error,
+    );
     return NextResponse.json(
-      { error: "Impossible de créer la session de paiement." },
+      { error: "Impossible de créer la session Stripe." },
       { status: 500 },
     );
   }
