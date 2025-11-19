@@ -19,7 +19,7 @@ L’interface est disponible sur [http://localhost:3000](http://localhost:3000).
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://jhynhvocvvwgggqqpkeb.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoeW5odm9jdnZ3Z2dncXFwa2ViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjUwMzcsImV4cCI6MjA3ODkwMTAzN30.D0rAOxiZl8c-gAkCuRMPVSjITShO_WEq7WrnkKcgNa0
 ```
 
 ## Abonnement Stripe (PediaGo+)

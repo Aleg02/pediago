@@ -295,7 +295,7 @@ export default function HomePage() {
 
               {hits.length > 0 ? (
                 hits.map((p) => (
-                  <ProtocolCard
+                  <ProtocolCards
                     key={p.slug}
                     item={p}
                     onOpen={(slug) => openProtocol(slug, p.accessLevel, p.title)}
