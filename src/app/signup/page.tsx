@@ -4,7 +4,8 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { signupAction, type SignupActionState, initialSignupState } from "./actions";
+import { signupAction } from "./actions";
+import { initialSignupState, type SignupActionState } from "./state";
 import { useEffect, useState } from "react";
 
 /**

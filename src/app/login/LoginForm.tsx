@@ -5,10 +5,9 @@ import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  initialAuthState,
   passwordLoginAction,
-  type AuthActionState,
 } from "./actions";
+import { initialAuthState, type AuthActionState } from "./state";
 
 function FormButton({
   label,

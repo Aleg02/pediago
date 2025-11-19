@@ -124,6 +124,8 @@ export default function SubscribePage() {
 
   const showCheckoutButtons = Boolean(session) && !canViewPremium;
 
+  const loginHref = "/login?redirect=/subscribe";
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <div className="h-1 w-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#22c55e]" />
@@ -214,7 +216,14 @@ export default function SubscribePage() {
                 </div>
 
                 <div className="mt-4">
-                  {showCheckoutButtons ? (
+                  {!session ? (
+                    <Link
+                      href={loginHref}
+                      className="inline-flex w-full items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#2563eb] underline-offset-2 hover:text-[#1d4ed8]"
+                    >
+                      {getPlanCtaLabel(plan.id)}
+                    </Link>
+                  ) : showCheckoutButtons ? (
                     <button
                       type="button"
                       onClick={() => handleCheckout(plan.id)}

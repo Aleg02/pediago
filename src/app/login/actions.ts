@@ -3,13 +3,7 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-
-export type AuthActionState = {
-  status: "idle" | "success" | "error";
-  message?: string;
-};
-
-export const initialAuthState: AuthActionState = { status: "idle" };
+import type { AuthActionState } from "./state";
 
 function getSupabaseServerClient() {
   // cast en any car le helper est typé pour retourner unknown sans générique

@@ -4,13 +4,7 @@
 import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type { Database } from "@/types/database";
-
-export type SignupActionState =
-  | { status: "idle" }
-  | { status: "success" }
-  | { status: "error"; message: string };
-
-export const initialSignupState: SignupActionState = { status: "idle" };
+import type { SignupActionState } from "./state";
 
 export async function signupAction(
   _prevState: SignupActionState,
