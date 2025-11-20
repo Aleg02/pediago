@@ -32,7 +32,6 @@ async function createStripeCheckoutSession(
     );
   }
 
-  // Let the Stripe SDK use its pinned API version to avoid type/version mismatch at build time.
   const stripe = new Stripe(stripeSecretKey);
 
   const session = await stripe.checkout.sessions.create({
@@ -46,10 +45,13 @@ async function createStripeCheckoutSession(
     ],
     success_url: args.successUrl,
     cancel_url: args.cancelUrl,
+
+    // *************** CORRECTION ***************
     metadata: {
-      user_id: args.userId,
+      supabase_user_id: args.userId, // <<< LA CLÉ ATTENDUE PAR LE WEBHOOK
       plan_code: args.planCode,
     },
+    // ******************************************
   });
 
   return { url: session.url };
@@ -57,9 +59,7 @@ async function createStripeCheckoutSession(
 
 export async function POST(request: NextRequest) {
   try {
-    // 1) Auth Supabase en SSR
     const supabase = await createServerSupabaseClient();
-
     const {
       data: { user },
       error: authError,
@@ -80,8 +80,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2) Lecture du body pour savoir quel plan est demandé
-    let billingPeriod: BillingPeriod = "monthly"; // défaut = mensuel
+    let billingPeriod: BillingPeriod = "monthly";
 
     if (request.headers.get("content-type")?.includes("application/json")) {
       const body = (await request.json().catch(() => null)) as
@@ -93,7 +92,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3) Choix du priceId en fonction du plan
     const monthlyPriceId = process.env.STRIPE_PRICE_PREMIUM_MONTHLY_ID;
     const yearlyPriceId = process.env.STRIPE_PRICE_PREMIUM_YEARLY_ID;
 
@@ -120,7 +118,6 @@ export async function POST(request: NextRequest) {
       `${origin}/subscribe?status=success&session_id={CHECKOUT_SESSION_ID}`;
     const cancelUrl = `${origin}/subscribe?status=cancel`;
 
-    // 4) Création de la session Stripe
     const session = await createStripeCheckoutSession({
       userId: user.id,
       email: user.email ?? undefined,
