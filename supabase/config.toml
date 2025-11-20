@@ -4,8 +4,6 @@
 # working directory name when running `supabase init`.
 project_id = "pediago"
 
-<<<<<<< ours
-=======
 # ----------------------------
 # Projet distant Supabase
 # ----------------------------
@@ -21,51 +19,12 @@ anon_key = "env(NEXT_PUBLIC_SUPABASE_ANON_KEY)"
 service_role_key = "env(SUPABASE_SERVICE_ROLE_KEY)"
 
 # ----------------------------
-# Base de données DISTANTE
+# Base de données (config CLI locale)
 # ----------------------------
 [db]
-# Host du pooler Supabase pour ta région (vu dans tes logs)
-host = "aws-1-eu-west-1.pooler.supabase.com"
-port = 5432
-user = "postgres"
-dbname = "postgres"
+# Attention : pour les migrations vers la base distante, supabase link + SUPABASE_REF/SUPABASE_DB_PASSWORD
+# suffisent. Ici on ne déclare que la config locale utilisée par `supabase start` / `supabase db` en local.
 
-# IMPORTANT : on ne met PAS le mot de passe en clair.
-# Tu dois définir SUPABASE_DB_PASSWORD en local et dans GitHub Secrets.
-password = "env(SUPABASE_DB_PASSWORD)"
-
-# Version majeure de Postgres (à aligner avec ta DB Supabase).
-# Tu peux vérifier dans Supabase → Database → Settings.
-major_version = 17
-
-# Port utilisé pour le shadow DB lors des diffs (local uniquement)
-shadow_port = 54320
-
-# ----------------------------
-# API locale (optionnelle)
-# ----------------------------
->>>>>>> theirs
-[api]
-enabled = true
-# Port to use for the API URL.
-port = 54321
-# Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
-# endpoints. `public` and `graphql_public` schemas are included by default.
-schemas = ["public", "graphql_public"]
-# Extra schemas to add to the search_path of every request.
-extra_search_path = ["public", "extensions"]
-# The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
-# for accidental or malicious requests.
-max_rows = 1000
-
-[api.tls]
-# Enable HTTPS endpoints locally using a self-signed certificate.
-enabled = false
-# Paths to self-signed certificate pair.
-# cert_path = "../certs/my-cert.pem"
-# key_path = "../certs/my-key.pem"
-
-[db]
 # Port to use for the local database URL.
 port = 54322
 # Port used by db diff command to initialize the shadow database.
@@ -112,6 +71,26 @@ allowed_cidrs = ["0.0.0.0/0"]
 # List of IPv6 CIDR blocks allowed to connect to the database.
 # Defaults to allow all IPv6 connections. Set empty array to block all IPs.
 allowed_cidrs_v6 = ["::/0"]
+
+[api]
+enabled = true
+# Port to use for the API URL.
+port = 54321
+# Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
+# endpoints. `public` and `graphql_public` schemas are included by default.
+schemas = ["public", "graphql_public"]
+# Extra schemas to add to the search_path of every request.
+extra_search_path = ["public", "extensions"]
+# The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
+# for accidental or malicious requests.
+max_rows = 1000
+
+[api.tls]
+# Enable HTTPS endpoints locally using a self-signed certificate.
+enabled = false
+# Paths to self-signed certificate pair.
+# cert_path = "../certs/my-cert.pem"
+# key_path = "../certs/my-key.pem"
 
 [realtime]
 enabled = true
