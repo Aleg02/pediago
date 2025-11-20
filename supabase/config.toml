@@ -4,6 +4,47 @@
 # working directory name when running `supabase init`.
 project_id = "pediago"
 
+<<<<<<< ours
+=======
+# ----------------------------
+# Projet distant Supabase
+# ----------------------------
+[project]
+# À remplacer par ton ref réel (ex: jhynhvocvvwgggqqpkeb)
+ref = "env(SUPABASE_REF)"
+api_url = "env(SUPABASE_URL)"
+studio_url = "env(SUPABASE_URL)"
+
+# On lit les clés depuis les variables d’environnement pour éviter
+# de les versionner en clair dans le repo.
+anon_key = "env(NEXT_PUBLIC_SUPABASE_ANON_KEY)"
+service_role_key = "env(SUPABASE_SERVICE_ROLE_KEY)"
+
+# ----------------------------
+# Base de données DISTANTE
+# ----------------------------
+[db]
+# Host du pooler Supabase pour ta région (vu dans tes logs)
+host = "aws-1-eu-west-1.pooler.supabase.com"
+port = 5432
+user = "postgres"
+dbname = "postgres"
+
+# IMPORTANT : on ne met PAS le mot de passe en clair.
+# Tu dois définir SUPABASE_DB_PASSWORD en local et dans GitHub Secrets.
+password = "env(SUPABASE_DB_PASSWORD)"
+
+# Version majeure de Postgres (à aligner avec ta DB Supabase).
+# Tu peux vérifier dans Supabase → Database → Settings.
+major_version = 17
+
+# Port utilisé pour le shadow DB lors des diffs (local uniquement)
+shadow_port = 54320
+
+# ----------------------------
+# API locale (optionnelle)
+# ----------------------------
+>>>>>>> theirs
 [api]
 enabled = true
 # Port to use for the API URL.
