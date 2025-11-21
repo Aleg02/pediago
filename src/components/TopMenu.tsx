@@ -9,8 +9,18 @@ import { useUserEntitlements } from "@/hooks/useUserEntitlements";
 import { logoutAction } from "@/app/actions/auth";
 import type { Database } from "@/types/database";
 
-// Menu pour utilisateur non connecté (liens secondaires uniquement)
+// Menu pour utilisateur non connecté
 const MENU_ITEMS_LOGGED_OUT = [
+  {
+    label: "Passer Premium PediaGo+",
+    description: "Débloquez l'ensemble des contenus et fonctionnalités PediaGo+",
+    href: "/subscribe",
+  },
+  {
+    label: "Se connecter / Créer un compte",
+    description: "Accéder à votre espace personnel PediaGo",
+    href: "/login",
+  },
   {
     label: "À propos de PediaGo",
     description: "Présentation, objectifs, conditions d'utilisation, contact",
@@ -84,7 +94,6 @@ export default function TopMenu() {
       await supabase.auth.signOut();
       await logoutAction();
       setIsOpen(false);
-      router.push("/");
       router.refresh();
     });
   };
@@ -134,7 +143,7 @@ export default function TopMenu() {
                   </div>
                 </div>
                 <p className="mt-2 text-xs text-slate-500">
-                  Statut : {entitlementLoading ? "Vérification..." : formatStatus(subscriptionStatus)} • Formule {subscriptionTier ?? "free"}
+                  Statut : {entitlementLoading ? "Vérification..." : formatStatus(subscriptionStatus)} - Formule {subscriptionTier ?? "free"}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {!canViewPremium && (
@@ -159,9 +168,23 @@ export default function TopMenu() {
             ) : (
               <div className="mb-3 rounded-xl border border-slate-200 bg-slate-50/80 p-3 text-sm text-slate-700">
                 <p className="font-semibold text-slate-900">Bienvenue sur PediaGo</p>
-                <p className="mt-1 text-xs text-slate-600">
-                  Utilisez la carte de connexion en haut pour vous identifier ou gérer votre abonnement.
-                </p>
+                <p className="mt-1 text-xs text-slate-600">Connectez-vous pour retrouver vos protocoles et votre abonnement.</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link
+                    href="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex flex-1 items-center justify-center rounded-lg bg-slate-900 px-3 py-2 text-center text-xs font-semibold text-white transition hover:bg-slate-800"
+                  >
+                    Se connecter
+                  </Link>
+                  <Link
+                    href="/subscribe"
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex flex-1 items-center justify-center rounded-lg border border-slate-200 px-3 py-2 text-center text-xs font-semibold text-slate-700 transition hover:border-slate-300"
+                  >
+                    Découvrir Premium
+                  </Link>
+                </div>
               </div>
             )}
             <ul className="space-y-1">
