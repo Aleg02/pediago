@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { PlanCheckoutButton } from "@/components/PlanCheckoutButton";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import type { Database } from "@/types/database";
 
 export const metadata: Metadata = {
   title: "Mon compte / Abonnement",
@@ -28,6 +29,13 @@ const statusLabels: Record<string, string> = {
   past_due: "À régulariser",
 };
 
+type ProfileRow = Pick<Database["public"]["Tables"]["profiles"]["Row"], "subscription_status" | "subscription_tier" | "expires_at">;
+type UserEntitlementsRow = Pick<
+  Database["public"]["Views"]["user_entitlements"]["Row"],
+  "can_view_premium" | "subscription_status" | "subscription_tier" | "expires_at"
+>;
+type SubscriptionRow = Pick<Database["public"]["Tables"]["subscriptions"]["Row"], "plan_code" | "status">;
+
 function formatStatus(status?: string | null) {
   if (!status) return "Indisponible";
   return statusLabels[status] ?? status;
@@ -52,30 +60,36 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
   const userId = session?.user?.id;
   const userEmail = session?.user?.email;
 
-  const [profileResult, entitlementsResult, subscriptionResult] = userId
-    ? await Promise.all([
-        supabase
-          .from("profiles")
-          .select("subscription_status, subscription_tier, expires_at")
-          .eq("id", userId)
-          .maybeSingle(),
-        supabase
-          .from("user_entitlements")
-          .select("can_view_premium, subscription_status, subscription_tier, expires_at")
-          .maybeSingle(),
-        supabase
-          .from("subscriptions")
-          .select("plan_code, status")
-          .eq("profile_id", userId)
-          .order("updated_at", { ascending: false })
-          .limit(1)
-          .maybeSingle(),
-      ])
-    : [null, null, null];
+  let profile: ProfileRow | null = null;
+  let entitlements: UserEntitlementsRow | null = null;
+  let subscription: SubscriptionRow | null = null;
 
-  const entitlements = entitlementsResult?.data ?? null;
-  const profile = profileResult?.data ?? null;
-  const subscription = subscriptionResult?.data ?? null;
+  if (userId) {
+    const [profileResult, entitlementsResult, subscriptionResult] = await Promise.all([
+      supabase
+        .from("profiles")
+        .select("subscription_status, subscription_tier, expires_at")
+        .eq("id", userId)
+        .maybeSingle<ProfileRow>(),
+      supabase
+        .from("user_entitlements")
+        .select("can_view_premium, subscription_status, subscription_tier, expires_at")
+        .eq("user_id", userId)
+        .maybeSingle<UserEntitlementsRow>(),
+      supabase
+        .from("subscriptions")
+        .select("plan_code, status")
+        .eq("profile_id", userId)
+        .order("updated_at", { ascending: false })
+        .limit(1)
+        .maybeSingle<SubscriptionRow>(),
+    ]);
+
+    profile = profileResult.data ?? null;
+    entitlements = entitlementsResult.data ?? null;
+    subscription = subscriptionResult.data ?? null;
+  }
+
   const hasSession = Boolean(session);
 
   const canViewPremium = Boolean(entitlements?.can_view_premium);
@@ -90,13 +104,13 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
       <div className="h-1 w-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#22c55e]" />
       <div className="mx-auto w-full max-w-2xl px-6 py-10">
         <Link href="/" className="text-sm font-medium text-[#2563eb] underline">
-          ← Retour à l’accueil
+          ← Retour à l'accueil
         </Link>
         <header className="mt-6 space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">PediaGo</p>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Mon compte / Abonnement</h1>
           <p className="text-base text-slate-600">
-            Centralisation des informations liées à l’abonnement professionnel et aux licences.
+            Centralisation des informations liées à l'abonnement professionnel et aux licences.
           </p>
         </header>
 
@@ -129,7 +143,7 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
 
           {!hasSession && (
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-              <p>Connectez-vous pour consulter vos informations d’abonnement.</p>
+              <p>Connectez-vous pour consulter vos informations d'abonnement.</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Link
                   href="/login?redirect=/mon-compte"
@@ -179,7 +193,7 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
                 <PlanCheckoutButton
                   plan="yearly"
                   className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-70"
-                  label="Basculer sur l’offre annuelle"
+                  label="Basculer sur l'offre annuelle"
                 />
               )}
 
@@ -187,7 +201,7 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
                 href="mailto:contact@pediago.app"
                 className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 hover:border-slate-400"
               >
-                Besoin d’aide ?
+                Besoin d'aide ?
               </Link>
             </div>
           )}
