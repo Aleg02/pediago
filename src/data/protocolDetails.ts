@@ -701,6 +701,82 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       "Immunodépression : adapter l'ATB selon protocole d'hémato-oncologie"
     ]},
   ],
+  "sepsis-neonatal-precoce": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Standardiser la prise en charge du sepsis néonatal précoce jusqu'au traitement empirique.",
+        "Limiter les retards d'antibiothérapie et assurer la stabilisation ABCDE.",
+      ],
+    },
+    {
+      title: "Définition et germes principaux",
+      bullets: [
+        "Sepsis < 72 h de vie, transmission materno-fœtale.",
+        "Germes : Streptocoque B (le plus fréquent), E. coli, autres Gram −, Listeria (rare).",
+      ],
+    },
+    {
+      title: "Facteurs de risque maternels (HAS 2020)",
+      bullets: [
+        "Chorioamniotite, fièvre maternelle ≥ 38 °C.",
+        "SGB maternel non couvert ou ATB inadaptés.",
+        "RPM ≥ 18 h, prématurité < 37 SA, infection urinaire à entérobactéries non traitée.",
+      ],
+    },
+    {
+      title: "Signes cliniques évocateurs (HAS/SFN)",
+      bullets: [
+        "Respiratoire : tachypnée, tirage, geignement, apnées.",
+        "Neurologique : irritabilité, convulsions, léthargie.",
+        "Cardio : tachycardie, TRC > 3 s, marbrures, instabilité thermique, pâleur/ictère précoce.",
+        "Digestif : vomissements, ballonnement, mauvaise succion.",
+      ],
+    },
+    {
+      title: "Stratification du risque",
+      bullets: [
+        "Symptomatique : ATB IV immédiate + bilan complet (hémoc, FNS/CRP, gaz, glycémie, ± LCR stable).",
+        "Haut risque maternel : hémoculture + FNS/CRP + ATB sans délai, surveillance hospitalière.",
+        "À risque asymptomatique : hémoculture, FNS/CRP à 12–24 h, surveillance 48 h.",
+        "Faible risque : surveillance clinique rapprochée ≥ 48 h sans ATB systématique.",
+      ],
+    },
+    {
+      title: "Bilan diagnostique",
+      bullets: [
+        "Symptômes : hémoculture, FNS/CRP, ionogramme, gaz, glycémie; ± LCR si stable, ± Rx thorax.",
+        "À risque asymptomatique : hémoculture immédiate, biologie différée.",
+        "Faible risque : surveillance clinique seule si évolution favorable.",
+      ],
+    },
+    {
+      title: "Antibiothérapie empirique",
+      bullets: [
+        "Ampicilline/Amoxicilline 100 mg/kg/12 h (200 mg/kg/j) ; méningite : 200–300 mg/kg/j en 3–4 injections.",
+        "Gentamicine 4–5 mg/kg/24 h en dose unique quotidienne.",
+        "Si E. coli sévère ou choc septique : Céfotaxime 50 mg/kg/8 h (150 mg/kg/j).",
+        "Risque Listeria : Ampicilline 200–300 mg/kg/j + gentamicine.",
+      ],
+    },
+    {
+      title: "Autres mesures thérapeutiques",
+      bullets: [
+        "Oxygène titré SpO₂ 94–98 %.",
+        "Remplissage : NaCl 0,9 % 10 mL/kg, répéter 1 fois si choc septique.",
+        "Adrénaline 0,05–0,3 µg/kg/min si besoin (réanimation).",
+        "Hypoglycémie : G10 % 2 mL/kg si < 2,5 mmol/L ; thermorégulation incubateur/peau à peau.",
+      ],
+    },
+    {
+      title: "Hospitalisation / sortie",
+      bullets: [
+        "Hospitalisation systématique si symptômes, facteurs majeurs, instabilité thermique ou ATB débutés.",
+        "Réanimation si choc, détresse respiratoire, convulsions, acidose sévère ou méningite probable.",
+        "Sortie uniquement si asymptomatique après 48 h de surveillance, examens normaux et environnement fiable.",
+      ],
+    },
+  ],
   "traumatisme-cranien": [
     {
       title: "Objectif",
