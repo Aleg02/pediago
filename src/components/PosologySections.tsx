@@ -156,6 +156,14 @@ const SECTION_MAP: Record<string, string[]> = {
     "sedation",
     "etat_de_choc",
   ],
+  "traumatisme-thoracique-pediatrique": [
+    "constantes",
+    "iot",
+    "isr",
+    "perfusion_transfusion",
+    "sedation",
+    "etat_de_choc",
+  ],
 };
 
 /* ===============================
