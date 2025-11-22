@@ -452,6 +452,25 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "traumatisme-thoracique-pediatrique",
+    title: "Traumatisme thoracique pédiatrique",
+    version: "V1.0",
+    tags: ["trauma", "respiratoire", "urgence"],
+    icon: "🫁",
+    accentColor: "#2563eb",
+    accessLevel: "free",
+    sources: [
+      {
+        label: "SFAR/SFMU – Traumatisme thoracique (2016–2019)",
+        url: "https://www.sfmu.org/upload/consensus/rpp_traumatisme_grave.pdf",
+      },
+      { label: "HAS – Traumatisme de l’enfant", url: "https://www.has-sante.fr" },
+      { label: "SPLF – Traumatisme thoracique (2023)", url: "https://splf.fr" },
+      { label: "NICE – Thoracic trauma (2023)", url: "https://www.nice.org.uk/guidance/" },
+      { label: "ATLS Pediatric Trauma (AAP 2022)", url: "https://www.aap.org" },
+    ],
+  },
+  {
     slug: "polytraumatisme-pediatrique",
     title: "Polytraumatisme pédiatrique",
     version: "V1.0",
