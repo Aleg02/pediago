@@ -22,6 +22,26 @@ export type StripeSubscription = {
   metadata?: Record<string, string>;
 };
 
+export type StripeBillingPortalSession = {
+  id: string;
+  url: string | null;
+  created: number;
+  livemode: boolean;
+};
+
+export type StripeInvoice = {
+  id: string;
+  status: string;
+  number?: string | null;
+  hosted_invoice_url?: string | null;
+  invoice_pdf?: string | null;
+  currency: string;
+  amount_paid: number;
+  amount_due: number;
+  created: number;
+  period_end: number;
+};
+
 async function stripeRequest<T>(path: string, options: StripeRequestOptions = {}): Promise<T> {
   const secretKey = process.env.STRIPE_SECRET_KEY;
 
@@ -80,4 +100,31 @@ export async function createStripeCheckoutSession(params: {
 
 export async function retrieveStripeSubscription(subscriptionId: string): Promise<StripeSubscription> {
   return stripeRequest<StripeSubscription>(`/subscriptions/${subscriptionId}`);
+}
+
+export async function createStripeBillingPortalSession(params: {
+  customerId: string;
+  returnUrl: string;
+}) {
+  const body = new URLSearchParams();
+  body.set("customer", params.customerId);
+  body.set("return_url", params.returnUrl);
+
+  return stripeRequest<StripeBillingPortalSession>("/billing_portal/sessions", {
+    method: "POST",
+    body,
+  });
+}
+
+export async function listStripeInvoices(customerId: string, limit = 6) {
+  const params = new URLSearchParams();
+  params.set("customer", customerId);
+  params.set("limit", `${limit}`);
+  params.set("expand[0]", "data.subscription");
+
+  const payload = await stripeRequest<{ data: StripeInvoice[] }>(
+    `/invoices?${params.toString()}`,
+  );
+
+  return payload.data;
 }
