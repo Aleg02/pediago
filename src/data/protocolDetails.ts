@@ -1007,4 +1007,43 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "traumatisme-rachis-cervical": [
+    {
+      title: "Objectif",
+      bullets: [
+        "PEC sécurisée et standardisée d’un traumatisme cervical pédiatrique, de l’immobilisation à l’imagerie et l’orientation.",
+        "Limiter toute mobilisation rachidienne et sécuriser les calculs antalgiques.",
+      ],
+    },
+    {
+      title: "Points clés",
+      bullets: [
+        "Entorses, subluxations, instabilité ligamentaire, fractures, lésions médullaires; SCIWORA fréquent chez l’enfant.",
+        "Vulnérabilité : tête lourde, hyperlaxité et rachis très mobile → lésion médullaire possible même avec imagerie normale.",
+      ],
+    },
+    {
+      title: "Imagerie selon le risque",
+      bullets: [
+        "Faible risque PECARN/NICE : pas d’imagerie, minerve retirée après examen complet.",
+        "Risque intermédiaire : radiographies (face/profil/transbouche) puis scanner si doute.",
+        "Haut risque : scanner rachis cervical d’emblée; IRM si suspicion ligamentaire ou SCIWORA (déficit neuro + scanner normal).",
+      ],
+    },
+    {
+      title: "Mesures thérapeutiques",
+      bullets: [
+        "Immobilisation en ligne tête–cou–tronc, minerve rigide ou maintien manuel; intubation en maintien axial si nécessaire.",
+        "Analgésie pondérée : paracétamol 15 mg/kg, morphine IV 0,05 mg/kg puis 0,01 mg/kg, kétamine 0,25–0,5 mg/kg.",
+        "Pas de corticoïdes, pas de traction crânienne sans avis spécialisé, pas de retrait de minerve hors critères.",
+      ],
+    },
+    {
+      title: "Orientation / sortie",
+      bullets: [
+        "Hospitalisation si lésion stable douloureuse ou besoin de surveillance; réanimation si déficit neurologique, lésion instable, atteinte respiratoire ou polytrauma.",
+        "Sortie seulement si mécanisme faible énergie, examen neuro et mobilité normaux, imagerie normale si réalisée, minerve retirée en sécurité et reconsultation < 24 h.",
+      ],
+    },
+  ],
 };

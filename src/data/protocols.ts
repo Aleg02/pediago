@@ -471,6 +471,25 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "traumatisme-rachis-cervical",
+    title: "Traumatisme du rachis cervical – enfant",
+    version: "V1.0",
+    tags: ["trauma", "neuro", "urgence"],
+    icon: "🦴",
+    accentColor: "#6b7280",
+    accessLevel: "free",
+    sources: [
+      { label: "HAS – Traumatisme de l’enfant (2024)", url: "https://www.has-sante.fr" },
+      {
+        label: "SFMU/SFAR – Traumatisme grave (2019)",
+        url: "https://www.sfmu.org/upload/consensus/rpp_traumatisme_grave.pdf",
+      },
+      { label: "PECARN – Cervical Spine Rule (2019)", url: "https://pecarn.org" },
+      { label: "NICE – Cervical Spine Injury NG41 (2023)", url: "https://www.nice.org.uk/guidance/ng41" },
+      { label: "AAP – Pediatric Cervical Spine Trauma (2022)", url: "https://www.aap.org" },
+    ],
+  },
+  {
     slug: "polytraumatisme-pediatrique",
     title: "Polytraumatisme pédiatrique",
     version: "V1.0",
