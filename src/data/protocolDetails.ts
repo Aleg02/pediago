@@ -924,6 +924,38 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "meningo-encephalite-aigue": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Urgence neuro-infectieuse : sécuriser ABCDE, identifier la gravité et débuter ATB/antiviral sans délai.",
+        "Adapter l’antibiothérapie à l’âge (< 3 mois vs ≥ 3 mois) et prévoir la réanimation si besoin.",
+      ],
+    },
+    {
+      title: "Signes de gravité / PL",
+      bullets: [
+        "Conscience altérée, convulsions prolongées, purpura, instabilité hémodynamique, détresse respi, fontanelle bombée.",
+        "PL uniquement si enfant stable sans signe d’HTIC ni choc ; CI → ATB + aciclovir avant imagerie.",
+      ],
+    },
+    {
+      title: "Examens et traitements",
+      bullets: [
+        "Bilan initial : hémocultures, NFS, CRP/PCT, ionogramme, glycémie, GDS, lactates, PCR méningite/encéphalite si dispo.",
+        "≥ 3 mois : Céfotaxime 50 mg/kg/8 h ou Ceftriaxone 50–75 mg/kg/j (max 2 g) + Vancomycine 15 mg/kg/6 h si risque pneumocoque C3G-R.",
+        "< 3 mois : Ampicilline 75–100 mg/kg/6 h + Céfotaxime 50 mg/kg/8 h. Aciclovir 20 mg/kg/8 h si HSV suspect.",
+        "Dexaméthasone 0,15 mg/kg/6 h si suspicion pneumocoque ≥ 3 mois (avant/avec 1ère dose).",
+      ],
+    },
+    {
+      title: "Orientation",
+      bullets: [
+        "Hospitalisation systématique ; réanimation si coma, convulsions réfractaires, choc, détresse respiratoire ou purpura.",
+        "Sortie seulement après confirmation étiologie non bactérienne, amélioration clinique et suivi fiable.",
+      ],
+    },
+  ],
   "tachycardie-supraventriculaire": [
     {
       title: "Objectif",

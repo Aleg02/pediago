@@ -207,6 +207,22 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "meningo-encephalite-aigue",
+    title: "Méningo-encéphalite aiguë (enfant)",
+    version: "V0.1",
+    tags: ["infectieux", "neuro", "urgence"],
+    icon: "🧠",
+    accentColor: "#0f172a",
+    accessLevel: "free",
+    sources: [
+      { label: "HAS – Méningites bactériennes (2021)", url: "https://www.has-sante.fr" },
+      { label: "SPILF – Recommandations infectiologie pédiatrique (2022)", url: "https://www.infectiologie.com" },
+      { label: "IDSA – Bacterial Meningitis Guidelines (2018)", url: "https://www.idsociety.org" },
+      { label: "AAP – CNS infections (2021)", url: "https://publications.aap.org" },
+      { label: "NICE – CNS infections (2022)", url: "https://www.nice.org.uk/guidance" },
+    ],
+  },
+  {
     slug: "fievre-nourrisson-moins-3-mois",
     title: "Fièvre du nourrisson < 3 mois",
     version: "V0.1",

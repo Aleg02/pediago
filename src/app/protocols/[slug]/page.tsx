@@ -31,6 +31,7 @@ import ProtocolFlowLaryngite from "@/components/ProtocolFlowLaryngite";
 import ProtocolFlowPCB from "@/components/ProtocolFlowPCB";
 import ProtocolFlowPneumopathieMyco from "@/components/ProtocolFlowPneumopathieMyco";
 import ProtocolFlowMeningite from "@/components/ProtocolFlowMeningite";
+import ProtocolFlowMEA from "@/components/ProtocolFlowMEA";
 import ProtocolFlowTSV from "@/components/ProtocolFlowTSV";
 import ProtocolFlowFAST from "@/components/ProtocolFlowFAST";
 import ProtocolFlowPolytrauma from "@/components/ProtocolFlowPolytrauma";
@@ -113,6 +114,7 @@ export default function ProtocolPage() {
     "pneumopathie-communautaire-bacterienne": ProtocolFlowPCB,
     "pneumopathie-atypique-mycoplasma": ProtocolFlowPneumopathieMyco,
     "meningite-bacterienne-purulente": ProtocolFlowMeningite,
+    "meningo-encephalite-aigue": ProtocolFlowMEA,
     "tachycardie-supraventriculaire": ProtocolFlowTSV,
     "traumatisme-thoraco-abdominal-fast": ProtocolFlowFAST,
     "polytraumatisme-pediatrique": ProtocolFlowPolytrauma,
