@@ -888,6 +888,30 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "plaie-penetrante-thoraco-abdominale": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Stabiliser toute plaie pénétrante thoracique ou abdominale pédiatrique et identifier les urgences opératoires.",
+        "Limiter la contamination viscérale et la décompensation hémodynamique rapide chez l'enfant.",
+      ],
+    },
+    {
+      title: "Signes de gravité",
+      bullets: [
+        "Thorax : plaie soufflante, pneumothorax compressif, hémothorax avec choc, respiration paradoxale.",
+        "Abdomen : défense/contracture, eviscération, hémorragie active, tachycardie avec TRC > 3 s.",
+      ],
+    },
+    {
+      title: "Gestes prioritaires",
+      bullets: [
+        "Pansement occlusif 3 côtés, exsufflation puis drain si pneumothorax compressif.",
+        "Eviscération couverte de compresses humides; jamais réintégrer ni retirer un objet empalé.",
+        "Bolus NaCl 0,9 % 20 mL/kg; chirurgie immédiate si instabilité ou saignement massif.",
+      ],
+    },
+  ],
   "polytraumatisme-pediatrique": [
     {
       title: "Objectif",

@@ -452,6 +452,21 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "plaie-penetrante-thoraco-abdominale",
+    title: "Plaie pénétrante thoracique ou abdominale – enfant",
+    version: "V1.0",
+    tags: ["trauma", "urgence"],
+    icon: "🗡️",
+    accentColor: "#dc2626",
+    accessLevel: "free",
+    sources: [
+      { label: "SFMU/SFAR – Traumatisme grave (2019)", url: "https://www.sfmu.org/upload/consensus/rpp_traumatisme_grave.pdf" },
+      { label: "ATLS Pediatric Trauma (AAP 2022)", url: "https://www.aap.org" },
+      { label: "NICE – Injury Guidance (2023)", url: "https://www.nice.org.uk" },
+      { label: "HAS – Urgences pédiatriques", url: "https://www.has-sante.fr" },
+    ],
+  },
+  {
     slug: "traumatisme-thoracique-pediatrique",
     title: "Traumatisme thoracique pédiatrique",
     version: "V1.0",
