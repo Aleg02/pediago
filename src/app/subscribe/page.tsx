@@ -1,10 +1,28 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useSession } from "@supabase/auth-helpers-react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { useUserEntitlements } from "@/hooks/useUserEntitlements";
+
+// --- MOCKS (Pour l'affichage dans cet éditeur) ---
+// Remplacez ces blocs par vos imports réels :
+// import { useSession } from "@supabase/auth-helpers-react";
+// import { useSearchParams } from "next/navigation";
+// import Link from "next/link";
+// import { useUserEntitlements } from "@/hooks/useUserEntitlements";
+
+const Link = ({ href, children, className, ...props }: any) => (
+  <a href={href} className={className} {...props}>
+    {children}
+  </a>
+);
+const useSession = () => ({ user: { id: "123" } }); // Simule un user connecté
+const useSearchParams = () => ({ get: (key: string) => null });
+const useUserEntitlements = () => ({
+  canViewPremium: false,
+  subscriptionStatus: null,
+  loading: false,
+  refreshEntitlements: () => {},
+});
+// --- FIN MOCKS ---
 
 type PlanId = "monthly" | "yearly";
 
@@ -19,8 +37,8 @@ const PREMIUM_PLANS: {
     id: "monthly",
     name: "Premium mensuel",
     badge: "Le plus flexible",
-    price: "6,90 € TTC / mois",
-    priceDetail: "Sans engagement, renouvelé automatiquement.",
+    price: "4,90 € TTC / mois",
+    priceDetail: "Sans engagement, résilier à tout moment.",
   },
   {
     id: "yearly",
@@ -90,6 +108,11 @@ export default function SubscribePage() {
     setCreatingCheckout(true);
 
     try {
+      // Simulation pour la preview
+      console.log("Checkout lancé pour", plan);
+      setTimeout(() => setCreatingCheckout(false), 2000);
+      
+      /* Code réel conservé :
       const response = await fetch("/api/stripe/create-checkout-session", {
         method: "POST",
         credentials: "same-origin",
@@ -111,6 +134,7 @@ export default function SubscribePage() {
       }
 
       throw new Error("Réponse Stripe inattendue.");
+      */
     } catch (checkoutError) {
       console.error(checkoutError);
       setError(
@@ -127,7 +151,7 @@ export default function SubscribePage() {
   const loginHref = "/login?redirect=/subscribe";
 
   return (
-    <main className="min-h-screen bg-white text-slate-900">
+    <main className="min-h-screen bg-white text-slate-900 font-sans">
       <div className="h-1 w-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#22c55e]" />
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-12">
         <Link
@@ -196,50 +220,124 @@ export default function SubscribePage() {
 
         {/* Cartes d’abonnement */}
         <section className="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 shadow-inner shadow-slate-200/50">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {PREMIUM_PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                className="flex h-full flex-col justify-between rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm"
-              >
-                <div className="space-y-2">
-                  <p className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    {plan.badge}
-                  </p>
-                  <h2 className="text-xl font-semibold text-slate-900">
-                    {plan.name}
-                  </h2>
-                  <p className="text-2xl font-bold text-slate-900">
-                    {plan.price}
-                  </p>
-                  <p className="text-xs text-slate-500">{plan.priceDetail}</p>
-                </div>
+          {/* Bandeau Offre de lancement */}
+          <div className="mb-6 flex justify-center">
+            <div className="rounded-full bg-emerald-600 px-10 py-2.5 text-sm md:text-base font-semibold uppercase tracking-[0.32em] text-white shadow-lg">
+              Offre de lancement
+            </div>
+          </div>
 
-                <div className="mt-4">
-                  {!session ? (
-                    <Link
-                      href={loginHref}
-                      className="inline-flex w-full items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#2563eb] underline-offset-2 hover:text-[#1d4ed8]"
-                    >
-                      {getPlanCtaLabel(plan.id)}
-                    </Link>
-                  ) : showCheckoutButtons ? (
-                    <button
-                      type="button"
-                      onClick={() => handleCheckout(plan.id)}
-                      disabled={creatingCheckout || loading}
-                      className="w-full rounded-full bg-slate-900 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
-                    >
-                      {getPlanCtaLabel(plan.id)}
-                    </button>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {PREMIUM_PLANS.map((plan) => {
+              const isMonthly = plan.id === "monthly";
+              const cardHoverShadow = isMonthly
+                ? "hover:shadow-[0_0_0_3px_rgba(16,185,129,0.35)] hover:border-emerald-400"
+                : "hover:shadow-[0_0_0_3px_rgba(37,99,235,0.35)] hover:border-[#2563eb]";
+              const cardHoverBg = isMonthly
+                ? "hover:bg-emerald-50/60"
+                : "hover:bg-blue-50/50";
+
+              return (
+                <div
+                  key={plan.id}
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 ${cardHoverShadow} ${cardHoverBg}`}
+                >
+                  {/* CORRECTION ICI : 
+                      Remplacement de la logique de padding (px-8) par une largeur fixe (w-[170px]) et text-center
+                      Ajustement du top/right pour bien caler le bandeau dans le coin
+                  */}
+                  {isMonthly ? (
+                    <div className="pointer-events-none absolute -right-10 top-6 w-[170px] rotate-45 bg-emerald-500 py-1 text-center text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white shadow-md">
+                      1er mois offert
+                    </div>
                   ) : (
-                    <div className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-500">
-                      {getPlanCtaLabel(plan.id)}
+                    <div className="pointer-events-none absolute -right-10 top-6 w-[170px] rotate-45 bg-emerald-400 py-1 text-center text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white shadow-md">
+                      Promo - 33,44 %
                     </div>
                   )}
+
+                  <div className="space-y-3">
+                    {/* Badge principal */}
+                    <p className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      {plan.badge}
+                    </p>
+
+                    <h2 className="text-xl font-semibold text-slate-900">
+                      {plan.name}
+                    </h2>
+
+                    {/* Bloc pricing spécifique par formule */}
+                    {isMonthly ? (
+                      <div className="space-y-1">
+                        <p className="text-base text-slate-900">
+                          <span className="mr-2 align-middle text-sm text-slate-400 line-through">
+                            4,90 € TTC / mois
+                          </span>
+                          <span className="align-middle font-semibold">
+                            0 € par mois pendant 1 mois
+                          </span>
+                        </p>
+                        <p className="text-sm text-slate-500">
+                          Puis{" "}
+                          <span className="font-semibold text-slate-900">
+                            4,90 € TTC / mois
+                          </span>
+                          .
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {plan.priceDetail}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-1">
+                        <p className="text-base text-slate-900">
+                          <span className="mr-2 align-middle text-sm text-slate-400 line-through">
+                            29,90 € TTC / an
+                          </span>
+                          <span className="align-middle font-semibold">
+                            19,90 € TTC la première année
+                          </span>
+                        </p>
+                        <p className="text-sm text-slate-500">
+                          Puis{" "}
+                          <span className="font-semibold text-slate-900">
+                            29,90 € TTC / an
+                          </span>
+                          .
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {plan.priceDetail}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-4">
+                    {!session ? (
+                      <Link
+                        href={loginHref}
+                        className="inline-flex w-full items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#2563eb] underline-offset-2 hover:text-[#1d4ed8]"
+                      >
+                        {getPlanCtaLabel(plan.id)}
+                      </Link>
+                    ) : showCheckoutButtons ? (
+                      <button
+                        type="button"
+                        onClick={() => handleCheckout(plan.id)}
+                        disabled={creatingCheckout || loading}
+                        className="w-full rounded-full bg-slate-900 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+                      >
+                        {getPlanCtaLabel(plan.id)}
+                      </button>
+                    ) : (
+                      <div className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-500">
+                        {getPlanCtaLabel(plan.id)}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {canViewPremium && (
@@ -273,21 +371,6 @@ export default function SubscribePage() {
 
           <hr className="my-5 border-dashed border-slate-200" />
 
-          <p className="font-semibold text-slate-900">Comment ça marche ?</p>
-          <ol className="mt-3 space-y-2 list-decimal pl-5">
-            <li>
-              Sélectionnez la formule mensuelle ou annuelle pour ouvrir le
-              checkout Stripe sécurisé.
-            </li>
-            <li>
-              Stripe confirme le paiement et renvoie l’évènement à PediaGo via
-              un webhook.
-            </li>
-            <li>
-              Supabase met à jour votre profil et l’accès Premium est disponible
-              instantanément.
-            </li>
-          </ol>
           <p className="mt-3">
             Besoin d’aide ? Contactez{" "}
             <a

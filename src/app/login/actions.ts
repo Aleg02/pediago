@@ -3,6 +3,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";   // ⇐ AJOUT
 import type { AuthActionState } from "./state";
 
 export async function passwordLoginAction(
@@ -27,6 +28,10 @@ export async function passwordLoginAction(
   // Invalider les pages protégées
   revalidatePath("/mon-compte");
   revalidatePath("/");
+
+  // ⇐ AJOUT : redirection automatique vers l’accueil
+  redirect("/");
+
   return { status: "success", message: "Connexion réussie." };
 }
 

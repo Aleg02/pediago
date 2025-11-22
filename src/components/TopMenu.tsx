@@ -12,16 +12,6 @@ import type { Database } from "@/types/database";
 // Menu pour utilisateur non connecté
 const MENU_ITEMS_LOGGED_OUT = [
   {
-    label: "Passer Premium PediaGo+",
-    description: "Débloquez l'ensemble des contenus et fonctionnalités PediaGo+",
-    href: "/subscribe",
-  },
-  {
-    label: "Se connecter / Créer un compte",
-    description: "Accéder à votre espace personnel PediaGo",
-    href: "/login",
-  },
-  {
     label: "À propos de PediaGo",
     description: "Présentation, objectifs, conditions d'utilisation, contact",
     href: "/a-propos",
@@ -155,6 +145,13 @@ export default function TopMenu() {
                       Passer Premium
                     </Link>
                   )}
+                    <Link
+                    href="/mon-compte"
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex flex-1 items-center justify-center rounded-lg border border-slate-200 px-3 py-2 text-center text-xs font-semibold text-slate-700 transition hover:border-slate-300"
+                  >
+                    Mon compte
+                  </Link>
                   <button
                     type="button"
                     onClick={handleLogout}
