@@ -436,6 +436,55 @@ export const PROTOCOL_DETAILS: Record<string, ProtocolSection[]> = {
       ],
     },
   ],
+  "inhalation-fumees-co": [
+    {
+      title: "Objectif",
+      bullets: [
+        "Prise en charge standardisée des inhalations de fumées / intoxications au CO pédiatriques avec calculs pondérés.",
+        "Appliquer immédiatement O₂ 100 %, repérer les critères d’hyperbarie et l’intoxication aux cyanures associée.",
+      ],
+    },
+    {
+      title: "Définition & particularités",
+      bullets: [
+        "Inhalation de fumées = gaz chauds + toxiques de combustion (CO, cyanures, irritants) avec risque de brûlures VAS.",
+        "CO : formation de COHb altérant le transport d’O₂ → hypoxie cellulaire ; enfants plus sensibles (décompensation rapide).",
+      ],
+    },
+    {
+      title: "Arbre décisionnel simplifié",
+      bullets: [
+        "ABCDE immédiat. Détresse vitale ? → O₂ 100 %, VVP/IO, intubation si critères, monitorage.",
+        "O₂ 100 % non titré pour tous, puis rechercher critères de gravité : COHb ≥ 25 % (≥ 20 % enfant), signes neuro/cardio, grossesse.",
+        "Critère sévère → avis centre hyperbare + transfert ; suspicion cyanures (incendie clos + coma/choc + lactate > 8) → hydroxocobalamine.",
+        "Hospitalisation si exposition significative, symptômes ou COHb élevée ; sortie si résolution complète et COHb < 3 %.",
+      ],
+    },
+    {
+      title: "Oxygénothérapie & hyperbarie",
+      bullets: [
+        "O₂ 100 % au masque haute concentration 12–15 L/min, ne pas titrer (objectif = élimination CO).",
+        "Demi-vie COHb : 4–6 h air ambiant ; 60–90 min sous O₂ 100 % ; 20–30 min en hyperbarie 2,5 ATA.",
+        "Indications hyperbares (SFAR/SFMU/consensus) : COHb ≥ 25 % (≥ 20 % enfant), grossesse dès 15 %, coma/convulsions/confusion sévère, ischémie/arythmie/collapsus, acidose métabolique sévère.",
+      ],
+    },
+    {
+      title: "Cyanures associés (incendie clos)",
+      bullets: [
+        "Signes évocateurs : coma + collapsus, lactate > 8–10 mmol/L, suies oropharyngées, incendie d’appartement/pièce fermée.",
+        "Traitement : Hydroxocobalamine 70 mg/kg IV (max 5 g) en 15 min, renouvelable 1× si choc persistant, avec remplissage et avis réanimation.",
+      ],
+    },
+    {
+      title: "Hospitalisation / sortie",
+      bullets: [
+        "Hospitalisation pédiatrique : symptômes persistants, COHb initial ≥ 10 %, brûlures associées, suspicion inhalation (œdème VAS possible 24 h), critères sociaux.",
+        "Réanimation : détresse respi, GCS < 13, signes cardiaques, lactate > 8 mmol/L, besoin d’intubation ou d’hydroxocobalamine.",
+        "Sortie si TOUT : symptômes résolus, COHb < 3 %, examens rassurants, aucune inhalation VAS, étiologie maîtrisée, surveillance parentale fiable + contrôle programmé.",
+        "Situations particulières : nourrisson (hypoxie rapide, intubation précoce), grossesse (hyperbarie dès 15 %), comorbidités cardiaques (ECG systématique).",
+      ],
+    },
+  ],
   "noyade-submersion": [
     {
       title: "Objectif",

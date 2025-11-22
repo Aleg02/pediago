@@ -122,6 +122,26 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "inhalation-fumees-co",
+    title: "Inhalation de fumées / intoxication CO",
+    version: "V0.1",
+    tags: ["respiratoire", "toxicologie", "urgence"],
+    icon: "🔥",
+    accentColor: "#f97316",
+    accessLevel: "free",
+    sources: [
+      {
+        label: "Ministère de la Santé – Intoxication au CO",
+        url: "https://solidarites-sante.gouv.fr/sante-et-environnement/intoxications-au-monoxyde-de-carbone/",
+      },
+      { label: "SFAR–SFMU – Recommandations brûlés (2019)", url: "https://www.sfmu.org/upload/consensus/rpp_brule_2019.pdf" },
+      { label: "HAS – Cyanures (2017)", url: "https://www.has-sante.fr/upload/docs/application/pdf/2017-07/fiche_diagnostic_cyanure.pdf" },
+      { label: "CDC – Carbon Monoxide Poisoning (2024)", url: "https://www.cdc.gov/co" },
+      { label: "AAP – Pediatric CO Poisoning (2023)", url: "https://www.aap.org/en/patient-care/environmental-health/" },
+      { label: "SPLF – Fiches inhalation fumées / CO", url: "https://splf.fr" },
+    ],
+  },
+  {
     slug: "noyade-submersion",
     title: "Noyade / Submersion",
     version: "V0.1",

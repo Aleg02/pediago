@@ -137,6 +137,16 @@ const SECTION_MAP: Record<string, string[]> = {
     "etat_de_choc",
   ],
 
+  // Inhalation de fumées / CO
+  "inhalation-fumees-co": [
+    "constantes",
+    "iot",
+    "isr",
+    "perfusion_transfusion",
+    "sedation",
+    "etat_de_choc",
+  ],
+
   // Traumatisme crânien
   "traumatisme-cranien": [
     "constantes",
