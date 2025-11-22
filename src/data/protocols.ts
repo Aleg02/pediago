@@ -238,6 +238,31 @@ export const PROTOCOLS: Protocol[] = [
     ],
   },
   {
+    slug: "sepsis-neonatal-precoce",
+    title: "Sepsis néonatal précoce (≤ 72 h)",
+    version: "V0.1",
+    tags: ["infectieux", "neonat"],
+    icon: "🍼",
+    accentColor: "#0ea5e9",
+    accessLevel: "free",
+    sources: [
+      {
+        label: "HAS – Infections néonatales bactériennes précoces (2020)",
+        url: "https://www.has-sante.fr/jcms/p_3237281/fr/infections-neonatales-bacteriennes",
+      },
+      {
+        label: "Société Française de Néonatalogie – Recommandations SNP (2021)",
+        url: "https://www.societe-neonatalogie.fr/",
+      },
+      { label: "AAP – Early Onset Sepsis (2018, MAJ 2023)", url: "https://publications.aap.org" },
+      { label: "NICE NG195 – Sepsis néonatal (2021)", url: "https://www.nice.org.uk/guidance/ng195" },
+      {
+        label: "CDC – Group B Streptococcus neonatal guidelines (2024)",
+        url: "https://www.cdc.gov/groupbstrep/index.html",
+      },
+    ],
+  },
+  {
     slug: "acr-enfant",
     title: "Arrêt cardiorespiratoire (enfant)",
     version: "V0.1",
