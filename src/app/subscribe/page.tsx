@@ -251,7 +251,7 @@ export default function SubscribePage() {
                       1er mois offert
                     </div>
                   ) : (
-                    <div className="pointer-events-none absolute -right-10 top-6 w-[170px] rotate-45 bg-emerald-400 py-1 text-center text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white shadow-md">
+                    <div className="pointer-events-none absolute -right-10 top-6 w-[170px] rotate-45 bg-emerald-500 py-1 text-center text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white shadow-md">
                       Promo - 33,44 %
                     </div>
                   )}
