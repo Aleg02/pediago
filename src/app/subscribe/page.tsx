@@ -1,28 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-
-// --- MOCKS (Pour l'affichage dans cet éditeur) ---
-// Remplacez ces blocs par vos imports réels :
-// import { useSession } from "@supabase/auth-helpers-react";
-// import { useSearchParams } from "next/navigation";
-// import Link from "next/link";
-// import { useUserEntitlements } from "@/hooks/useUserEntitlements";
-
-const Link = ({ href, children, className, ...props }: any) => (
-  <a href={href} className={className} {...props}>
-    {children}
-  </a>
-);
-const useSession = () => ({ user: { id: "123" } }); // Simule un user connecté
-const useSearchParams = () => ({ get: (key: string) => null });
-const useUserEntitlements = () => ({
-  canViewPremium: false,
-  subscriptionStatus: null,
-  loading: false,
-  refreshEntitlements: () => {},
-});
-// --- FIN MOCKS ---
+import { useSession } from "@supabase/auth-helpers-react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useUserEntitlements } from "@/hooks/useUserEntitlements";
 
 type PlanId = "monthly" | "yearly";
 
@@ -108,11 +90,6 @@ export default function SubscribePage() {
     setCreatingCheckout(true);
 
     try {
-      // Simulation pour la preview
-      console.log("Checkout lancé pour", plan);
-      setTimeout(() => setCreatingCheckout(false), 2000);
-      
-      /* Code réel conservé :
       const response = await fetch("/api/stripe/create-checkout-session", {
         method: "POST",
         credentials: "same-origin",
@@ -124,7 +101,9 @@ export default function SubscribePage() {
 
       if (!response.ok) {
         const payload = await response.json().catch(() => ({}));
-        throw new Error(payload.error ?? "Impossible de créer la session Stripe.");
+        throw new Error(
+          payload.error ?? "Impossible de créer la session Stripe."
+        );
       }
 
       const data = await response.json();
@@ -134,7 +113,6 @@ export default function SubscribePage() {
       }
 
       throw new Error("Réponse Stripe inattendue.");
-      */
     } catch (checkoutError) {
       console.error(checkoutError);
       setError(
@@ -242,17 +220,14 @@ export default function SubscribePage() {
                   key={plan.id}
                   className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 ${cardHoverShadow} ${cardHoverBg}`}
                 >
-                  {/* CORRECTION ICI : 
-                      Remplacement de la logique de padding (px-8) par une largeur fixe (w-[170px]) et text-center
-                      Ajustement du top/right pour bien caler le bandeau dans le coin
-                  */}
+                  {/* Ruban diagonal : 1er mois offert (mensuel) / Promo (annuel) */}
                   {isMonthly ? (
                     <div className="pointer-events-none absolute -right-10 top-6 w-[170px] rotate-45 bg-emerald-500 py-1 text-center text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white shadow-md">
-                      1er mois offert
+                      1 mois offert
                     </div>
                   ) : (
                     <div className="pointer-events-none absolute -right-10 top-6 w-[170px] rotate-45 bg-emerald-500 py-1 text-center text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white shadow-md">
-                      Promo - 33,44 %
+                      Promo spéciale
                     </div>
                   )}
 
@@ -269,20 +244,17 @@ export default function SubscribePage() {
                     {/* Bloc pricing spécifique par formule */}
                     {isMonthly ? (
                       <div className="space-y-1">
-                        <p className="text-base text-slate-900">
-                          <span className="mr-2 align-middle text-sm text-slate-400 line-through">
-                            4,90 € TTC / mois
+                        {/* Ligne principale : 0 € et texte à droite */}
+                        <p className="text-base text-slate-900 flex items-baseline">
+                          <span className="text-5xl font-semibold leading-none">
+                            0 €
                           </span>
-                          <span className="align-middle font-semibold">
-                            0 € par mois pendant 1 mois
+                          <span className="ml-3 text-sm text-slate-500">
+                            le premier mois
                           </span>
                         </p>
                         <p className="text-sm text-slate-500">
-                          Puis{" "}
-                          <span className="font-semibold text-slate-900">
-                            4,90 € TTC / mois
-                          </span>
-                          .
+                          Puis  4,90 € TTC / mois
                         </p>
                         <p className="mt-1 text-xs text-slate-500">
                           {plan.priceDetail}
@@ -290,20 +262,18 @@ export default function SubscribePage() {
                       </div>
                     ) : (
                       <div className="space-y-1">
-                        <p className="text-base text-slate-900">
-                          <span className="mr-2 align-middle text-sm text-slate-400 line-through">
-                            29,90 € TTC / an
+                        {/* Ligne principale : 19,90 € et texte à droite */}
+                        <p className="text-base text-slate-900 flex items-baseline">
+                          <span className="text-5xl font-semibold leading-none">
+                            19,90 €
                           </span>
-                          <span className="align-middle font-semibold">
-                            19,90 € TTC la première année
+                          <span className="ml-3 text-sm text-slate-500">
+                            la première année
                           </span>
                         </p>
+
                         <p className="text-sm text-slate-500">
-                          Puis{" "}
-                          <span className="font-semibold text-slate-900">
-                            29,90 € TTC / an
-                          </span>
-                          .
+                          Puis 29,90 € TTC / an
                         </p>
                         <p className="mt-1 text-xs text-slate-500">
                           {plan.priceDetail}
